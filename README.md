@@ -1,3 +1,14 @@
+# bears-project-3
+Chingu Voyage Project
+
+## Team Members
+[Adil Asif](https://github.com/adilasif)
+
+[Nari Roh](https:?/github.com/NariRoh)
+
+[Tim Owens](https://github.com/timowens9)
+___________
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
