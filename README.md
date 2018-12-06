@@ -1,4 +1,7 @@
-# bears-project-3
+# Meetup-style social networking site for boardgamers (or others) to find groups to play with
+
+Currently in planning phase
+
 Chingu Voyage Project
 
 ## Team Members
