@@ -4,7 +4,8 @@
   "description": "back-server",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "server": "nodemon server.js"
   },
   "author": "",
   "license": "MIT",
@@ -18,5 +19,8 @@
     "passport-auth0": "^1.1.0",
     "passport-jwt": "^4.0.0",
     "validator": "^10.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.7"
   }
 }
