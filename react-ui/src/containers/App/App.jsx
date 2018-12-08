@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { Responsive } from 'semantic-ui-react';
 // Actions
 import { testAction } from '../../store/actions/testAction';
 
 // Containers
-
+import HomePage from '../HomePage/components/HomePage';
 
 // Components
-
 
 // Assets
 import logo from '../../assets/images/logo.svg';
@@ -17,31 +16,25 @@ import logo from '../../assets/images/logo.svg';
 import './App.css';
 
 const mapStateToProps = state => ({
-  ...state,
+	...state
 });
 
 const mapDispatchToProps = dispatch => ({
-  testAction: () => dispatch(testAction()),
+	testAction: () => dispatch(testAction())
 });
 
 class App extends Component {
-  testAction = (event) => {
-    this.props.testAction();
-  };
+	testAction = event => {
+		this.props.testAction();
+	};
 
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <pre>
-            {JSON.stringify(this.props)}
-          </pre>
-          <button onClick={this.testAction}>Test Redux Action</button>
-        </header>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<Responsive minWidth={Responsive.onlyTablet.minWidth}>
+				<HomePage />
+			</Responsive>
+		);
+	}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
