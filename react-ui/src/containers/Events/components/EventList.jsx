@@ -1,19 +1,46 @@
 import React, { Fragment } from 'react';
 import { Grid, Container } from 'semantic-ui-react';
 import Event from './Event';
-const events = [
-	{ id: 1, title: 'Test Event', description: 'Test Description', color: 'red' },
-	{ id: 2, title: 'Test Event', description: 'Test Description', color: 'violet' },
-	{ id: 3, title: 'Test Event', description: 'Test Description', color: 'brown' },
-	{ id: 4, title: 'Test Event', description: 'Test Description', color: 'red' },
-	{ id: 5, title: 'Test Event', description: 'Test Description', color: 'red' },
-	{ id: 6, title: 'Test Event', description: 'Test Description', color: 'grey' },
-	{ id: 7, title: 'Test Event', description: 'Test Description', color: 'red' }
+const categories = [
+	'Humor',
+	'Adventure',
+	'Action',
+	'Strategy',
+	'Mind'
 ];
+
+const colors = [
+	'red',
+	'orange',
+	'yellow',
+	'olive',
+	'green',
+	'teal',
+	'blue',
+	'violet',
+	'purple',
+	'pink',
+	'brown',
+	'grey',
+	'black'
+];
+
+const events = Array.from({ length: 10 }, (v, i) => {
+	return {
+		id: i,
+		title: `Board Game ${i}`,
+		category: categories[Math.floor(Math.random() * categories.length)],
+		description: 'Event Description',
+		color: colors[Math.floor(Math.random() * colors.length)],
+		creator: {
+			name: 'Someone'
+		}
+	};
+});
 
 const renderEvents = () => {
 	return events.map(event => (
-		<Grid.Column width={4}>
+		<Grid.Column key={event.id} width={4}>
 			<Event event={event} />
 		</Grid.Column>
 	));

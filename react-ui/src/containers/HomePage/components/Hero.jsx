@@ -2,24 +2,35 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Header, Button, Icon, Segment } from 'semantic-ui-react';
 
-const Hero = ({ mobile }) => (
-	<Segment inverted textAlign="center" style={{ minHeight: 500, padding: '1em 0em' }} vertical>
+const Hero = ({ mobile, heroTitle, heroContent }) => (
+	<Segment
+		inverted
+		textAlign="center"
+		style={{
+			minHeight: 500,
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center',
+			padding: '2em 0'
+		}}
+		vertical
+	>
 		<Container text className={'hero homepage-hero'}>
 			<Header
 				inverted
 				as="h1"
-				content="Imagine-a-Company"
+				content={heroTitle}
 				style={{
 					fontSize: mobile ? '2em' : '4em',
 					fontWeight: 'normal',
 					marginBottom: 0,
-					marginTop: mobile ? '1.5em' : '3em'
+					marginTop: mobile ? '1.5em' : ''
 				}}
 			/>
 			<Header
 				inverted
 				as="h2"
-				content="Do whatever you want when you want to."
+				content={heroContent}
 				style={{
 					fontSize: mobile ? '1.5em' : '1.7em',
 					fontWeight: 'normal',
