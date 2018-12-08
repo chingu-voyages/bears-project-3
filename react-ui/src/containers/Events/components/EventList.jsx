@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
-import { Grid, Container } from 'semantic-ui-react';
+import { Grid, Container, Header, Segment } from 'semantic-ui-react';
 import Event from './Event';
+import EventFilter from './EventFilter';
+
 const categories = [
 	'Humor',
 	'Adventure',
@@ -38,7 +40,7 @@ const events = Array.from({ length: 10 }, (v, i) => {
 	};
 });
 
-const renderEvents = () => {
+const renderEvents = events => {
 	return events.map(event => (
 		<Grid.Column key={event.id} width={4}>
 			<Event event={event} />
@@ -48,11 +50,23 @@ const renderEvents = () => {
 
 const EventList = () => {
 	return (
-		<Fragment>
+		<Segment basic padded>
 			<Container>
-				<Grid columns={4}>{renderEvents()}</Grid>
+				<div
+					className="event-list-header"
+					style={{
+						display: 'flex',
+						justifyContent: 'space-between',
+						alignItems: 'center',
+						marginBottom: '1 em'
+					}}
+				>
+					<Header>Events for this week</Header>
+					<EventFilter />
+				</div>
+				<Grid columns={4}>{renderEvents(events)}</Grid>
 			</Container>
-		</Fragment>
+		</Segment>
 	);
 };
 

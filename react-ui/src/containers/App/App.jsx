@@ -33,9 +33,8 @@ class App extends Component {
 	render() {
 		return (
 			<Responsive minWidth={Responsive.onlyTablet.minWidth}>
-				<Header>
-					<Navigation>of some sort</Navigation>
-				</Header>
+				<Header logo={logo} />
+				{/* Routes here... */}
 				<HomePage />
 				<Footer />
 			</Responsive>

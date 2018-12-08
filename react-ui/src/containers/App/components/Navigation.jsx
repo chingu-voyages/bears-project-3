@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu, Container, Button, Dropdown, Image } from 'semantic-ui-react';
 
-const Navigation = ({ menuFixed, fixedMenuStyle, menuStyle }) => {
+const Navigation = ({ menuFixed, fixedMenuStyle, menuStyle, logo }) => {
 	menuFixed = true;
 	return (
 		<Menu
@@ -9,16 +9,20 @@ const Navigation = ({ menuFixed, fixedMenuStyle, menuStyle }) => {
 			fixed={menuFixed ? 'top' : undefined}
 			style={menuFixed ? fixedMenuStyle : menuStyle}
 		>
-			<Container text>
+			<Container>
 				<Menu.Item>
-					<Image size="mini" src="/logo.png" />
+					<Image size="mini" src={logo} />
 				</Menu.Item>
-				<Menu.Item header>Project Name</Menu.Item>
+				<Menu.Item active header>
+					Home
+				</Menu.Item>
 				<Menu.Item as="a">Blog</Menu.Item>
 				<Menu.Item as="a">Articles</Menu.Item>
 
 				<Menu.Menu position="right">
-					<Dropdown text="Dropdown" pointing className="link item">
+					<Menu.Item as="a">Sign Up</Menu.Item>
+					<Menu.Item as="a">Log in</Menu.Item>
+					{/* <Dropdown text="Dropdown" pointing className="link item">
 						<Dropdown.Menu>
 							<Dropdown.Item>List Item</Dropdown.Item>
 							<Dropdown.Item>List Item</Dropdown.Item>
@@ -34,7 +38,7 @@ const Navigation = ({ menuFixed, fixedMenuStyle, menuStyle }) => {
 							</Dropdown.Item>
 							<Dropdown.Item>List Item</Dropdown.Item>
 						</Dropdown.Menu>
-					</Dropdown>
+					</Dropdown> */}
 				</Menu.Menu>
 			</Container>
 		</Menu>
