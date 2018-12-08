@@ -3,7 +3,7 @@ import { createStore, applyMiddleware } from 'redux';
 // Middleware
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import rootReducer from './reducers/RootReducer';
+import rootReducer from './reducers/rootReducer';
 
 const logger = createLogger();
 

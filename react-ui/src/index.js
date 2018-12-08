@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 // Redux
 import { Provider } from 'react-redux';
-import configureStore from './store';
+import configureStore from './store/store';
 
 // CSS
 import './index.css';
@@ -11,8 +11,6 @@ import './index.css';
 
 import App from './containers/App/App';
 import * as serviceWorker from './serviceWorker';
-
- a;
 
 ReactDOM.render(
   <Provider store={configureStore()}>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // Actions
-import { testAction } from '../../actions/TestAction';
+import { testAction } from '../../store/actions/testAction';
 
 // Containers
 
