@@ -10,6 +10,8 @@ Chingu Winter Beta Voyage Project
 [Nari Roh](https:?/github.com/NariRoh)
 
 [Tim Owens](https://github.com/timowens9)
+
+[Lasse L](https://github.com/iamlasse)
 ___________
 
 ## Available Scripts
