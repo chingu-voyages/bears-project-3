@@ -1,32 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Menu, Container, Button, Dropdown, Image,
-} from 'semantic-ui-react';
+import { Menu, Container, Button, Dropdown, Image } from 'semantic-ui-react';
+import AuthPopup from '../../Auth/components/AuthPopup';
+const Navigation = ({ menuFixed, fixedMenuStyle, menuStyle, logo }) => {
+	menuFixed = true;
+	return (
+		<Menu
+			borderless
+			fixed={menuFixed ? 'top' : undefined}
+			style={menuFixed ? fixedMenuStyle : menuStyle}
+		>
+			<Container>
+				<Menu.Item>
+					<Image size="mini" src={logo} />
+				</Menu.Item>
+				<Menu.Item active header>
+					Home
+				</Menu.Item>
+				<Menu.Item as="a">Blog</Menu.Item>
+				<Menu.Item as="a">Articles</Menu.Item>
 
-const Navigation = ({
-  menuFixed, fixedMenuStyle, menuStyle, logo,
-}) => {
-  menuFixed = true;
-  return (
-    <Menu
-      borderless
-      fixed={menuFixed ? 'top' : undefined}
-      style={menuFixed ? fixedMenuStyle : menuStyle}
-    >
-      <Container>
-        <Menu.Item>
-          <Image size="mini" src={logo} />
-        </Menu.Item>
-        <Menu.Item active header>
-          Home
-        </Menu.Item>
-        <Menu.Item as="a">Blog</Menu.Item>
-        <Menu.Item as="a">Articles</Menu.Item>
-
-        <Menu.Menu position="right">
-          <Menu.Item as="a">Sign In</Menu.Item>
-          {/* <Dropdown text="Dropdown" pointing className="link item">
+				<Menu.Menu position="right">
+					<AuthPopup title={'Sign In'} />
+					{/* <Dropdown text="Dropdown" pointing className="link item">
 						<Dropdown.Menu>
 							<Dropdown.Item>List Item</Dropdown.Item>
 							<Dropdown.Item>List Item</Dropdown.Item>
@@ -43,13 +39,11 @@ const Navigation = ({
 							<Dropdown.Item>List Item</Dropdown.Item>
 						</Dropdown.Menu>
 					</Dropdown> */}
-        </Menu.Menu>
-        <Menu.Item as="a">
-          <Link to="/register">Register</Link>
-        </Menu.Item>
-      </Container>
-    </Menu>
-  );
+					<AuthPopup title={'Sign Up'} />
+				</Menu.Menu>
+			</Container>
+		</Menu>
+	);
 };
 
 export default Navigation;
