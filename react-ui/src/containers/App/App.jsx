@@ -9,8 +9,12 @@ import { testAction } from '../../store/actions/testAction';
 
 // Containers
 import HomePage from '../HomePage/components/HomePage';
+<<<<<<< Updated upstream
 import Signup from '../Auth/SignUp';
 import SignIn from '../Auth/SignIn';
+=======
+// import Register from '../Auth/Register';
+>>>>>>> Stashed changes
 
 // Components
 import Header from './components/Header';
@@ -32,6 +36,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class App extends Component {
+<<<<<<< Updated upstream
 	testAction = event => {
 		this.props.testAction();
 	};
@@ -53,6 +58,25 @@ class App extends Component {
 			</ConnectedRouter>
 		);
 	}
+=======
+  testAction = (event) => {
+    this.props.testAction();
+  };
+
+  render() {
+    return (
+      <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+        <Header logo={logo} />
+        {/* Routes here... */}
+        <Switch>
+          <Route exact path="/" component={HomePage} {...this.props} />
+          {/* <Route exact path="/register" component={Register} {...this.props} /> */}
+        </Switch>
+        <Footer />
+      </Responsive>
+    );
+  }
+>>>>>>> Stashed changes
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
