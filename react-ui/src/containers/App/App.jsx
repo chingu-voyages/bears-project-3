@@ -9,7 +9,8 @@ import { testAction } from '../../store/actions/testAction';
 
 // Containers
 import HomePage from '../HomePage/components/HomePage';
-import Register from '../Auth/Register';
+import Signup from '../Auth/SignUp';
+import SignIn from '../Auth/SignIn';
 
 // Components
 import Header from './components/Header';
@@ -44,7 +45,8 @@ class App extends Component {
 					{/* Routes here... */}
 					<Switch>
 						<Route exact path="/" component={HomePage} />
-						<Route exact path="/register" component={Register} />
+						<Route path="/signup" component={Signup} />
+						<Route path="/signin" component={SignIn} />
 					</Switch>
 					<Footer />
 				</Responsive>

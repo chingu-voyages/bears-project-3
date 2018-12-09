@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import { Menu, Container, Button, Dropdown, Image } from 'semantic-ui-react';
 import AuthPopup from '../../Auth/components/AuthPopup';
 const Navigation = ({ menuFixed, fixedMenuStyle, menuStyle, logo }) => {
@@ -14,9 +14,20 @@ const Navigation = ({ menuFixed, fixedMenuStyle, menuStyle, logo }) => {
 				<Menu.Item>
 					<Image size="mini" src={logo} />
 				</Menu.Item>
-				<Menu.Item active header>
-					Home
-				</Menu.Item>
+				<Route
+					render={({ history }) => (
+						<Menu.Item
+							active
+							header
+							onClick={() => {
+								history.push('/');
+							}}
+						>
+							Home
+						</Menu.Item>
+					)}
+				/>
+
 				<Menu.Item as="a">Blog</Menu.Item>
 				<Menu.Item as="a">Articles</Menu.Item>
 
@@ -39,7 +50,9 @@ const Navigation = ({ menuFixed, fixedMenuStyle, menuStyle, logo }) => {
 							<Dropdown.Item>List Item</Dropdown.Item>
 						</Dropdown.Menu>
 					</Dropdown> */}
-					<AuthPopup title={'Sign Up'} />
+					<AuthPopup title={'Sign Up'}>
+						<Link to="/signup">Signup with email</Link>
+					</AuthPopup>
 				</Menu.Menu>
 			</Container>
 		</Menu>

@@ -23,7 +23,7 @@ const Signup = () => (
 		>
 			<Grid.Column style={{ maxWidth: 450 }}>
 				<Header as="h2" color="teal" textAlign="center">
-					<Image src="/logo.png" /> Log-in to your account
+					<Image src="/logo.png" /> Sign Up
 				</Header>
 				<Form size="large">
 					<Segment stacked>
@@ -43,12 +43,12 @@ const Signup = () => (
 						/>
 
 						<Button color="teal" fluid size="large">
-							Login
+							Sign Up with Email
 						</Button>
 					</Segment>
 				</Form>
 				<Message>
-					New to us? <Link to="/signup">Sign Up</Link>
+					Already have an account? <Link to="/signin">Sign in</Link>
 				</Message>
 			</Grid.Column>
 		</Grid>

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Popup, Menu } from 'semantic-ui-react';
 
-const AuthPopup = ({ title }) => {
+const AuthPopup = ({ title, children }) => {
 	return (
 		<Popup
 			hoverable
@@ -16,7 +16,7 @@ const AuthPopup = ({ title }) => {
 			trigger={<Menu.Item as="a">{title}</Menu.Item>}
 		>
 			<Popup.Header>{title}</Popup.Header>
-			<Popup.Content>Insert form here</Popup.Content>
+			<Popup.Content>{children}</Popup.Content>
 		</Popup>
 	);
 };
