@@ -26,8 +26,10 @@ const Navigation = ({ menuFixed, fixedMenuStyle, menuStyle, logo }) => {
 				{/* <Menu.Item as="a">Blog</Menu.Item>
         <Menu.Item as="a">Articles</Menu.Item> */}
 				<Menu.Menu position="right">
-					<AuthPopup title="Login" />
-					<AuthPopup title="Register" />
+					<AuthPopup title="Sign In" />
+					<AuthPopup title="Sign Up">
+						<Link to="/signup">Sign Up with email</Link>
+					</AuthPopup>
 					{/* <Dropdown text="Dropdown" pointing className="link item">
             <Dropdown.Menu>
               <Dropdown.Item>List Item</Dropdown.Item>
