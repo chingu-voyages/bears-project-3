@@ -19,7 +19,9 @@ const Navigation = ({ menuFixed, fixedMenuStyle, menuStyle, logo }) => {
 					</Link>
 				</Menu.Item>
 				<Menu.Item header>
-					<Link to="/">Home</Link>
+					<Link style={{ color: '#53599A' }} to="/">
+						Home
+					</Link>
 				</Menu.Item>
 				{/* <Menu.Item as="a">Blog</Menu.Item>
         <Menu.Item as="a">Articles</Menu.Item> */}

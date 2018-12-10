@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Header, Button, Icon, Segment } from 'semantic-ui-react';
+import './hero.css';
 
 const Hero = ({ mobile, heroTitle, heroContent }) => (
 	<Segment
-		inverted
+		basic
 		textAlign="center"
 		style={{
+			backgroundColor: '#80DED9',
 			minHeight: 500,
 			display: 'flex',
 			alignItems: 'center',
@@ -17,11 +19,12 @@ const Hero = ({ mobile, heroTitle, heroContent }) => (
 	>
 		<Container text className={'hero homepage-hero'}>
 			<Header
-				inverted
 				as="h1"
 				content={heroTitle}
 				style={{
-					fontSize: mobile ? '2em' : '4em',
+					fontFamily: 'Bungee',
+					color: '#53599A',
+					fontSize: mobile ? '2em' : '3em',
 					fontWeight: 'normal',
 					marginBottom: 0,
 					marginTop: mobile ? '1.5em' : ''
@@ -37,7 +40,7 @@ const Hero = ({ mobile, heroTitle, heroContent }) => (
 					marginTop: mobile ? '0.5em' : '1.5em'
 				}}
 			/>
-			<Button primary size="huge">
+			<Button primary size="huge" style={{ backgroundColor: '#53599A' }}>
 				Get Started
 				<Icon name="right arrow" />
 			</Button>

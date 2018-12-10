@@ -4,17 +4,17 @@ import Hero from './Hero';
 import EventList from '../../Events/components/EventList';
 
 class HomePage extends Component {
-  render() {
-    return (
-      <Fragment>
-        <Hero
-          heroTitle="The Place to Find Your Game Buddies"
-          heroContent="Browse or Create Events, and let the games begin!"
-        />
-        <EventList style={{ marginTop: '2em' }} />
-      </Fragment>
-    );
-  }
+	render() {
+		return (
+			<Fragment>
+				<Hero
+					heroTitle="The Place to Find Your Board Gaming Buddies"
+					heroContent="Browse or Create Events, and let the games begin!"
+				/>
+				<EventList style={{ marginTop: '2em' }} />
+			</Fragment>
+		);
+	}
 }
 
 const mapStateToProps = state => ({});
