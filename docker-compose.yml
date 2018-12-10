@@ -17,6 +17,8 @@ services:
       context: server
       dockerfile: DockerfileBack
     environment:
+      APP_MONGO_URI: mongodb://admin:pizza1@ds015780.mlab.com:15780/boardgameconnector
+      PORT: 3001
       NODE_ENV: production
     ports:
       - 3001:3001
