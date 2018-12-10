@@ -1,11 +1,7 @@
 export const key = 'events';
-export const FETCH_EVENTS = `${key}/FETCH_EVENTS`;
-export const FETCH_EVENTS_COMPLETE = `${key}/FETCH_EVENTS_COMPLETE`;
 export const SET_FILTER = `${key}/SET_FILTER`;
 
 export const actionTypes = {
-	FETCH_EVENTS,
-	FETCH_EVENTS_COMPLETE,
 	SET_FILTER
 };
 
@@ -44,19 +40,22 @@ const eventsArr = Array.from({ length: 30 }, (v, i) => ({
 	}
 }));
 
-const initialState = {
+export const initialState = {
 	list: eventsArr,
 	categories,
 	selectedCategory: ''
 };
 
-const getEventsByFilter = state => {
-	const { selectedCategory } = state;
-	return state.list.filter(event => event.cateogry === selectedCategory);
+const getFilteredEvents = state => {
+	console.log('State: ', state);
+	const { selectedCategory, list } = state;
+	return selectedCategory === ''
+		? list
+		: list.filter(event => event.category === selectedCategory);
 };
 
 export const selectors = {
-	getEventsByFilter
+	getFilteredEvents
 };
 
 const reducer = (state = initialState, action) => {

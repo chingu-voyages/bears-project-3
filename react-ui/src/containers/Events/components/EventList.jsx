@@ -14,27 +14,21 @@ class EventList extends Component {
 		this.props.setFilter(value);
 	};
 
-	renderEvents = (events, filter) => {
+	renderEvents = events => {
 		if (!events) {
 			return <h1>Loading Events</h1>;
 		}
-		if (!filter || filter === '') {
-			return events.map(event => (
-				<Grid.Column key={event.id} width={4}>
-					<Event event={event} />
-				</Grid.Column>
-			));
-		} else {
-			return events.filter(event => filter === event.category).map(event => (
-				<Grid.Column key={event.id} width={4}>
-					<Event event={event} />
-				</Grid.Column>
-			));
-		}
+
+		return events.map(event => (
+			<Grid.Column key={event.id} width={4}>
+				<Event event={event} />
+			</Grid.Column>
+		));
 	};
 
 	render() {
 		const { events, categories, selectedCategory } = this.props;
+
 		return (
 			<Segment basic padded>
 				<Container>
@@ -78,10 +72,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
+	const { selectedCategory } = state.events;
+
 	return {
-		events: state.events.list,
+		events: selectors.getFilteredEvents(state.events),
 		categories: state.events.categories,
-		selectedCategory: state.events.selectedCategory
+		selectedCategory: selectedCategory
 	};
 };
 
