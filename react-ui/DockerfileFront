@@ -1,8 +1,20 @@
-FROM node:10.13-alpine
-ENV NODE_ENV production
-WORKDIR /usr/src/app
-COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
-RUN npm install --production --silent && mv node_modules ../
-COPY . .
+# base image
+FROM node:10.14-alpine
+
+# set working directory
+RUN mkdir -p /src
+WORKDIR /src
+
+# add `/src/node_modules/.bin` to $PATH
+ENV PATH /src/node_modules/.bin:$PATH
+
+# install and cache app dependencies
+COPY package.json /src/package.json
+RUN yarn install
+
+COPY . /src
+
 EXPOSE 3000
-CMD npm start
+
+# start app
+CMD ["yarn", "start"]

@@ -1,24 +1,27 @@
-version: '2.1'
+version: '3.7'
 
 services:
   frontend:
-    image: bears-project-3-front
+    container_name: bears-project-3-front
     build:
       context: react-ui
       dockerfile: DockerfileFront
+    volumes:
+      - '.:/usr/src/app'
+      - '/usr/src/app/node_modules'
     environment:
-      NODE_ENV: production
+      - NODE_ENV=development
     ports:
       - 3000:3000
 
-  backend:
-    image: bears-project-3-back
-    build: 
-      context: server
-      dockerfile: DockerfileBack
-    environment:
-      APP_MONGO_URI: mongodb://admin:pizza1@ds015780.mlab.com:15780/boardgameconnector
-      PORT: 3001
-      NODE_ENV: production
-    ports:
-      - 3001:3001
+  # backend:
+  #   image: bears-project-3-back
+  #   build: 
+  #     context: server
+  #     dockerfile: DockerfileBack
+  #   environment:
+  #     APP_MONGO_URI: mongodb://admin:pizza1@ds015780.mlab.com:15780/boardgameconnector
+  #     PORT: 3030
+  #     NODE_ENV: development
+  #   ports:
+  #     - 3030:3030
