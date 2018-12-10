@@ -27,7 +27,7 @@ const colors = [
 	'black'
 ];
 
-const events = Array.from({ length: 30 }, (v, i) => ({
+const eventsArr = Array.from({ length: 30 }, (v, i) => ({
 	id: i,
 	title: `Board Game ${i}`,
 	category: categories[Math.floor(Math.random() * categories.length)],
@@ -44,11 +44,13 @@ class EventList extends Component {
 	};
 
 	handleChange = (e, { value }) => {
+		console.log(value);
+
 		this.setState({ filter: value });
 	};
 
 	renderEvents = (events, filter) =>
-		events.filter(event => event.category === filter).map(event => (
+		events.filter(event => filter === event.category).map(event => (
 			<Grid.Column key={event.id} width={4}>
 				<Event event={event} />
 			</Grid.Column>
@@ -79,7 +81,7 @@ class EventList extends Component {
 							</Menu.Item>
 						</Menu>
 					</div>
-					<Grid columns={4}>{this.renderEvents(events, this.state.filter)}</Grid>
+					<Grid columns={4}>{this.renderEvents(eventsArr, this.state.filter)}</Grid>
 				</Container>
 			</Segment>
 		);

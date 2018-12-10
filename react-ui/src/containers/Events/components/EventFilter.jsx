@@ -19,10 +19,12 @@ const EventFilter = ({ activeItem, handleItemClick, handleChange, categories }) 
 				onClick={handleItemClick}
 			>
 				<Dropdown
+					placeholder="Category"
+					search
+					selection
 					header="Category"
 					basic
 					className="link item"
-					defaultValue={categories[0]}
 					onChange={handleChange}
 					options={options}
 				/>
