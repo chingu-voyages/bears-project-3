@@ -1,0 +1,22 @@
+version: '2.1'
+
+services:
+  frontend:
+    image: bears-project-3-front
+    build:
+      context: react-ui
+      dockerfile: DockerfileFront
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3000:3000
+
+  backend:
+    image: bears-project-3-back
+    build: 
+      context: server
+      dockerfile: DockerfileBack
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3001:3001
