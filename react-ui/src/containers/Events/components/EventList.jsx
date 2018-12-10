@@ -1,62 +1,40 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Grid, Container, Header, Segment, Menu } from 'semantic-ui-react';
+import { actions as eventActions, selectors } from '../../../store/events';
 import Event from './Event';
 import EventFilter from './EventFilter';
 
-const categories = [
-	'Humor',
-	'Adventure',
-	'Action',
-	'Strategy',
-	'Mind'
-];
-
-const colors = [
-	'red',
-	'orange',
-	'yellow',
-	'olive',
-	'green',
-	'teal',
-	'blue',
-	'violet',
-	'purple',
-	'pink',
-	'brown',
-	'grey',
-	'black'
-];
-
-const eventsArr = Array.from({ length: 30 }, (v, i) => ({
-	id: i,
-	title: `Board Game ${i}`,
-	category: categories[Math.floor(Math.random() * categories.length)],
-	description: 'Event Description',
-	color: colors[Math.floor(Math.random() * colors.length)],
-	creator: {
-		name: 'Someone'
-	}
-}));
-
 class EventList extends Component {
-	state = {
-		filter: 'Humor'
+	componentDidMount = () => {
+		// this.props.fetchEvents();
 	};
 
 	handleChange = (e, { value }) => {
-		console.log(value);
-
-		this.setState({ filter: value });
+		this.props.setFilter(value);
 	};
 
-	renderEvents = (events, filter) =>
-		events.filter(event => filter === event.category).map(event => (
-			<Grid.Column key={event.id} width={4}>
-				<Event event={event} />
-			</Grid.Column>
-		));
+	renderEvents = (events, filter) => {
+		if (!events) {
+			return <h1>Loading Events</h1>;
+		}
+		if (!filter || filter === '') {
+			return events.map(event => (
+				<Grid.Column key={event.id} width={4}>
+					<Event event={event} />
+				</Grid.Column>
+			));
+		} else {
+			return events.filter(event => filter === event.category).map(event => (
+				<Grid.Column key={event.id} width={4}>
+					<Event event={event} />
+				</Grid.Column>
+			));
+		}
+	};
 
 	render() {
+		const { events, categories, selectedCategory } = this.props;
 		return (
 			<Segment basic padded>
 				<Container>
@@ -81,11 +59,30 @@ class EventList extends Component {
 							</Menu.Item>
 						</Menu>
 					</div>
-					<Grid columns={4}>{this.renderEvents(eventsArr, this.state.filter)}</Grid>
+					<Grid columns={4}>{this.renderEvents(events, selectedCategory)}</Grid>
 				</Container>
 			</Segment>
 		);
 	}
 }
 
-export default EventList;
+const mapDispatchToProps = (dispatch, ownProps) => {
+	return {
+		fetchEvents: () => {
+			dispatch(eventActions.fetchEvents());
+		},
+		setFilter: filter => {
+			dispatch(eventActions.setFilter(filter));
+		}
+	};
+};
+
+const mapStateToProps = (state, ownProps) => {
+	return {
+		events: state.events.list,
+		categories: state.events.categories,
+		selectedCategory: state.events.selectedCategory
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventList);
