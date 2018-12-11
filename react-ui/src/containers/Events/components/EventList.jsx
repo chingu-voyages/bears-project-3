@@ -11,6 +11,8 @@ class EventList extends Component {
 	};
 
 	handleChange = (e, { value }) => {
+		if (!value || value === '') this.props.setFilter('');
+
 		this.props.setFilter(value);
 	};
 

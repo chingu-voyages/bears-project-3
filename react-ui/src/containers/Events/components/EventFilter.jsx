@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { Menu, Dropdown } from 'semantic-ui-react';
 
 const EventFilter = ({ handleItemClick, handleChange, categories }) => {
-	const options =
+	let options = [
+		{ key: '-1', text: 'Select Category', value: '', content: 'Select Category' }
+	];
+	const categoryOptions =
 		categories &&
 		categories.map((category, index) => ({
 			key: `${category}${index}`,
@@ -11,16 +14,16 @@ const EventFilter = ({ handleItemClick, handleChange, categories }) => {
 			value: category,
 			content: category
 		}));
+	options = options.concat(categoryOptions);
 	return (
 		<Fragment>
 			<Menu.Item header>Filter By</Menu.Item>
 
 			<Menu.Item name="filterByCategory">
 				<Dropdown
+					selection
 					placeholder="Category"
 					search
-					selection
-					header="Category"
 					basic
 					className="link item"
 					onChange={handleChange}
