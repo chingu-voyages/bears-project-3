@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux
 import { connect } from 'react-redux';
 import { Grid, Container, Header, Segment, Menu } from 'semantic-ui-react';
 import { actions as eventActions, selectors } from '../../../store/events';
@@ -60,16 +61,12 @@ class EventList extends Component {
 	}
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-	return {
-		fetchEvents: () => {
-			dispatch(eventActions.fetchEvents());
-		},
-		setFilter: filter => {
-			dispatch(eventActions.setFilter(filter));
-		}
-	};
-};
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  ...bindActionCreators({
+  		fetchEvents: eventActions.fetchEvents,
+      setFilter: eventActions.setFilter
+  }, dispatch)
+})
 
 const mapStateToProps = (state, ownProps) => {
 	const { selectedCategory } = state.events;
