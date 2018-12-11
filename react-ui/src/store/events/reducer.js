@@ -54,9 +54,13 @@ const getFilteredEvents = state => {
 		: list.filter(event => event.category === selectedCategory);
 };
 
+
+const getCategories = state => state.categories;
+
 export const selectors = {
-	getFilteredEvents
-};
+	getFilteredEvents,
+	getCategories
+}
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
