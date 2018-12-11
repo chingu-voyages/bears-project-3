@@ -17,7 +17,7 @@ password: {
 },
 avatar: {
     type: String,
-    required: true
+    
 },
 date: {
     type: Date,
