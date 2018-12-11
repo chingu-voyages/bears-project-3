@@ -20,7 +20,7 @@ class EventList extends Component {
 		}
 
 		return events.map(event => (
-			<Grid.Column key={event.id} width={4}>
+			<Grid.Column key={event.id} mobile={16} tablet={8} computer={4}>
 				<Event event={event} />
 			</Grid.Column>
 		));
