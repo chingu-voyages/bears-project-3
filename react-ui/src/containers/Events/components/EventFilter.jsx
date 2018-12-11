@@ -1,27 +1,37 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Dropdown } from 'semantic-ui-react';
 
-const EventFilter = ({ activeItem, handleItemClick }) => (
-  <Fragment>
-    <Menu.Item header>Filter By</Menu.Item>
-    <Menu.Item
-      name="closest"
-      active={activeItem === 'closest'}
-      onClick={handleItemClick}
-    />
-    <Menu.Item
-      name="mostComments"
-      active={activeItem === 'mostComments'}
-      onClick={handleItemClick}
-    />
-    <Menu.Item
-      name="mostPopular"
-      active={activeItem === 'mostPopular'}
-      onClick={handleItemClick}
-    />
-  </Fragment>
-);
+const EventFilter = ({ handleItemClick, handleChange, categories }) => {
+	const options =
+		categories &&
+		categories.map((category, index) => ({
+			key: `${category}${index}`,
+			text: category,
+			value: category,
+			content: category
+		}));
+	return (
+		<Fragment>
+			<Menu.Item header>Filter By</Menu.Item>
+
+			<Menu.Item name="filterByCategory">
+				<Dropdown
+					placeholder="Category"
+					search
+					selection
+					header="Category"
+					basic
+					className="link item"
+					onChange={handleChange}
+					options={options}
+				/>
+			</Menu.Item>
+			<Menu.Item name="closest" onClick={handleItemClick} />
+			<Menu.Item name="mostPopular" onClick={handleItemClick} />
+		</Fragment>
+	);
+};
 
 EventFilter.propTypes = {};
 

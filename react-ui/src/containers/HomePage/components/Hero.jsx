@@ -40,9 +40,11 @@ const Hero = ({ mobile, heroTitle, heroContent }) => (
 					marginTop: mobile ? '0.5em' : '1.5em'
 				}}
 			/>
-			<Button primary size="huge" style={{ backgroundColor: '#53599A' }}>
-				Get Started
-				<Icon name="right arrow" />
+			<Button primary size="huge" style={{ backgroundColor: '#53599A' }} animated>
+				<Button.Content visible>Get Started</Button.Content>
+				<Button.Content hidden>
+					<Icon name="right arrow" />
+				</Button.Content>
 			</Button>
 		</Container>
 	</Segment>
