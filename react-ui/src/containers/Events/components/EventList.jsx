@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Grid, Container, Header, Segment, Menu } from 'semantic-ui-react';
 import { actions as eventActions, selectors } from '../../../store/events';
