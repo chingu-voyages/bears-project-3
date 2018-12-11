@@ -24,6 +24,7 @@ const extra = event => {
 const Event = ({ event }) => {
 	return (
 		<Card
+			fluid
 			meta={event.category}
 			image="https://react.semantic-ui.com/images/avatar/large/matthew.png"
 			header={event.title}
