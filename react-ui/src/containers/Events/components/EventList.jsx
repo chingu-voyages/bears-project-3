@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Grid, Container, Header, Segment, Menu } from 'semantic-ui-react';
+import { Grid, Container, Header, Segment, Menu, Card } from 'semantic-ui-react';
 import { actions as eventActions, selectors } from '../../../store/events';
 import Event from './Event';
 import EventFilter from './EventFilter';
@@ -20,11 +20,7 @@ class EventList extends Component {
 			return <h1>Loading Events</h1>;
 		}
 
-		return events.map(event => (
-			<Grid.Column key={event.id} mobile={16} tablet={8} computer={4}>
-				<Event event={event} />
-			</Grid.Column>
-		));
+		return events.map(event => <Event event={event} />);
 	};
 
 	render() {
@@ -54,7 +50,9 @@ class EventList extends Component {
 							</Menu.Item>
 						</Menu>
 					</div>
-					<Grid columns={4}>{this.renderEvents(events, selectedCategory)}</Grid>
+					<Card.Group doubling stackable itemsPerRow={4}>
+						{this.renderEvents(events, selectedCategory)}
+					</Card.Group>
 				</Container>
 			</Segment>
 		);
@@ -62,11 +60,14 @@ class EventList extends Component {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  ...bindActionCreators({
-  		fetchEvents: eventActions.fetchEvents,
-      setFilter: eventActions.setFilter
-  }, dispatch)
-})
+	...bindActionCreators(
+		{
+			fetchEvents: eventActions.fetchEvents,
+			setFilter: eventActions.setFilter
+		},
+		dispatch
+	)
+});
 
 const mapStateToProps = (state, ownProps) => {
 	const { selectedCategory } = state.events;

@@ -22,7 +22,7 @@ export class EventCategoriesList extends Component {
 
 	renderCategories = categories =>
 		categories.map(category => (
-			<Grid.Column stretched>
+			<Card>
 				<Reveal animated="move down">
 					<Reveal.Content visible style={{ height: 200, width: '100%' }}>
 						<div
@@ -49,7 +49,7 @@ export class EventCategoriesList extends Component {
 						/>
 					</Reveal.Content>
 				</Reveal>
-			</Grid.Column>
+			</Card>
 		));
 
 	render() {
@@ -58,9 +58,9 @@ export class EventCategoriesList extends Component {
 			<Segment basic padded>
 				<Container>
 					<Header as="h2">Game Categories</Header>
-					<Grid celled columns={5} doubling>
+					<Card.Group doubling itemsPerRow={5} stackable>
 						{this.renderCategories(categories)}
-					</Grid>
+					</Card.Group>
 				</Container>
 			</Segment>
 		);
