@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import HomePage from './components/HomePage';
+import HomePage from './presentational/HomePage';
 
 const mapStateToProps = state => ({
-	...state
+  ...state,
 });
 
 export default connect(mapStateToProps)(HomePage);

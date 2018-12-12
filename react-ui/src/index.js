@@ -12,7 +12,7 @@ import './index.css';
 import 'semantic-ui-css/semantic.min.css';
 // TODO: After building custom Semantic-UI theme w/ Gulp, include minified CSS file here
 
-import App from './containers/App/App';
+import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
 
 console.log(store.getState());
@@ -21,29 +21,29 @@ console.log(store.getState());
 const target = document.getElementById('root');
 
 const renderHMR = () => {
-	render(
-		<AppContainer>
-			<Provider store={store}>
-				<App history={reduxHistory} />
-			</Provider>
-		</AppContainer>,
-		target
-	);
+  render(
+    <AppContainer>
+      <Provider store={store}>
+        <App history={reduxHistory} />
+      </Provider>
+    </AppContainer>,
+    target,
+  );
 };
 
 renderHMR(App);
 
 // Hot reloading
 if (module.hot) {
-	// Reload components
-	module.hot.accept('./containers/App/App', () => {
-		renderHMR();
-	});
+  // Reload presentational
+  module.hot.accept('./components/App/App', () => {
+    renderHMR();
+  });
 
-	// Reload reducers
-	module.hot.accept('./store/reducers/rootReducer', () => {
-		store.replaceReducer(rootReducer(reduxHistory));
-	});
+  // Reload reducers
+  module.hot.accept('./store/reducers/rootReducer', () => {
+    store.replaceReducer(rootReducer(reduxHistory));
+  });
 }
 
 // If you want your app to work offline and load faster, you can change
