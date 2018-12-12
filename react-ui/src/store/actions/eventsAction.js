@@ -1,13 +1,8 @@
-import { actionTypes as types } from './actionTypes';
+import { SET_FILTER } from './actionTypes';
 
-export const setFilter = filter => ({
-  type: types.SET_FILTER,
-  filter,
-});
-
-export const eventsAction = () => (dispatch) => {
-  dispatch({
-    type: type.SET_FILTER,
-    payload: filter => filter,
-  });
-};
+export default function setFilter(filter) {
+  return {
+    type: SET_FILTER,
+    payload: filter,
+  };
+}

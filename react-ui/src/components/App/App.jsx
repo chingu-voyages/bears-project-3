@@ -26,27 +26,22 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-
 });
 
-class App extends Component {
-  render() {
-    // eslint-disable-next-line react/prop-types
-    const { history } = this.props;
-    return (
-      <ConnectedRouter history={history}>
-        <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-          <Header logo={logo} />
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/signin" component={SignIn} />
-          </Switch>
-          <Footer />
-        </Responsive>
-      </ConnectedRouter>
-    );
-  }
-}
+const { history } = this.props;
+
+const App = () => (
+  <ConnectedRouter history={history}>
+    <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+      <Header logo={logo} />
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/signin" component={SignIn} />
+      </Switch>
+      <Footer />
+    </Responsive>
+  </ConnectedRouter>
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
