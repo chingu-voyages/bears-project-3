@@ -1,22 +1,47 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   Grid, Container, Header, Segment, Menu,
 } from 'semantic-ui-react';
-import { actions as eventActions, selectors } from '../../store/events';
+
+// Components
 import Event from './presentational/Event';
 import EventFilter from './presentational/EventFilter';
 
+// Redux
+import eventsAction from '../../store/actions/eventsAction';
+import { selectors } from '../../store/reducers/eventsReducer';
+
+const mapStateToProps = (state) => {
+  const { selectedCategory } = state.events;
+  return {
+    events: selectors.getFilteredEvents(state.events),
+    categories: state.events.eventCategories,
+    selectedCategory,
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+  setFilter: (filter) => {
+    dispatch(eventsAction(filter));
+  },
+});
+
 class EventList extends Component {
   componentDidMount = () => {
-    // TODO: set this.props.fetchEvents() when API is linked
+    // TODO: fetch events from backend when API is linked
   };
 
   // Allows user to filter events based on categories listed on page
   handleChange = (e, { value }) => {
-    if (!value || value === '') this.props.setFilter('');
+    const { setFilter } = this.props;
 
-    this.props.setFilter(value);
+    if (!value || value === '') {
+      setFilter('');
+    }
+
+    setFilter(value);
   };
 
   /**
@@ -68,22 +93,8 @@ class EventList extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const { selectedCategory } = state.events;
-  return {
-    events: selectors.getFilteredEvents(state.events),
-    categories: state.events.categories,
-    selectedCategory,
-  };
+EventList.propTypes = {
+  setFilter: PropTypes.func.isRequired,
 };
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  fetchEvents: () => {
-    dispatch(eventActions.fetchEvents());
-  },
-  setFilter: (filter) => {
-    dispatch(eventActions.setFilter(filter));
-  },
-});
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventList);

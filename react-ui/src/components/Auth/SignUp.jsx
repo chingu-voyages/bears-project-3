@@ -33,13 +33,14 @@ const Signup = () => (
               type="password"
             />
             <Button color="teal" fluid size="large">
-              Sign Up with Email
+              Sign up with email
             </Button>
           </Segment>
         </Form>
         <Message>
           Already have an account?
-          <Link to="/signin">Sign in</Link>
+          <br />
+          <Link to="/signin">Sign In</Link>
         </Message>
       </Grid.Column>
     </Grid>

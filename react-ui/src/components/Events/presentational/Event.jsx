@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Icon, Image } from 'semantic-ui-react';
 
@@ -6,15 +6,16 @@ const extra = (event) => {
   const randomAttendeeCount = () => Math.floor(Math.random() * 15);
   return (
     <span style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <a>
+      <a href={`localhost:5000/profile:${event.creator.id}`}>
         <Image
-          style={{ marginRight: '10px' }}
+          style={{ margin: '0 auto' }}
           src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
           avatar
         />
+        <br />
         {event.creator.name}
       </a>
-      <a>
+      <a href={`localhost:5000/profile:${event.creator.id}`}>
         <Icon name="user" />
         {randomAttendeeCount()}
         <br />
@@ -37,7 +38,7 @@ const Event = ({ event }) => (
 );
 
 Event.propTypes = {
-  event: PropTypes.instanceOf(Object),
+  event: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default Event;

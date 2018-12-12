@@ -5,7 +5,7 @@
   "description": "",
   "keywords": [],
   "private": true,
-  "main": "",
+  "main": "./src/index.jsx",
   "license": "MIT",
   "dependencies": {
     "connected-react-router": "^6.0.0",
@@ -21,7 +21,6 @@
     "redux-devtools-extension": "^2.13.7",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "prop-types": "^15.6.2",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.83.0"
   },
@@ -41,6 +40,7 @@
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
     "eslint-config-airbnb": "^17.1.0",
-    "react-hot-loader": "^4.3.12"
+    "react-hot-loader": "^4.3.12",
+    "prop-types": "^15.6.2"
   }
 }

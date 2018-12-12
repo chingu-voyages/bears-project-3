@@ -7,7 +7,7 @@ import { Route, Switch } from 'react-router-dom';
 // Actions
 
 
-// Component Containers
+// Container Components
 import HomePage from '../HomePage/HomePage';
 import Signup from '../Auth/SignUp';
 import SignIn from '../Auth/SignIn';
@@ -28,20 +28,25 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 });
 
-const { history } = this.props;
-
-const App = () => (
-  <ConnectedRouter history={history}>
-    <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-      <Header logo={logo} />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/signin" component={SignIn} />
-      </Switch>
-      <Footer />
-    </Responsive>
-  </ConnectedRouter>
-);
+// eslint-disable-next-line react/prefer-stateless-function
+class App extends Component {
+  render() {
+    // eslint-disable-next-line react/prop-types
+    const { history } = this.props;
+    return (
+      <ConnectedRouter history={history}>
+        <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+          <Header logo={logo} />
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/signin" component={SignIn} />
+          </Switch>
+          <Footer />
+        </Responsive>
+      </ConnectedRouter>
+    );
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

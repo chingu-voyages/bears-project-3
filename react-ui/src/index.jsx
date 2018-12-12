@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-
 import { AppContainer } from 'react-hot-loader';
 
 // Redux
@@ -14,9 +13,6 @@ import 'semantic-ui-css/semantic.min.css';
 
 import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
-
-console.log(store.getState());
-// const store = configureStore();
 
 const target = document.getElementById('root');
 
