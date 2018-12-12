@@ -15,9 +15,9 @@ const logger = createLogger();
 const enhancers = [];
 
 const middleware = [
-  thunkMiddleware,
-  logger,
-  routerMiddleware(history),
+	thunkMiddleware,
+	logger,
+	routerMiddleware(history)
 ];
 
 const composedEnhancers = composeWith(applyMiddleware(...middleware), ...enhancers);
