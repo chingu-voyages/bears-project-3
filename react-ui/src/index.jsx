@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
-
+import { Route } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 // Redux
 import { Provider } from 'react-redux';
 import store, { history as reduxHistory } from './store/store';
-import rootReducer from './store/reducers/rootReducer';
+
 // CSS
 import './index.css';
 import 'semantic-ui-css/semantic.min.css';
@@ -14,33 +14,25 @@ import 'semantic-ui-css/semantic.min.css';
 import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
 
+// Container Components
+import HomePage from './components/HomePage/HomePage';
+import Signup from './components/Auth/SignUp';
+import SignIn from './components/Auth/SignIn';
+
 const target = document.getElementById('root');
 
-const renderHMR = () => {
-  render(
-    <AppContainer>
-      <Provider store={store}>
-        <App history={reduxHistory} />
-      </Provider>
-    </AppContainer>,
-    target,
-  );
-};
-
-renderHMR(App);
-
-// Hot reloading
-if (module.hot) {
-  // Reload presentational
-  module.hot.accept('./components/App/App', () => {
-    renderHMR();
-  });
-
-  // Reload reducers
-  module.hot.accept('./store/reducers/rootReducer', () => {
-    store.replaceReducer(rootReducer(reduxHistory));
-  });
-}
+render(
+	<Provider store={store}>
+		<ConnectedRouter history={reduxHistory}>
+			<App>
+				<Route exact path="/" component={HomePage} />
+				<Route path="/signup" component={Signup} />
+				<Route path="/signin" component={SignIn} />
+			</App>
+		</ConnectedRouter>
+	</Provider>,
+	target
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
