@@ -27,7 +27,7 @@ router.post('/register', (req, res) => {
             const newUser = new User({
                 name: req.body.name,
                 email: req.body.email,
-               // avatar, TO be added later
+                avatar, 
                 password: req.body.password
             });
 
@@ -68,7 +68,7 @@ router.post('/login', (req, res) => {
                 // User Matched
 
                 // Create Jwt payload ADD AVATAR later
-                const payload = {id: user.id, name: user.name}
+                const payload = {id: user.id, name: user.name, avatar: user.avatar};
 
 
 
