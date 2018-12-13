@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { Grid, Container, Header, Segment, Menu, Dimmer, Loader } from 'semantic-ui-react';
 
@@ -11,8 +12,13 @@ import EventMenu from './presentational/EventMenu';
 
 // Redux
 import { selectors } from '../../store/reducers/eventsReducer';
+import { selectDay, setFilter } from '../../store/actions/eventsAction';
 import EventCalendarList from './EventCalendarList';
 
+/**
+ * Mapping state variables to props
+ * @param {*} state 
+ */
 const mapStateToProps = state => {
 	const { selectedCategory } = state.events;
 	return {
@@ -23,14 +29,23 @@ const mapStateToProps = state => {
 	};
 };
 
+const mapDispatchToProps = (dispatch, ownProps) => ({
+	...bindActionCreators(
+		{
+			selectDay,
+			setFilter
+		},
+		dispatch
+	)
+});
+
 class EventList extends Component {
 	componentDidMount = () => {
 		// TODO: fetch events from backend when API is linked
 	};
 
 	/**
-   * Shows placeholder text if no events are loaded, otherwise generates event
-   * list
+   * Generates event list
    */
 	renderEvents = events => {
 		return events.map(event => (
@@ -42,7 +57,7 @@ class EventList extends Component {
 
 	render() {
 		const { events, selectedCategory } = this.props;
-		if (!events.length) return <Loader active />;
+
 		return (
 			<Fragment>
 				<Segment basic>
@@ -66,7 +81,8 @@ class EventList extends Component {
 }
 
 EventList.propTypes = {
-	setFilter: PropTypes.func.isRequired
+	setFilter: PropTypes.func.isRequired,
+	setDay: PropTypes.func
 };
 
-export default connect(mapStateToProps)(EventList);
+export default connect(mapStateToProps, mapDispatchToProps)(EventList);

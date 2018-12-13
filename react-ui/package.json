@@ -11,6 +11,7 @@
 		"connected-react-router": "^6.0.0",
 		"history": "^4.7.2",
 		"react": "^16.6.3",
+		"react-day-picker": "^7.2.4",
 		"react-dom": "^16.6.3",
 		"react-redux": "^6.0.0",
 		"react-router": "^4.3.1",

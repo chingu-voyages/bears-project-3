@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Menu, Dropdown, Button } from 'semantic-ui-react';
 
-import eventsAction from '../../../store/actions/eventsAction';
+import { setFilter } from '../../../store/actions/setFilter';
 
 const EventFilter = ({ handleItemClick, categories, setFilter }) => {
 	/**
@@ -65,7 +65,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
 	setFilter: filter => {
-		dispatch(eventsAction(filter));
+		dispatch(setFilter(filter));
 	}
 });
 

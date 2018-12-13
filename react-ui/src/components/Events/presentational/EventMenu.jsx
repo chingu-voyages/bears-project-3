@@ -4,8 +4,16 @@ import { Menu, Header, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import EventFilter from './EventFilter';
 
-const EventMenu = ({ categories, handleChange, history, router }) => {
-	console.log(router);
+const EventMenu = ({ categories, handleChange, history, router, selectDay, setFilter }) => {
+	const handleListClick = () => {
+		selectDay(null);
+		history.replace('/find');
+	};
+
+	const handleCalendarClick = () => {
+		setFilter('');
+		history.replace('/find/calendar');
+	};
 	return (
 		<div
 			className="event-list-header"
@@ -28,7 +36,7 @@ const EventMenu = ({ categories, handleChange, history, router }) => {
 						attached="left"
 						color="purple"
 						active={router.location.pathname === '/find'}
-						onClick={() => history.replace('/find')}
+						onClick={handleListClick}
 					>
 						Events
 					</Button>
@@ -36,7 +44,7 @@ const EventMenu = ({ categories, handleChange, history, router }) => {
 						attached="right"
 						color="purple"
 						active={router.location.pathname === '/find/calendar'}
-						onClick={() => history.replace('/find/calendar')}
+						onClick={handleCalendarClick}
 					>
 						Calendar
 					</Button>

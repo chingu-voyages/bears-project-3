@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
 	List,
 	Grid,
@@ -12,68 +13,118 @@ import {
 	Rail,
 	Image
 } from 'semantic-ui-react';
-
-const CalendarEvent = ({ event, contextRef }) => (
-	<Segment style={{ display: 'flex', flexDirection: 'row', padding: '1.5em' }}>
-		<div className="event-time">
-			<Header as="h4" style={{ color: 'rgb(171, 171,171)' }}>
-				{event.timeStarting.toLocaleTimeString('en-US', {
-					hour: '2-digit',
-					minute: '2-digit',
-					hour12: true
-				})}
-			</Header>
-		</div>
-		<div className="event-content" style={{ marginLeft: 10 }}>
-			<Header
-				as="h4"
-				style={{ marginBottom: 0, fontWeight: '700', color: 'rgb(171, 171, 171)' }}
-			>
-				{event.title.toUpperCase()}
-			</Header>
-			<Header as="h3" style={{ marginTop: 0, marginBottom: 15 }}>
-				{event.description}
-			</Header>
-			<Header as="h4" style={{ fontWeight: '400' }}>
-				8 Gamers Going
-			</Header>
-		</div>
-	</Segment>
-);
+import { selectDay } from '../../store/actions/eventsAction';
+import { selectors } from '../../store/reducers/eventsReducer';
+import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
+import './presentational/calendar.style.css';
+import ListEvent from './presentational/ListEvent';
 
 class EventCalendarList extends Component {
-	state = {};
+	state = {
+		/** Use selectedDay to indicate local state */
+		selectedDay: null
+	};
 
-	handleContextRef = contextRef => this.setState({ contextRef });
+	/**
+	 * Handle clicking day on calendar
+	 */
+	handleDayClick = (day, { selected }) => {
+		this.props.selectDay(day);
+		this.setState({
+			selectedDay: selected ? undefined : day
+		});
+	};
+
+	handleTodayClick = (day, modifiers) => {
+		this.props.selectDay(day);
+		this.setState({ selectedDay: day });
+	};
 
 	render() {
-		const { events } = this.props;
-		const { contextRef } = this.state;
+		const { events, selectedDay } = this.props;
+
+		const selectedDays = events.reduce(
+			(acc, event) =>
+				acc.includes(event.dateStarting)
+					? acc
+					: [
+							...acc,
+							event.dateStarting
+						],
+			[]
+		);
+
+		/**
+		 * Modifies calendar styling
+		 */
+		const modifiersStyles = {
+			birthday: {
+				color: 'white',
+				backgroundColor: '#ffc107'
+			},
+			thursdays: {
+				color: '#ffc107',
+				backgroundColor: '#fffdee'
+			},
+			outside: {
+				backgroundColor: 'white'
+			},
+			// Style selected day
+			selected: {
+				fontWeight: 900,
+				backgroundColor: 'rgb(83, 89, 154)'
+			}
+		};
+
 		return (
 			<Segment basic>
-				<Container>
-					<Grid>
-						<Grid.Column width={12}>
-							<div ref={this.handleContextRef}>
-								{events.map(event => (
-									<CalendarEvent event={event} contextRef={contextRef} />
-								))}
-							</div>
-						</Grid.Column>
-						<Grid.Column>
-							<Header as="h3">Calendar</Header>
-						</Grid.Column>
-					</Grid>
-				</Container>
+				<Grid container>
+					<Grid.Column width={12} stretched>
+						<div>{events.map(event => <ListEvent event={event} />)}</div>
+					</Grid.Column>
+					<Grid.Column width={4}>
+						<Header as="h3">Calendar</Header>
+						<DayPicker
+							selectedDays={this.state.selectedDay || selectedDays}
+							showOutsideDays
+							fromMonth={new Date()}
+							todayButton="Today's Events"
+							onDayClick={this.handleDayClick}
+							onTodayButtonClick={this.handleTodayClick}
+							modifiersStyles={modifiersStyles}
+						/>
+					</Grid.Column>
+				</Grid>
 			</Segment>
 		);
 	}
 }
 
+/**
+ * Map state variables to props
+ * @param {*} state 
+ * @param {*} ownProps 
+ */
 const mapStateToProps = (state, ownProps) => {
 	return {
-		events: state.events.list
+		events: selectors.getFilteredEvents(state.events),
+		selectedDay: state.events.selectedDay
 	};
 };
 
-export default connect(mapStateToProps)(EventCalendarList);
+/**
+ * Map actions to props
+ * @param {*} dispatch 
+ * @param {*} ownProps 
+ */
+const mapDispatchToProps = (dispatch, ownProps) => ({
+	...bindActionCreators(
+		{
+			selectDay
+		},
+		dispatch
+	)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventCalendarList);

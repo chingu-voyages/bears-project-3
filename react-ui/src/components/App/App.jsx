@@ -14,10 +14,6 @@ import logo from '../../assets/images/logo.svg';
 
 // CSS
 
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = dispatch => ({});
-
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends Component {
 	render() {
