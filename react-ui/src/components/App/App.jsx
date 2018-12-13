@@ -13,7 +13,6 @@ import Footer from './presentational/Footer';
 import logo from '../../assets/images/logo.svg';
 
 // CSS
-import './App.css';
 
 const mapStateToProps = state => ({});
 
@@ -25,7 +24,7 @@ class App extends Component {
 		// eslint-disable-next-line react/prop-types
 		const { history, children } = this.props;
 		return (
-			<Responsive minWidth={Responsive.onlyTablet.minWidth}>
+			<Responsive>
 				<Header logo={logo} />
 				{children}
 				<Footer />

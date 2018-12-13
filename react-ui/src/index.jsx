@@ -8,7 +8,7 @@ import store, { history as reduxHistory } from './store/store';
 
 // CSS
 import './index.css';
-import 'semantic-ui-css/semantic.min.css';
+import './theme/dist/semantic.css';
 // TODO: After building custom Semantic-UI theme w/ Gulp, include minified CSS file here
 
 import App from './components/App/App';
@@ -22,16 +22,16 @@ import SignIn from './components/Auth/SignIn';
 const target = document.getElementById('root');
 
 render(
-  <Provider store={store}>
-    <ConnectedRouter history={reduxHistory}>
-      <App>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/signin" component={SignIn} />
-      </App>
-    </ConnectedRouter>
-  </Provider>,
-  target
+	<Provider store={store}>
+		<ConnectedRouter history={reduxHistory}>
+			<App>
+				<Route path="/" component={HomePage} />
+				<Route exact path="/signup" component={Signup} />
+				<Route path="/signin" component={SignIn} />
+			</App>
+		</ConnectedRouter>
+	</Provider>,
+	target
 );
 
 // If you want your app to work offline and load faster, you can change
