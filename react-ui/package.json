@@ -33,8 +33,8 @@
 	],
 	"scripts": {
 		"theme:build": "cd src/theme && gulp build-css build-assets",
-		"theme:watch": "cd src/theme && yarn run theme:build && gulp watch",
-		"start": "react-scripts start",
+		"theme:watch": "cd src/theme && yarn theme:build && gulp watch",
+		"start": "yarn theme:build && react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
