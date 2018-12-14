@@ -14,30 +14,6 @@ import { selectors } from '../../store/reducers/eventsReducer';
 import { selectDay, setFilter } from '../../store/actions/eventsAction';
 import EventCalendarList from './EventCalendarList';
 
-/**
- * Mapping state variables to props
- * @param {*} state 
- */
-const mapStateToProps = state => {
-	const { selectedCategory } = state.events;
-	return {
-		router: state.router,
-		events: selectors.getFilteredEvents(state.events),
-		categories: state.events.eventCategories,
-		selectedCategory
-	};
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-	...bindActionCreators(
-		{
-			selectDay,
-			setFilter
-		},
-		dispatch
-	)
-});
-
 class EventList extends Component {
 	componentDidMount = () => {
 		// TODO: fetch events from backend when API is linked
@@ -83,5 +59,29 @@ EventList.propTypes = {
 	setFilter: PropTypes.func.isRequired,
 	setDay: PropTypes.func
 };
+
+/**
+ * Mapping state variables to props
+ * @param {*} state 
+ */
+const mapStateToProps = state => {
+	const { selectedCategory } = state.events;
+	return {
+		router: state.router,
+		events: selectors.getFilteredEvents(state.events),
+		categories: state.events.eventCategories,
+		selectedCategory
+	};
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+	...bindActionCreators(
+		{
+			selectDay,
+			setFilter
+		},
+		dispatch
+	)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventList);

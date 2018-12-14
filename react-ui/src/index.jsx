@@ -25,6 +25,7 @@ render(
 	<Provider store={store}>
 		<ConnectedRouter history={reduxHistory}>
 			<App>
+				{/* Match all routes exactly within defined array */}
 				<Route
 					exact
 					path={[

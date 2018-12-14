@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Menu, Dropdown } from 'semantic-ui-react';
 
 import { setFilter } from '../../../store/actions/setFilter';
@@ -17,9 +18,10 @@ const EventFilter = ({ handleItemClick, categories, setFilter, selectedCategory 
 			content: 'Select Category'
 		}
 	];
-	let selectedValue = '';
 
-	// Generates rest of list from saved categories
+	/**
+	 * Generates rest of list from saved categories
+	 */
 	const categoryList =
 		categories &&
 		categories.map((category, index) => ({
@@ -31,14 +33,13 @@ const EventFilter = ({ handleItemClick, categories, setFilter, selectedCategory 
 
 	// Adds generated category list to menu options array
 	options = options.concat(categoryList);
+
 	// Allows user to filter events based on categories listed on page
 	const updateFilter = (e, { value }) => {
 		if (!value || value === '') {
-			setFilter('');
+			return setFilter('');
 		}
-
 		setFilter(value);
-		selectedValue = value;
 	};
 
 	return (
@@ -46,6 +47,7 @@ const EventFilter = ({ handleItemClick, categories, setFilter, selectedCategory 
 			<Menu.Item header>Filter By</Menu.Item>
 			<Menu.Item name="filterByCategory">
 				<Dropdown
+					button
 					basic
 					inline
 					selection
@@ -55,6 +57,7 @@ const EventFilter = ({ handleItemClick, categories, setFilter, selectedCategory 
 					onChange={updateFilter}
 					options={options}
 					value={selectedCategory}
+					noResultsMessage="No Categories"
 				/>
 			</Menu.Item>
 		</Fragment>
@@ -69,9 +72,12 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-	setFilter: filter => {
-		dispatch(setFilter(filter));
-	}
+	...bindActionCreators(
+		{
+			setFilter
+		},
+		dispatch
+	)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventFilter);

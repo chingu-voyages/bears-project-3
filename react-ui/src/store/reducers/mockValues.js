@@ -51,7 +51,9 @@ export const generatedEventsArray = Array.from({ length: 30 }, (v, i) => ({
 	dateStarting: generateFutureDate(new Date()),
 	timeStarting: new Date(),
 	attendees: [],
+	mainImage: 'https://react.semantic-ui.com/images/avatar/large/matthew.png',
 	creator: {
-		name: 'Someone Else'
+		name: 'Someone Else',
+		avatar: 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
 	}
 }));
