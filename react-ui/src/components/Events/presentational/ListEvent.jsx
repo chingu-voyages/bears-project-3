@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card, Header, Grid, Image } from 'semantic-ui-react';
+import { Card, Header, Grid, Image, Label } from 'semantic-ui-react';
 
 const ListEvent = ({ event }) => (
-	<Card fluid>
+	<Card fluid color={event.color}>
 		<Card.Content>
 			<Grid>
 				<Grid.Column width={2}>
@@ -31,7 +31,9 @@ const ListEvent = ({ event }) => (
 								{event.description}
 							</Header>
 						</Grid.Column>
-						<Grid.Column floated="right" width={4} />
+						<Grid.Column textAlign="right" floated="right" width={4}>
+							<Label>{event.category}</Label>
+						</Grid.Column>
 					</Grid>
 				</Grid.Column>
 			</Grid>
@@ -45,7 +47,7 @@ const ListEvent = ({ event }) => (
 				<Grid.Column
 					floated="right"
 					width={3}
-					style={{ display: 'flex', alignItems: 'center' }}
+					style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}
 				>
 					<Header as="h4" style={{ fontWeight: '400' }}>
 						8 Gamers Going
