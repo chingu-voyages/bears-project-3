@@ -5,7 +5,6 @@ import Hero from './Hero';
 import Callout from './Callout';
 import EventList from '../../Events/EventList';
 import EventCategoriesList from '../../Events/presentational/EventCategoriesList';
-import EventCalendarList from '../../Events/EventCalendarList';
 
 const HomePage = () => (
 	<Fragment>

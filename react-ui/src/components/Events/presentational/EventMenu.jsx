@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Menu, Header, Button } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 import EventFilter from './EventFilter';
 
 const EventMenu = ({ categories, handleChange, history, router, selectDay, setFilter }) => {
@@ -54,6 +53,13 @@ const EventMenu = ({ categories, handleChange, history, router, selectDay, setFi
 	);
 };
 
-EventMenu.propTypes = {};
+EventMenu.propTypes = {
+	categories: PropTypes.instanceOf(Array),
+	handleChange: PropTypes.func,
+	history: PropTypes.instanceOf(Object),
+	router: PropTypes.instanceOf(Object),
+	selectDay: PropTypes.func,
+	setFilter: PropTypes.func
+};
 
 export default EventMenu;

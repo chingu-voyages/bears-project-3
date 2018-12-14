@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Menu, Dropdown, Button } from 'semantic-ui-react';
+import { Menu, Dropdown } from 'semantic-ui-react';
 
 import { setFilter } from '../../../store/actions/setFilter';
 

@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-// import { ConnectedRouter } from 'connected-react-router';
 import { Responsive } from 'semantic-ui-react';
 
 // Actions
@@ -18,7 +16,7 @@ import logo from '../../assets/images/logo.svg';
 class App extends Component {
 	render() {
 		// eslint-disable-next-line react/prop-types
-		const { history, children } = this.props;
+		const { children } = this.props;
 		return (
 			<Responsive>
 				<Header logo={logo} />

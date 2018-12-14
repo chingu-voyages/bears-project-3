@@ -1,18 +1,7 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {
-	List,
-	Grid,
-	Header,
-	Segment,
-	Container,
-	Menu,
-	Sticky,
-	Rail,
-	Image
-} from 'semantic-ui-react';
+import { Grid, Header, Segment } from 'semantic-ui-react';
 import { selectDay } from '../../store/actions/eventsAction';
 import { selectors } from '../../store/reducers/eventsReducer';
 import DayPicker from 'react-day-picker';
@@ -42,7 +31,7 @@ class EventCalendarList extends Component {
 	};
 
 	render() {
-		const { events, selectedDay } = this.props;
+		const { events } = this.props;
 
 		const selectedDays = events.reduce(
 			(acc, event) =>

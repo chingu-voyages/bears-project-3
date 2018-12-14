@@ -3,10 +3,9 @@ import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { Grid, Container, Header, Segment, Menu, Dimmer, Loader } from 'semantic-ui-react';
+import { Grid, Container, Segment } from 'semantic-ui-react';
 
 // Components
-import Hero from '../HomePage/presentational/Hero';
 import Event from './presentational/Event';
 import EventMenu from './presentational/EventMenu';
 
