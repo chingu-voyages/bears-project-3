@@ -50,7 +50,7 @@ const ListEvent = ({ event }) => (
 					style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}
 				>
 					<Header as="h4" style={{ fontWeight: '400' }}>
-						8 Gamers Going
+						<strong>8</strong> Gamers Going
 					</Header>
 				</Grid.Column>
 			</Grid>

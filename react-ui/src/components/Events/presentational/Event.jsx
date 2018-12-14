@@ -26,7 +26,9 @@ const Event = ({ event }) => (
 		<Image src={event.mainImage} />
 		<Card.Content>
 			<Card.Header>{event.title}</Card.Header>
-			<Card.Meta>{event.category}</Card.Meta>
+			<Card.Meta>
+				<Label>{event.category}</Label>
+			</Card.Meta>
 			<Card.Description>{event.description}</Card.Description>
 		</Card.Content>
 		<Card.Content extra>{extra(event)}</Card.Content>
