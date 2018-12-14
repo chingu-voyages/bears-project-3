@@ -25,9 +25,17 @@ render(
 	<Provider store={store}>
 		<ConnectedRouter history={reduxHistory}>
 			<App>
-				<Route path="/" component={HomePage} />
+				<Route
+					exact
+					path={[
+						'/',
+						'/find',
+						'/find/calendar'
+					]}
+					component={HomePage}
+				/>
 				<Route exact path="/signup" component={Signup} />
-				<Route path="/signin" component={SignIn} />
+				<Route exact path="/signin" component={SignIn} />
 			</App>
 		</ConnectedRouter>
 	</Provider>,

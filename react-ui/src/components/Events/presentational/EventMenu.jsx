@@ -10,7 +10,6 @@ const EventMenu = ({ categories, handleChange, history, router, selectDay, setFi
 	};
 
 	const handleCalendarClick = () => {
-		setFilter('');
 		history.replace('/find/calendar');
 	};
 	return (
