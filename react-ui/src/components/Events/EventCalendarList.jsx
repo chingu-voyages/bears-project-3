@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Grid, Header, Segment } from 'semantic-ui-react';
+import { Grid, Header, Segment, Button, Icon } from 'semantic-ui-react';
 import { selectDay } from '../../store/actions/eventsAction';
 import { selectors } from '../../store/reducers/eventsReducer';
 import DayPicker from 'react-day-picker';
@@ -27,6 +27,13 @@ class EventCalendarList extends Component {
 	handleTodayClick = (day, modifiers) => {
 		this.props.selectDay(day);
 		this.setState({ selectedDay: day });
+	};
+
+	clearDaySelection = () => {
+		this.setState({
+			selectedDay: null
+		});
+		this.props.selectDay(null);
 	};
 
 	render() {
@@ -58,10 +65,25 @@ class EventCalendarList extends Component {
 			outside: {
 				backgroundColor: 'white'
 			},
+			today: {
+				//color: 'rgb(83, 89, 154)'
+			},
+
+			month: {
+				width: '100%'
+			},
+			day: {
+				color: '#fff'
+			},
 			// Style selected day
 			selected: {
 				fontWeight: 900,
-				backgroundColor: 'rgb(83, 89, 154)'
+				backgroundColor: 'rgb(83, 89, 154)',
+				color: '#fff'
+			},
+			todayButton: {
+				backgroundColor: 'rgb(83, 89, 154)',
+				color: '#fff'
 			}
 		};
 
@@ -77,11 +99,19 @@ class EventCalendarList extends Component {
 							selectedDays={this.state.selectedDay || selectedDays}
 							showOutsideDays
 							fromMonth={new Date()}
-							todayButton="Today's Events"
 							onDayClick={this.handleDayClick}
-							onTodayButtonClick={this.handleTodayClick}
 							modifiersStyles={modifiersStyles}
 						/>
+						<Segment textAlign="center" basic>
+							<Button.Group color="purple">
+								<Button onClick={() => this.handleDayClick(new Date(), {})}>
+									Today's Events
+								</Button>
+								<Button onClick={this.clearDaySelection}>
+									<Icon name="delete" /> Clear
+								</Button>
+							</Button.Group>
+						</Segment>
 					</Grid.Column>
 				</Grid>
 			</Segment>

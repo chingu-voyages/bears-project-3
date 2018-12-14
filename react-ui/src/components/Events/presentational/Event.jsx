@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, Icon, Image } from 'semantic-ui-react';
+import { Card, Icon, Image, Label, Header } from 'semantic-ui-react';
 
 /**
  * Render Extra information below card, Event Creator, and attendee count
@@ -21,17 +21,16 @@ const extra = event => {
 		</span>
 	);
 };
-
 const Event = ({ event }) => (
-	<Card
-		fluid
-		meta={event.category}
-		image={event.mainImage}
-		header={event.title}
-		color={event.color}
-		description={event.description}
-		extra={extra(event)}
-	/>
+	<Card fluid color={event.color}>
+		<Image src={event.mainImage} />
+		<Card.Content>
+			<Card.Header>{event.title}</Card.Header>
+			<Card.Meta>{event.category}</Card.Meta>
+			<Card.Description>{event.description}</Card.Description>
+		</Card.Content>
+		<Card.Content extra>{extra(event)}</Card.Content>
+	</Card>
 );
 
 Event.propTypes = {

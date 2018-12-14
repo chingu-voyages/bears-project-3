@@ -6,20 +6,19 @@ const ListEvent = ({ event }) => (
 		<Card.Content>
 			<Grid>
 				<Grid.Column width={2}>
-					<Header as="h4" style={{ color: 'rgb(171, 171,171)' }}>
+					<Card.Header style={{ color: 'rgb(171, 171,171)' }}>
 						{event.timeStarting.toLocaleTimeString('en-US', {
 							hour: '2-digit',
 							minute: '2-digit',
 							hour12: true
 						})}
-					</Header>
+					</Card.Header>
 				</Grid.Column>
 
 				<Grid.Column width={14}>
 					<Grid>
 						<Grid.Column floated="left" width={12}>
-							<Header
-								as="h4"
+							<Card.Header
 								style={{
 									marginBottom: 0,
 									fontWeight: '700',
@@ -27,7 +26,7 @@ const ListEvent = ({ event }) => (
 								}}
 							>
 								{event.title.toUpperCase()}
-							</Header>
+							</Card.Header>
 							<Header as="h3" style={{ marginTop: 0, marginBottom: 15 }}>
 								{event.description}
 							</Header>
