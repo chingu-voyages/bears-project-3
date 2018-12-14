@@ -1,100 +1,87 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import {
-  Grid, Container, Header, Segment, Menu,
-} from 'semantic-ui-react';
+import { Grid, Container, Segment } from 'semantic-ui-react';
 
 // Components
 import Event from './presentational/Event';
-import EventFilter from './presentational/EventFilter';
+import EventMenu from './presentational/EventMenu';
 
 // Redux
-import eventsAction from '../../store/actions/eventsAction';
 import { selectors } from '../../store/reducers/eventsReducer';
-
-const mapStateToProps = (state) => {
-  const { selectedCategory } = state.events;
-  return {
-    events: selectors.getFilteredEvents(state.events),
-    categories: state.events.eventCategories,
-    selectedCategory,
-  };
-};
-
-const mapDispatchToProps = dispatch => ({
-  setFilter: (filter) => {
-    dispatch(eventsAction(filter));
-  },
-});
+import { selectDay, setFilter } from '../../store/actions/eventsAction';
+import EventCalendarList from './EventCalendarList';
 
 class EventList extends Component {
-  componentDidMount = () => {
-    // TODO: fetch events from backend when API is linked
-  };
+	componentDidMount = () => {
+		// TODO: fetch events from backend when API is linked
+	};
 
-  // Allows user to filter events based on categories listed on page
-  handleChange = (e, { value }) => {
-    const { setFilter } = this.props;
-
-    if (!value || value === '') {
-      setFilter('');
-    }
-
-    setFilter(value);
-  };
-
-  /**
-   * Shows placeholder text if no events are loaded, otherwise generates event
-   * list
+	/**
+   * Generates event list
    */
-  renderEvents = (events) => {
-    if (!events) {
-      return <h1>Loading Events</h1>;
-    }
-    return events.map(event => (
-      <Grid.Column key={event.id} width={4}>
-        <Event event={event} />
-      </Grid.Column>
-    ));
-  };
+	renderEvents = events => {
+		return events.map(event => (
+			<Grid.Column key={event.id} width={4}>
+				<Event event={event} />
+			</Grid.Column>
+		));
+	};
 
-  render() {
-    const { events, categories, selectedCategory } = this.props;
+	render() {
+		const { events, selectedCategory } = this.props;
 
-    return (
-      <Segment basic padded>
-        <Container>
-          <div
-            className="event-list-header"
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: '1 em',
-            }}
-          >
-            <Menu borderless fluid style={{ border: 'none', boxShadow: 'none' }}>
-              <Menu.Item>
-                <Header as="h2">Events for this week</Header>
-              </Menu.Item>
-              <Menu.Item position="right">
-                <EventFilter
-                  handleChange={this.handleChange}
-                  categories={categories}
-                />
-              </Menu.Item>
-            </Menu>
-          </div>
-          <Grid columns={4}>{this.renderEvents(events, selectedCategory)}</Grid>
-        </Container>
-      </Segment>
-    );
-  }
+		return (
+			<Fragment>
+				<Segment basic>
+					<Container>
+						<EventMenu {...this.props} />
+						<Route
+							exact
+							path="/find"
+							render={() => (
+								<Grid stackable columns={4}>
+									{this.renderEvents(events, selectedCategory)}
+								</Grid>
+							)}
+						/>
+						<Route path="/find/calendar" component={EventCalendarList} />
+					</Container>
+				</Segment>
+			</Fragment>
+		);
+	}
 }
 
 EventList.propTypes = {
-  setFilter: PropTypes.func.isRequired,
+	setFilter: PropTypes.func.isRequired,
+	setDay: PropTypes.func
 };
+
+/**
+ * Mapping state variables to props
+ * @param {*} state 
+ */
+const mapStateToProps = state => {
+	const { selectedCategory } = state.events;
+	return {
+		router: state.router,
+		events: selectors.getFilteredEvents(state.events),
+		categories: state.events.eventCategories,
+		selectedCategory
+	};
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+	...bindActionCreators(
+		{
+			selectDay,
+			setFilter
+		},
+		dispatch
+	)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventList);

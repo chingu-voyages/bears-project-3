@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-// import { ConnectedRouter } from 'connected-react-router';
 import { Responsive } from 'semantic-ui-react';
 
 // Actions
@@ -13,19 +11,14 @@ import Footer from './presentational/Footer';
 import logo from '../../assets/images/logo.svg';
 
 // CSS
-import './App.css';
-
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = dispatch => ({});
 
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends Component {
 	render() {
 		// eslint-disable-next-line react/prop-types
-		const { history, children } = this.props;
+		const { children } = this.props;
 		return (
-			<Responsive minWidth={Responsive.onlyTablet.minWidth}>
+			<Responsive>
 				<Header logo={logo} />
 				{children}
 				<Footer />
