@@ -8,11 +8,7 @@ const Signup = props => {
 	console.log('Signup Props: ', props);
 	return (
 		<div className="signup-form" style={{ height: '100vh' }}>
-			<Grid
-				textAlign="center"
-				style={{ height: '100%', paddingTop: 100 }}
-				verticalAlign="middle"
-			>
+			<Grid textAlign="center" style={{ height: '100%' }} verticalAlign="middle">
 				<Grid.Column style={{ maxWidth: 450 }}>
 					<Header as="h2" color="teal" textAlign="center">
 						Sign Up
