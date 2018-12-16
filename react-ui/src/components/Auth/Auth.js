@@ -6,6 +6,7 @@ export default class Auth {
 	accessToken;
 	idToken;
 	expiresAt;
+	currentProvider;
 
 	/**
    * Initialize class
@@ -31,10 +32,14 @@ export default class Auth {
 		};
 
 		// Logs in with provider, using options above and optional callback provided in args.
-		return this.hello.login(provider, options, cb).then(response => {
+		return this.hello.login(provider, options, cb).then(({ network, authResponse }) => {
 			// Perhaps handle analytics and logging requests here before returning to caller...
-			console.log('Auth logged in with: ', response);
-			return response;
+			const { access_token, expires } = authResponse;
+			this.accessToken = access_token;
+			this.expiresAt = expires;
+			this.currentProvider = network;
+			console.log('Auth logged in with: ', network, authResponse);
+			return authResponse;
 		});
 	}
 

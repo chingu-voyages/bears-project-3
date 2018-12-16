@@ -15,14 +15,14 @@ const Navigation = ({ menuFixed, fixedMenuStyle, menuStyle, logo, auth }) => {
 	// Handle Google Signin button
 	const signinWithGoogle = async e => {
 		// Call auth api and signin with google (hello js)
-		const { authResponse } = await auth.loginWith('google');
+		const authResponse = await auth.loginWith('google');
 		console.log(authResponse);
 	};
 
 	// Handle Facebook signin button
 	const signinWithFacebook = async e => {
 		// Call auth api and signin with facebook (hello js)
-		const { authResponse } = await auth.loginWith('facebook');
+		const authResponse = await auth.loginWith('facebook');
 		console.log(authResponse);
 	};
 
