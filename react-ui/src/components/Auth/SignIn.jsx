@@ -2,16 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
 
-const Signup = () => (
+const Signin = () => (
 	<div className="signup-form">
-		<Grid
-			textAlign="center"
-			style={{ height: '100%', paddingTop: 100 }}
-			verticalAlign="middle"
-		>
+		<Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
 			<Grid.Column style={{ maxWidth: 450 }}>
 				<Header as="h2" color="teal" textAlign="center">
-					<Image src="/logo.png" />
 					Sign in to your account
 				</Header>
 				<Form size="large">
@@ -30,19 +25,17 @@ const Signup = () => (
 							placeholder="Password"
 							type="password"
 						/>
-						<Button color="teal" fluid size="large">
+						<Button color="purple" fluid size="large">
 							Sign in
 						</Button>
 					</Segment>
 				</Form>
 				<Message>
-					New to us?
-					<br />
-					<Link to="/signup">Sign Up</Link>
+					New to us? <Link to="/signup">Sign Up</Link>
 				</Message>
 			</Grid.Column>
 		</Grid>
 	</div>
 );
 
-export default Signup;
+export default Signin;

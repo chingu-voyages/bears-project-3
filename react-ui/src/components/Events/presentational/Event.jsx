@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, Icon, Image, Label, Header } from 'semantic-ui-react';
+import { Card, Icon, Image, Label } from 'semantic-ui-react';
 
 /**
  * Render Extra information below card, Event Creator, and attendee count
