@@ -19,6 +19,7 @@ class App extends Component {
 		const { children, auth } = this.props;
 		return (
 			<Responsive>
+				{/* Pass auth prop to header and navigation */}
 				<Header logo={logo} auth={auth} />
 				{children}
 				<Footer />

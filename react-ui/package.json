@@ -12,6 +12,7 @@
 		"auth0-lock": "^11.12.1",
 		"connected-react-router": "^6.0.0",
 		"google-maps": "^3.3.0",
+		"hellojs": "^1.17.1",
 		"history": "^4.7.2",
 		"react": "^16.6.3",
 		"react-day-picker": "^7.2.4",

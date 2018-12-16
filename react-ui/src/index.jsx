@@ -20,6 +20,8 @@ import SignIn from './components/Auth/SignIn';
 import Auth from './components/Auth/Auth';
 import Callback from './components/Callback';
 const target = document.getElementById('root');
+
+// Create new "global" instance of Auth and pass as prop
 const auth = new Auth();
 
 const handleAuthentication = (nextState, replace) => {
@@ -31,6 +33,7 @@ const handleAuthentication = (nextState, replace) => {
 render(
 	<Provider store={store}>
 		<Router history={reduxHistory}>
+			{/* Pass Auth prop to app */}
 			<App auth={auth}>
 				{/* Match all routes exactly within defined array */}
 				<Route

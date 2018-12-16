@@ -6,18 +6,33 @@ import AuthPopup from '../../Auth/presentational/AuthPopup';
 const Navigation = ({ menuFixed, fixedMenuStyle, menuStyle, logo, auth }) => {
 	menuFixed = true;
 
-	const signinWithGoogle = e => {
-		console.log(e);
-		auth.loginWith('google', function(err, authResult) {
-			console.log(err, authResult);
-		});
+	// Checks if user is online with the session => (provider)
+	const online = session => {
+		var currentTime = new Date().getTime() / 1000;
+		return session && session.access_token && session.expires > currentTime;
 	};
-	const signinWithFacebook = e => {
-		console.log(e);
-		auth.loginWith('facebook', function(err, authResult) {
-			console.log(err, authResult);
-		});
+
+	// Handle Google Signin button
+	const signinWithGoogle = async e => {
+		// Call auth api and signin with google (hello js)
+		const { authResponse } = await auth.loginWith('google');
+		console.log(authResponse);
 	};
+
+	// Handle Facebook signin button
+	const signinWithFacebook = async e => {
+		// Call auth api and signin with facebook (hello js)
+		const { authResponse } = await auth.loginWith('facebook');
+		console.log(authResponse);
+	};
+
+	// Test function to quickly check auth status...
+	const checkAuthenticated = provider => {
+		online(auth.isAuthenticated(provider))
+			? console.log('You ARE logged in with: ', provider)
+			: console.log('You are NOT logged in with: ', provider);
+	};
+
 	return (
 		<Menu
 			borderless
@@ -54,6 +69,17 @@ const Navigation = ({ menuFixed, fixedMenuStyle, menuStyle, logo, auth }) => {
 							>
 								<Icon name="facebook" /> Sign in with Facebook
 							</Button>
+							{process.env.NODE_ENV === 'development' && (
+								<Button
+									onClick={() => checkAuthenticated('google')}
+									basic
+									style={{ marginTop: 5 }}
+									circular
+									fluid
+								>
+									Check auth....
+								</Button>
+							)}
 							<Button basic style={{ marginTop: 5 }} circular fluid>
 								<Link to="/signin">Sign in with email</Link>
 							</Button>
