@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Route } from 'react-router-dom';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 // Redux
 import { Provider } from 'react-redux';
@@ -23,7 +23,7 @@ const target = document.getElementById('root');
 
 render(
 	<Provider store={store}>
-		<ConnectedRouter history={reduxHistory}>
+		<Router history={reduxHistory}>
 			<App>
 				{/* Match all routes exactly within defined array */}
 				<Route
@@ -38,7 +38,7 @@ render(
 				<Route exact path="/signup" component={Signup} />
 				<Route exact path="/signin" component={SignIn} />
 			</App>
-		</ConnectedRouter>
+		</Router>
 	</Provider>,
 	target
 );
