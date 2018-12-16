@@ -1,71 +1,67 @@
-import { SET_FILTER } from '../actions/actionTypes';
+import { SET_FILTER, SELECT_DAY } from '../actions/actionTypes';
+import { generatedEventsArray, eventCategories } from './mockValues';
 
-// export const key = 'events';
-// export const SET_FILTER = `${key}/SET_FILTER`;
-
-const eventCategories = [
-  'Roleplaying',
-  'Humor',
-  'Adventure',
-  'Action',
-  'Strategy',
-  'Mind',
-];
-
-const colors = [
-  'red',
-  'orange',
-  'yellow',
-  'olive',
-  'green',
-  'teal',
-  'blue',
-  'violet',
-  'purple',
-  'pink',
-  'brown',
-  'grey',
-  'black',
-];
-
-const generateEventsArray = Array.from(
-  { length: 30 }, (v, i) => ({
-    id: i,
-    title: `Game Session ${i}`,
-    category: eventCategories[Math.floor(Math.random() * eventCategories.length)],
-    description: 'Event Description',
-    color: colors[Math.floor(Math.random() * colors.length)],
-    creator: {
-      name: 'Someone Else',
-    },
-  }),
-);
-
+/**
+ * Initial state for events
+ * TODO: Make Immutable
+ */
 export const initialState = {
-  list: generateEventsArray,
-  eventCategories,
-  selectedCategory: '',
+	list: generatedEventsArray,
+	eventCategories,
+	selectedCategory: '',
+	selectedDay: null
 };
 
-const getFilteredEvents = (state) => {
-  const { selectedCategory, list } = state;
-  return (selectedCategory === '')
-    ? list
-    : list.filter(event => event.category === selectedCategory);
+/**
+ * Return events filtered by category/selectedDay
+ * @param {*} state 
+ */
+const getFilteredEvents = state => {
+	const { selectedCategory, list, selectedDay } = state;
+	let resultList = list.map(event => event);
+
+	if (selectedDay !== null) {
+		const dateSelected = new Date(selectedDay);
+		resultList = resultList.filter(event => {
+			return (
+				new Date(event.dateStarting).getDate() === dateSelected.getDate() &&
+				new Date(event.dateStarting).getMonth() === dateSelected.getMonth() &&
+				new Date(event.dateStarting).getYear() === dateSelected.getYear()
+			);
+		});
+	}
+
+	return selectedCategory === ''
+		? resultList
+		: resultList.filter(event => event.category === selectedCategory);
 };
 
+/**
+ * Return all categories in state
+ * @param {*} state 
+ */
 const getCategories = state => state.eventCategories;
 
+/**
+ * Selectors
+ */
 export const selectors = {
-  getFilteredEvents,
-  getCategories,
+	getFilteredEvents,
+	getCategories
 };
 
+/**
+ * Events reducer (default export)
+ * @param {*} state 
+ * @param {*} action 
+ */
 export default function eventsReducer(state = initialState, action) {
-  switch (action.type) {
-    case SET_FILTER:
-      return { ...state, selectedCategory: action.payload };
-    default:
-      return state;
-  }
+	switch (action.type) {
+		case SELECT_DAY:
+			return { ...state, selectedDay: action.payload };
+		case SET_FILTER:
+			return { ...state, selectedCategory: action.payload };
+		default:
+			return state;
+	}
 }
