@@ -50,7 +50,7 @@ const Hero = ({ mobile, heroTitle, heroContent }) => (
 );
 
 Hero.propTypes = {
-	mobile: PropTypes.bool.isRequired,
+	mobile: PropTypes.bool,
 	heroTitle: PropTypes.string.isRequired,
 	heroContent: PropTypes.string.isRequired
 };
