@@ -91,7 +91,9 @@ class EventCalendarList extends Component {
 			<Segment basic>
 				<Grid container stackable reversed="mobile">
 					<Grid.Column width={12} stretched>
-						<div>{events.map(event => <ListEvent event={event} />)}</div>
+						<div>
+							{events.map(event => <ListEvent key={event.id} event={event} />)}
+						</div>
 					</Grid.Column>
 					<Grid.Column width={4}>
 						<Header as="h3">Calendar</Header>
