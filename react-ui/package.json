@@ -8,6 +8,8 @@
 	"main": "./src/index.jsx",
 	"license": "MIT",
 	"dependencies": {
+		"auth0-js": "^9.8.2",
+		"auth0-lock": "^11.12.1",
 		"connected-react-router": "^6.0.0",
 		"google-maps": "^3.3.0",
 		"history": "^4.7.2",

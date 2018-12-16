@@ -17,13 +17,21 @@ import * as serviceWorker from './serviceWorker';
 import HomePage from './components/HomePage/HomePage';
 import Signup from './components/Auth/SignUp';
 import SignIn from './components/Auth/SignIn';
-
+import Auth from './components/Auth/Auth';
+import Callback from './components/Callback';
 const target = document.getElementById('root');
+const auth = new Auth();
+
+const handleAuthentication = (nextState, replace) => {
+	if (/access_token|id_token|error/.test(nextState.location.hash)) {
+		auth.handleAuthentication();
+	}
+};
 
 render(
 	<Provider store={store}>
 		<Router history={reduxHistory}>
-			<App>
+			<App auth={auth}>
 				{/* Match all routes exactly within defined array */}
 				<Route
 					exact
@@ -36,6 +44,13 @@ render(
 				/>
 				<Route exact path="/signup" component={Signup} />
 				<Route exact path="/signin" component={SignIn} />
+				<Route
+					path="/auth/callback"
+					render={props => {
+						handleAuthentication(props);
+						return <Callback {...props} />;
+					}}
+				/>
 			</App>
 		</Router>
 	</Provider>,
