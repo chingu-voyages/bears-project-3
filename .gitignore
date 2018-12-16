@@ -88,4 +88,4 @@ typings/
 
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
 react-ui/src/theme/dist
-React-ui/src/config/index.js
+react-ui/src/config/index.js
