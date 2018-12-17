@@ -1,8 +1,18 @@
-import { SET_FILTER } from './actionTypes';
+import { signupUserSuccess } from './signupUserSuccess';
+import { signupUserFailed } from './signupUserFailed';
 
-export default function eventsAction(filter) {
-  return {
-    type: SET_FILTER,
-    payload: filter,
-  };
-}
+export { selectDay } from './selectDay';
+export { setFilter } from './setFilter';
+
+/**
+ * Aysnc thunk action to signup user
+ * @param {*} values 
+ */
+export const signupUser = values => async dispatch => {
+	// Signup user
+	try {
+		dispatch(signupUserSuccess(values));
+	} catch (error) {
+		dispatch(signupUserFailed(error));
+	}
+};

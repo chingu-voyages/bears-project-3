@@ -21,12 +21,10 @@ const Callout = ({ title, description = '', link }) => {
             {description}
           </Header>
           <Link to={link}>
-            <Button
-              animated
-              size="huge"
-              style={{ backgroundColor: 'rgb(128, 222, 217)' }}
-            >
-              <Button.Content visible>Find Events</Button.Content>
+            <Button secondary animated="vertical" size="huge" color="teal">
+              <Button.Content color="black" visible>
+                Find Events
+							</Button.Content>
               <Button.Content hidden>
                 <Icon name="arrow right" />
               </Button.Content>

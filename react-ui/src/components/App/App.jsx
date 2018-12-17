@@ -9,18 +9,19 @@ import Footer from './presentational/Footer';
 import logo from '../../assets/images/logo.svg';
 
 // CSS
-import './App.css';
 
+
+// eslint-disable-next-line react/prefer-stateless-function
 class App extends Component {
   render() {
     // eslint-disable-next-line react/prop-types
     const { children } = this.props;
     return (
-      <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+      <Responsive>
         <Header logo={logo} />
         {children}
         <Footer />
-      </Responsive >
+      </Responsive>
     );
   }
 }

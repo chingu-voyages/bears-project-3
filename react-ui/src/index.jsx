@@ -1,14 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Route } from 'react-router-dom';
-import { ConnectedRouter } from 'connected-react-router';
+import { Route, Router } from 'react-router-dom';
 // Redux
 import { Provider } from 'react-redux';
 import store, { history as reduxHistory } from './store/store';
 
 // CSS
 import './index.css';
-import 'semantic-ui-css/semantic.min.css';
+import './theme/dist/semantic.css';
 // TODO: After building custom Semantic-UI theme w/ Gulp, include minified CSS file here
 
 import App from './components/App/App';
@@ -23,15 +22,25 @@ import Profile from './components/Profile/Profile';
 const target = document.getElementById('root');
 
 render(
+
   <Provider store={store}>
-    <ConnectedRouter history={reduxHistory}>
+    <Router history={reduxHistory}>
       <App>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/register" component={SignUp} />
-        <Route path="/signin" component={SignIn} />
+        {/* Match all routes exactly within defined array */}
+        <Route
+          exact
+          path={[
+            '/',
+            '/find',
+            '/find/calendar'
+          ]}
+          component={HomePage}
+        />
+        <Route exact path="/register" component={Signup} />
+        <Route exact path="/signin" component={SignIn} />
         <Route path="/profile" component={Profile} />
       </App>
-    </ConnectedRouter>
+    </Router>
   </Provider>,
   target
 );
