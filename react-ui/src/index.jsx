@@ -14,10 +14,11 @@ import 'semantic-ui-css/semantic.min.css';
 import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
 
-// Container Components
+// Page Container Components
 import HomePage from './components/HomePage/HomePage';
-import Signup from './components/Auth/SignUp';
+import SignUp from './components/Auth/SignUp';
 import SignIn from './components/Auth/SignIn';
+import Profile from './components/Profile/Profile';
 
 const target = document.getElementById('root');
 
@@ -26,8 +27,9 @@ render(
     <ConnectedRouter history={reduxHistory}>
       <App>
         <Route exact path="/" component={HomePage} />
-        <Route path="/signup" component={Signup} />
+        <Route path="/register" component={SignUp} />
         <Route path="/signin" component={SignIn} />
+        <Route path="/profile" component={Profile} />
       </App>
     </ConnectedRouter>
   </Provider>,

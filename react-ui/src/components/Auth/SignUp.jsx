@@ -18,12 +18,17 @@ const Signup = () => (
         </Header>
         <Form size="large">
           <Segment stacked>
-            <Form.Input fluid icon="user" iconPosition="left" placeholder="Name" />
+            <Form.Input 
+              fluid
+              icon="user"
+              iconPosition="left"
+              placeholder="Name"
+            />
             <Form.Input
               fluid
               icon="user"
               iconPosition="left"
-              placeholder="E-mail address"
+              placeholder="Email address"
             />
             <Form.Input
               fluid

@@ -6,7 +6,7 @@ const Signup = () => (
 	<div className="signup-form">
 		<Grid
 			textAlign="center"
-			style={{ height: '100%', paddingTop: 100 }}
+			style={{ height: '100vh', paddingTop: 100 }}
 			verticalAlign="middle"
 		>
 			<Grid.Column style={{ maxWidth: 450 }}>
@@ -16,7 +16,12 @@ const Signup = () => (
 				</Header>
 				<Form size="large">
 					<Segment stacked>
-						<Form.Input fluid icon="user" iconPosition="left" placeholder="Name" />
+						<Form.Input
+              fluid
+              icon="user"
+              iconPosition="left"
+              placeholder="Name"
+            />
 						<Form.Input
 							fluid
 							icon="user"

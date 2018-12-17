@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import Hero from './Hero';
-import Callout from './Callout';
-import EventList from '../../Events/EventList';
-import EventCategoriesList from '../../Events/presentational/EventCategoriesList';
+
+import Hero from './presentational/Hero';
+import Callout from './presentational/Callout';
+import EventList from '../Events/EventList';
+import EventCategoriesList from '../Events/presentational/EventCategoriesList';
 
 const HomePage = () => (
   <Fragment>
@@ -21,6 +22,6 @@ const HomePage = () => (
   </Fragment>
 );
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({ ...state });
 
 export default connect(mapStateToProps)(HomePage);

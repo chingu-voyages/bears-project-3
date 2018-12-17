@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 import { Menu, Container, Image } from 'semantic-ui-react';
 import AuthPopup from '../../Auth/presentational/AuthPopup';
 
-const Navigation = ({
-  menuFixed, fixedMenuStyle, menuStyle, logo,
-}) => {
+const Navigation = ({ menuFixed, fixedMenuStyle, menuStyle, logo }) => {
   menuFixed = true;
   return (
     <Menu
@@ -23,7 +21,7 @@ const Navigation = ({
         <Menu.Menu position="right">
           <AuthPopup title="Sign In" />
           <AuthPopup title="Sign Up">
-            <Link to="/signup">Sign up with email</Link>
+            <Link to="/register">Sign up with email</Link>
           </AuthPopup>
         </Menu.Menu>
       </Container>
