@@ -36,7 +36,7 @@ render(
           ]}
           component={HomePage}
         />
-        <Route exact path="/register" component={Signup} />
+        <Route exact path="/register" component={SignUp} />
         <Route exact path="/signin" component={SignIn} />
         <Route path="/profile" component={Profile} />
       </App>

@@ -15,49 +15,49 @@ import { selectDay, setFilter } from '../../store/actions/eventsAction';
 import EventCalendarList from './EventCalendarList';
 
 class EventList extends Component {
-	componentDidMount = () => {
-		// TODO: fetch events from backend when API is linked
-	};
+  componentDidMount = () => {
+    // TODO: fetch events from backend when API is linked
+  };
 
 	/**
    * Generates event list
    */
-	renderEvents = events => {
-		return events.map(event => (
-			<Grid.Column key={event.id} width={4}>
-				<Event event={event} />
-			</Grid.Column>
-		));
-	};
+  renderEvents = events => {
+    return events.map(event => (
+      <Grid.Column key={event.id} width={4}>
+        <Event event={event} />
+      </Grid.Column>
+    ));
+  };
 
-	render() {
-		const { events, selectedCategory } = this.props;
+  render() {
+    const { events, selectedCategory } = this.props;
 
-		return (
-			<Fragment>
-				<Segment basic>
-					<Container>
-						<EventMenu {...this.props} />
-						<Route
-							exact
-							path="/find"
-							render={() => (
-								<Grid stackable columns={4}>
-									{this.renderEvents(events, selectedCategory)}
-								</Grid>
-							)}
-						/>
-						<Route path="/find/calendar" component={EventCalendarList} />
-					</Container>
-				</Segment>
-			</Fragment>
-		);
-	}
+    return (
+      <Fragment>
+        <Segment basic>
+          <Container>
+            <EventMenu {...this.props} />
+            <Route
+              exact
+              path="/find"
+              render={() => (
+                <Grid stackable columns={4}>
+                  {this.renderEvents(events, selectedCategory)}
+                </Grid>
+              )}
+            />
+            <Route path="/find/calendar" component={EventCalendarList} />
+          </Container>
+        </Segment>
+      </Fragment>
+    );
+  }
 }
 
 EventList.propTypes = {
-	setFilter: PropTypes.func.isRequired,
-	setDay: PropTypes.func
+  setFilter: PropTypes.func.isRequired,
+  setDay: PropTypes.func
 };
 
 /**
@@ -65,23 +65,23 @@ EventList.propTypes = {
  * @param {*} state 
  */
 const mapStateToProps = state => {
-	const { selectedCategory } = state.events;
-	return {
-		router: state.router,
-		events: selectors.getFilteredEvents(state.events),
-		categories: state.events.eventCategories,
-		selectedCategory
-	};
+  const { selectedCategory } = state.events;
+  return {
+    router: state.router,
+    events: selectors.getFilteredEvents(state.events),
+    categories: state.events.eventCategories,
+    selectedCategory
+  };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	...bindActionCreators(
-		{
-			selectDay,
-			setFilter
-		},
-		dispatch
-	)
+  ...bindActionCreators(
+    {
+      selectDay,
+      setFilter
+    },
+    dispatch
+  )
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventList);
