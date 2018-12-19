@@ -7,7 +7,7 @@ import EventWrapper from '../../Events/EventWrapper'
 import EventDetail from '../../Events/EventDetail'
 import EventCategoriesList from '../../Events/presentational/EventCategoriesList'
 
-const HomePage = () => (
+const HomePage = props => (
 	<Fragment>
 		<Hero
 			heroTitle="Get your game on"
@@ -16,7 +16,7 @@ const HomePage = () => (
 
 		<Route path="/find" render={props => <EventWrapper {...props} />} />
 		<Route path="/event/:eventId" render={props => <EventDetail {...props} />} />
-		<EventCategoriesList />
+		<EventCategoriesList {...props} />
 		<Callout
 			title="Love tabletop gaming, but don't have a group to play with? Join or start a gaming event today!"
 			description="Easily search thousands of events around your area."

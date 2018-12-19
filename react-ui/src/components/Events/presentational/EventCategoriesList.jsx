@@ -1,9 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Card, Reveal, Image, Container, Segment, Header } from 'semantic-ui-react'
+import { bindActionCreators } from 'redux'
+import {
+	Card,
+	Reveal,
+	Image,
+	Container,
+	Segment,
+	Header,
+	Divider,
+	Placeholder
+} from 'semantic-ui-react'
 
 // Redux
 import { selectors } from '../../../store/reducers/eventsReducer'
+import { setFilter } from '../../../store/actions/eventsAction'
 
 const colors = [
 	'rgba(212, 212, 213, 0.8)',
@@ -16,47 +27,61 @@ const colors = [
 const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)]
 
 class EventCategoriesList extends Component {
-	renderCategories = categories =>
+	handleSelectCategory = category => {
+		const { history, setFilter } = this.props
+		setFilter(category)
+		history.push('/find')
+	}
+	renderCategories = (categories, loading) =>
 		categories.map(category => (
 			<Card key={category}>
-				<Reveal animated="move down">
-					<Reveal.Content visible style={{ height: 200, width: '100%' }}>
-						<div
-							className="category"
-							style={{
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'center',
-								height: '100%',
-								width: '100%',
-								backgroundColor: getRandomColor(),
-								alignSelf: 'stretch'
-							}}
-						>
-							<Header style={{ color: '#FCFCFC' }} as="h2">
-								{category}
-							</Header>
-						</div>
-					</Reveal.Content>
-					<Reveal.Content hidden style={{ height: 200, width: '100%' }}>
-						<Image
-							src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
-							width="100%"
-						/>
-					</Reveal.Content>
-				</Reveal>
+				{loading ? (
+					<Placeholder>
+						<Placeholder.Image square />
+					</Placeholder>
+				) : (
+					<Reveal
+						animated="move down"
+						onClick={() => this.handleSelectCategory(category)}
+					>
+						<Reveal.Content visible style={{ height: 200, width: '100%' }}>
+							<div
+								className="category"
+								style={{
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'center',
+									height: '100%',
+									width: '100%',
+									backgroundColor: getRandomColor(),
+									alignSelf: 'stretch'
+								}}
+							>
+								<Header style={{ color: '#FCFCFC' }} as="h2">
+									{category}
+								</Header>
+							</div>
+						</Reveal.Content>
+						<Reveal.Content hidden style={{ height: 200, width: '100%' }}>
+							<Image
+								src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
+								width="100%"
+							/>
+						</Reveal.Content>
+					</Reveal>
+				)}
 			</Card>
 		))
 
 	render() {
-		const { categories } = this.props
+		const { categories, loading } = this.props
 		return (
 			<Segment basic padded>
 				<Container>
-					<hr style={{ border: '1px solid #efefef' }} />
+					<Divider />
 					<Header as="h2">Game Categories</Header>
 					<Card.Group doubling itemsPerRow={5} stackable>
-						{this.renderCategories(categories)}
+						{this.renderCategories(categories, loading)}
 					</Card.Group>
 				</Container>
 			</Segment>
@@ -65,7 +90,20 @@ class EventCategoriesList extends Component {
 }
 
 const mapStateToProps = state => ({
+	loading: state.events.loading,
 	categories: selectors.getCategories(state.events)
 })
 
-export default connect(mapStateToProps)(EventCategoriesList)
+const mapDispatchToProps = dispatch => ({
+	...bindActionCreators(
+		{
+			setFilter
+		},
+		dispatch
+	)
+})
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(EventCategoriesList)
