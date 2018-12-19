@@ -12,13 +12,19 @@ import EventMenu from './presentational/EventMenu'
 // Redux
 import { selectors } from '../../store/reducers/eventsReducer'
 import { selectDay, setFilter } from '../../store/actions/eventsAction'
+import EventList from './EventList'
 import EventCalendarList from './EventCalendarList'
+import EventDetail from './EventDetail'
 
-const EventList = ({ events, selectedCategory }) => {
+class EventWrapper extends Component {
+	componentDidMount = () => {
+		// TODO: fetch events from backend when API is linked
+	}
+
 	/**
 	 * Generates event list
 	 */
-	const renderEvents = events => {
+	renderEvents = events => {
 		return events.map(event => (
 			<Grid.Column key={event.id} width={4}>
 				<Event event={event} {...this.props} />
@@ -26,22 +32,23 @@ const EventList = ({ events, selectedCategory }) => {
 		))
 	}
 
-	return (
-		<Segment basic>
-			<Grid stackable columns={4}>
-				{this.renderEvents(events)}
-			</Grid>
-		</Segment>
-	)
-}
-
-EventList.propTypes = {
-	setFilter: PropTypes.func.isRequired,
-	setDay: PropTypes.func
-}
-
-EventList.defaultProps = {
-	setFilter
+	render() {
+		const { events, selectedCategory, location } = this.props
+		const { pathname } = location
+		const regex = /\/find\/[0-9]/g
+		return (
+			<Fragment>
+				<Segment basic padded>
+					<Container>
+						{!pathname.match(regex) && <EventMenu {...this.props} />}
+						<Route exact path="/find" component={EventList} />
+						<Route exact path="/find/calendar" component={EventCalendarList} />
+						<Route exact path="/find/:eventId" component={EventDetail} />
+					</Container>
+				</Segment>
+			</Fragment>
+		)
+	}
 }
 
 /**
@@ -58,17 +65,4 @@ const mapStateToProps = state => {
 	}
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-	...bindActionCreators(
-		{
-			selectDay,
-			setFilter
-		},
-		dispatch
-	)
-})
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(EventList)
+export default connect(mapStateToProps)(EventWrapper)
