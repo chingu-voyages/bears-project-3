@@ -20,9 +20,9 @@ const extra = event => {
 }
 const Event = ({ event, history }) => (
 	<Card fluid color={event.color}>
-		<Image src={event.mainImage} onClick={() => history.push(`/find/${event.id}`)} />
+		<Image src={event.mainImage} onClick={() => history.push(`/event/${event.id}`)} />
 		<Card.Content>
-			<Card.Header onClick={() => history.push(`/find/${event.id}`)}>
+			<Card.Header onClick={() => history.push(`/event/${event.id}`)}>
 				{event.title}
 			</Card.Header>
 			<Card.Meta>

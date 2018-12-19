@@ -38,7 +38,7 @@ render(
 				{/* Match all routes exactly within defined array */}
 				<Route
 					exact
-					path={['/', '/find', '/find/calendar', '/find/:eventId']}
+					path={['/', '/find', '/find/calendar', '/event/:eventId']}
 					component={HomePage}
 				/>
 				<Route exact path="/signup" component={Signup} />
