@@ -15,6 +15,7 @@ const HomePage = () => (
 		/>
 
 		<Route path="/find" render={props => <EventWrapper {...props} />} />
+		<Route path="/event/:eventId" component={EventDetail} />
 		<EventCategoriesList />
 		<Callout
 			title="Love tabletop gaming, but don't have a group to play with? Join or start a gaming event today!"

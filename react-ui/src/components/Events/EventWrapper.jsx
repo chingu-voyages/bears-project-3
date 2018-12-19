@@ -43,7 +43,6 @@ class EventWrapper extends Component {
 						{!pathname.match(regex) && <EventMenu {...this.props} />}
 						<Route exact path="/find" component={EventList} />
 						<Route exact path="/find/calendar" component={EventCalendarList} />
-						<Route exact path="/find/:eventId" component={EventDetail} />
 					</Container>
 				</Segment>
 			</Fragment>
@@ -65,4 +64,16 @@ const mapStateToProps = state => {
 	}
 }
 
-export default connect(mapStateToProps)(EventWrapper)
+const mapDispatchToProps = dispatch => ({
+	...bindActionCreators(
+		{
+			selectDay
+		},
+		dispatch
+	)
+})
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(EventWrapper)
