@@ -22,8 +22,8 @@ const EventDetail = ({ event, authenticated = false }) => (
 				<Header as="h2">Photos</Header>
 				<Grid columns={5}>
 					{event.photos &&
-						event.photos.map(photo => (
-							<Grid.Column>
+						event.photos.map((photo, index) => (
+							<Grid.Column key={photo + index}>
 								<Image src={photo} />
 							</Grid.Column>
 						))}
