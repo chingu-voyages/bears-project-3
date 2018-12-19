@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
-import { Grid, Container, Segment } from 'semantic-ui-react'
+import { Grid, Container, Segment, Card } from 'semantic-ui-react'
 
 // Components
 import Event from './presentational/Event'
@@ -19,18 +19,12 @@ const EventList = ({ events, selectedCategory, history }) => {
 	 * Generates event list
 	 */
 	const renderEvents = events => {
-		return events.map(event => (
-			<Grid.Column key={event.id} width={4}>
-				<Event event={event} history={history} />
-			</Grid.Column>
-		))
+		return events.map(event => <Event event={event} key={event.id} history={history} />)
 	}
 
 	return (
 		<Segment basic>
-			<Grid stackable columns={4}>
-				{renderEvents(events)}
-			</Grid>
+			<Card.Group itemsPerRow={4}>{renderEvents(events)}</Card.Group>
 		</Segment>
 	)
 }
