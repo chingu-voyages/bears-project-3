@@ -4,14 +4,7 @@
 /**
  * Event categories
  */
-export const eventCategories = [
-	'Roleplaying',
-	'Humor',
-	'Adventure',
-	'Action',
-	'Strategy',
-	'Mind'
-];
+export const eventCategories = ['Roleplaying', 'Humor', 'Adventure', 'Action', 'Strategy', 'Mind']
 
 /**
  * List of colors
@@ -30,14 +23,14 @@ const colors = [
 	'brown',
 	'grey',
 	'black'
-];
+]
 
 /**
  * Creates a date within the next 14 days from today
- * @param {*} date 
+ * @param {*} date
  */
 export const generateFutureDate = date =>
-	date.setDate(date.getDate() + Math.floor(Math.random() * 14));
+	date.setDate(date.getDate() + Math.floor(Math.random() * 14))
 
 /**
  * Generates a list of events
@@ -64,10 +57,31 @@ export const generatedEventsArray = Array.from({ length: 30 }, (v, i) => ({
 	timeEnding: new Date(),
 	inviteCode: 'EVENTCODE123',
 	isPublic: true,
-	attendees: [],
 	mainImage: 'https://react.semantic-ui.com/images/avatar/large/matthew.png',
 	creator: {
 		name: 'Someone Else',
 		avatar: 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
-	}
-}));
+	},
+	attendees: [
+		{
+			id: 1,
+			name: 'Attendee 1',
+			avatar: 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
+		},
+		{
+			id: 2,
+			name: 'Attendee 2',
+			avatar: 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
+		},
+		{
+			id: 3,
+			name: 'Attendee 3',
+			avatar: 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
+		},
+		{
+			id: 4,
+			name: 'Attendee 4',
+			avatar: 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
+		}
+	]
+}))

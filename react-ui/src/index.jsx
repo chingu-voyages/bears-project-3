@@ -1,34 +1,34 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { Route, Router } from 'react-router-dom';
+import React from 'react'
+import { render } from 'react-dom'
+import { Route, Router } from 'react-router-dom'
 // Redux
-import { Provider } from 'react-redux';
-import store, { history as reduxHistory } from './store/store';
+import { Provider } from 'react-redux'
+import store, { history as reduxHistory } from './store/store'
 
 // CSS
-import './index.css';
-import './theme/dist/semantic.css';
+import './index.css'
+import './theme/dist/semantic.css'
 // TODO: After building custom Semantic-UI theme w/ Gulp, include minified CSS file here
 
-import App from './components/App/App';
-import * as serviceWorker from './serviceWorker';
+import App from './components/App/App'
+import * as serviceWorker from './serviceWorker'
 
 // Container Components
-import HomePage from './components/HomePage/HomePage';
-import Signup from './components/Auth/SignUp';
-import SignIn from './components/Auth/SignIn';
-import Auth from './components/Auth/Auth';
-import Callback from './components/Callback';
-const target = document.getElementById('root');
+import HomePage from './components/HomePage/HomePage'
+import Signup from './components/Auth/SignUp'
+import SignIn from './components/Auth/SignIn'
+import Auth from './components/Auth/Auth'
+import Callback from './components/Callback'
+const target = document.getElementById('root')
 
 // Create new "global" instance of Auth and pass as prop
-const auth = new Auth();
+const auth = new Auth()
 
 const handleAuthentication = (nextState, replace) => {
 	if (/access_token|id_token|error/.test(nextState.location.hash)) {
-		auth.handleAuthentication();
+		auth.handleAuthentication()
 	}
-};
+}
 
 render(
 	<Provider store={store}>
@@ -38,11 +38,7 @@ render(
 				{/* Match all routes exactly within defined array */}
 				<Route
 					exact
-					path={[
-						'/',
-						'/find',
-						'/find/calendar'
-					]}
+					path={['/', '/find', '/find/calendar', '/find/:eventId']}
 					component={HomePage}
 				/>
 				<Route exact path="/signup" component={Signup} />
@@ -50,17 +46,17 @@ render(
 				<Route
 					path="/auth/callback"
 					render={props => {
-						handleAuthentication(props);
-						return <Callback {...props} />;
+						handleAuthentication(props)
+						return <Callback {...props} />
 					}}
 				/>
 			</App>
 		</Router>
 	</Provider>,
 	target
-);
+)
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.unregister()
