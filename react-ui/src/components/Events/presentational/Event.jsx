@@ -11,8 +11,7 @@ const extra = event => {
 	const randomAttendeeCount = () => Math.floor(Math.random() * 15)
 	return (
 		<span style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-			<Image style={{ margin: '0 auto' }} src={event.creator.avatar} avatar />{' '}
-			<span>{event.creator.name}</span>
+			<Image src={event.creator.avatar} avatar /> <span>{event.creator.name}</span>
 			<Icon name="user" />
 			{randomAttendeeCount()} <span>Attendees</span>
 		</span>
