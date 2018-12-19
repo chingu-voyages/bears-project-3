@@ -14,14 +14,14 @@ import { selectors } from '../../store/reducers/eventsReducer'
 import { selectDay, setFilter } from '../../store/actions/eventsAction'
 import EventCalendarList from './EventCalendarList'
 
-const EventList = ({ events, selectedCategory }) => {
+const EventList = ({ events, selectedCategory, history }) => {
 	/**
 	 * Generates event list
 	 */
 	const renderEvents = events => {
 		return events.map(event => (
 			<Grid.Column key={event.id} width={4}>
-				<Event event={event} {...this.props} />
+				<Event event={event} history={history} />
 			</Grid.Column>
 		))
 	}
@@ -29,7 +29,7 @@ const EventList = ({ events, selectedCategory }) => {
 	return (
 		<Segment basic>
 			<Grid stackable columns={4}>
-				{this.renderEvents(events)}
+				{renderEvents(events)}
 			</Grid>
 		</Segment>
 	)
