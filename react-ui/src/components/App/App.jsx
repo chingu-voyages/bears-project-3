@@ -16,10 +16,11 @@ import logo from '../../assets/images/logo.svg';
 class App extends Component {
 	render() {
 		// eslint-disable-next-line react/prop-types
-		const { children } = this.props;
+		const { children, auth } = this.props;
 		return (
 			<Responsive>
-				<Header logo={logo} />
+				{/* Pass auth prop to header and navigation */}
+				<Header logo={logo} auth={auth} />
 				{children}
 				<Footer />
 			</Responsive>

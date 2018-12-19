@@ -1,19 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import { Grid, Header, Message, Segment, Container } from 'semantic-ui-react';
 import SignupForm from './presentational/SignupForm';
 
 const Signup = props => (
-	<div className="signup-form" style={{ height: '100vh' }}>
-		<Grid
-			textAlign="center"
-			style={{ height: '100%', paddingTop: 100 }}
-			verticalAlign="middle"
-		>
+	<Segment basic padded className="signup-form" style={{ height: '100vh' }}>
+		<Grid textAlign="center" style={{ height: '100%' }} verticalAlign="middle">
 			<Grid.Column style={{ maxWidth: 450 }}>
-				<Header as="h2" color="teal" textAlign="center">
-					Sign Up
+				<Header as="h2" color="purple" textAlign="center">
+					Create an account
 				</Header>
 				<SignupForm {...props} />
 				<Message>
@@ -23,7 +19,7 @@ const Signup = props => (
 				</Message>
 			</Grid.Column>
 		</Grid>
-	</div>
+	</Segment>
 );
 
 export default connect(null)(Signup);
