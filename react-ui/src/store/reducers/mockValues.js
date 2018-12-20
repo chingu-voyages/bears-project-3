@@ -59,6 +59,7 @@ export const generatedEventsArray = Array.from({ length: 30 }, (v, i) => ({
 	isPublic: true,
 	mainImage: 'https://react.semantic-ui.com/images/avatar/large/matthew.png',
 	creator: {
+		id: 1,
 		name: 'Someone Else',
 		avatar: 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
 	},
@@ -83,5 +84,11 @@ export const generatedEventsArray = Array.from({ length: 30 }, (v, i) => ({
 			name: 'Attendee 4',
 			avatar: 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
 		}
+	],
+	posts: [
+		{ id: 1, body: 'Some notes on the event', by: 1, posted: new Date() },
+		{ id: 2, body: 'Some question on the event', by: 2, posted: new Date() },
+		{ id: 3, body: 'Some comment on the event', by: 3, posted: new Date() },
+		{ id: 4, body: 'Some issue with the event', by: 4, posted: new Date() }
 	]
 }))
