@@ -6,7 +6,7 @@ type Mutation {
   register(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
 
-  # TODO: Join event, leave event, updateEvent, deleteEvent, postComment, editComment, deleteComment, updateUser, deleteUser
+  # TODO: joinEvent, leaveEvent, updateEvent, deleteEvent, postComment, editComment, deleteComment, updateUser, deleteUser
 }
 
 type Query {

@@ -37,6 +37,8 @@ const Mutation = {
     };
   },
 
+  // TODO: joinEvent, leaveEvent, updateEvent, deleteEvent, postComment, editComment, deleteComment, updateUser, deleteUser
+
   // postComment(parent, args, context, info) {
   //   const userId = getUserId(context);
 
