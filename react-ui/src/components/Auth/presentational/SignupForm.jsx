@@ -1,51 +1,59 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { reduxForm, Field, formValueSelector } from 'redux-form';
-import { Button, Form, Message, Segment } from 'semantic-ui-react';
-import { signupUser } from '../../../store/actions/eventsAction';
-import GoogleAutoSuggest from './GoogleAutosuggest';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { reduxForm, Field, formValueSelector } from 'redux-form'
+import { Button, Form, Message, Segment } from 'semantic-ui-react'
+import { signupUser } from '../../../store/actions/eventsAction'
+import GoogleAutoSuggest from './GoogleAutosuggest'
 
 const validateForm = values => {
-	const errors = {};
+	const errors = {}
 
 	errors.username = !values.username
 		? 'Username is Required'
-		: values.username.length > 15 ? 'Must be 15 characters or less' : undefined;
+		: values.username.length > 15
+		? 'Must be 15 characters or less'
+		: undefined
 
 	errors.email = !values.password
 		? 'Email is Required'
 		: !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-			? 'Invalid email address'
-			: undefined;
+		? 'Invalid email address'
+		: undefined
 
 	errors.password = !values.password
 		? 'Password is Required'
-		: values.password.length < 5 ? 'Must be atleast 5 characters' : undefined;
+		: values.password.length < 5
+		? 'Must be atleast 5 characters'
+		: undefined
 
 	errors.userLocation = !values.userLocation
 		? 'Please enter your location'
-		: values.userLocation.length < 3 ? 'Must be a valid location' : undefined;
+		: values.userLocation.length < 3
+		? 'Must be a valid location'
+		: undefined
 
 	errors.passwordConfirm = !values.passwordConfirm
 		? 'Password Confirmation is Required'
-		: values.password !== values.passwordConfirm ? 'Passwords mus match' : undefined;
+		: values.password !== values.passwordConfirm
+		? 'Passwords mus match'
+		: undefined
 
-	return errors;
-};
+	return errors
+}
 
 class SignupForm extends Component {
 	renderErrors = (errors, touched) => {
-		if (!touched) return null;
-		const errorNodes = [];
+		if (!touched) return null
+		const errorNodes = []
 		for (let error in errors) {
-			console.log(errors[error]);
+			console.log(errors[error])
 
 			if (errors[error] !== undefined) {
-				errorNodes.push(errors[error]);
+				errorNodes.push(errors[error])
 			}
 		}
-		if (!errorNodes.length) return null;
+		if (!errorNodes.length) return null
 		return (
 			<Message
 				error
@@ -53,8 +61,8 @@ class SignupForm extends Component {
 				header="Please enter information in all the required fields"
 				list={errorNodes}
 			/>
-		);
-	};
+		)
+	}
 
 	render() {
 		const {
@@ -66,9 +74,9 @@ class SignupForm extends Component {
 			validate,
 			dirty,
 			submitFailed
-		} = this.props;
+		} = this.props
 
-		const errors = validate(formValues);
+		const errors = validate(formValues)
 
 		return (
 			<Segment stacked>
@@ -132,7 +140,7 @@ class SignupForm extends Component {
 				</Form>
 				{submitFailed && errors && this.renderErrors(errors, dirty)}
 			</Segment>
-		);
+		)
 	}
 
 	/**
@@ -155,26 +163,26 @@ class SignupForm extends Component {
 			iconPosition={iconPosition}
 			placeholder={error !== undefined && touched ? error : placeholder}
 		/>
-	);
+	)
 
 	/**
 	 * Handle Submit ...
 	 * Submit form to store
 	 */
 	submitSignup = values => {
-		console.log('Submitted form: ', values);
-		this.props.signupUser(values);
-	};
+		console.log('Submitted form: ', values)
+		this.props.signupUser(values)
+	}
 }
 
 /**
  * Create form selector
  */
-const selector = formValueSelector('signup');
+const selector = formValueSelector('signup')
 
 /**
  * Map state actions to props
- * @param {*} dispatch 
+ * @param {*} dispatch
  */
 const mapDispatchToProps = dispatch => ({
 	...bindActionCreators(
@@ -183,14 +191,14 @@ const mapDispatchToProps = dispatch => ({
 		},
 		dispatch
 	)
-});
+})
 
 /**
  * Map state to props
- * @param {*} state 
+ * @param {*} state
  */
 const mapStateToProps = state => {
-	const selectedUserLocation = selector(state, 'userLocation');
+	const selectedUserLocation = selector(state, 'userLocation')
 	const formValues = selector(
 		state,
 		'password',
@@ -198,19 +206,22 @@ const mapStateToProps = state => {
 		'email',
 		'username',
 		'userLocation'
-	);
+	)
 
 	return {
 		selectedUserLocation,
 		formValues
-	};
-};
+	}
+}
 
 // Create Redux Form
 const reduxSignup = reduxForm({
 	form: 'signup',
 	validate: validateForm
-})(SignupForm);
+})(SignupForm)
 
 // Export connected form to state
-export default connect(mapStateToProps, mapDispatchToProps)(reduxSignup);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(reduxSignup)

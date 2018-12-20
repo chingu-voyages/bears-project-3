@@ -1,21 +1,36 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Item, Button } from 'semantic-ui-react'
+import { Card, Image, Button } from 'semantic-ui-react'
+
+const cardStyles = {
+	wrapper: {
+		border: 'none',
+		boxShadow: 'none',
+		padding: 0
+	},
+	content: {
+		padding: 0
+	}
+}
 
 const Creator = ({ creator }) => (
-	<Item.Group>
-		<Item>
-			<Item.Image size="tiny" src={creator.avatar} />
+	<Card basic style={cardStyles.wrapper}>
+		<Card.Content style={cardStyles.content}>
+			<Image circular floated="left" size="mini" src={creator.avatar} />
+			<Card.Header>{creator.name}</Card.Header>
+			<Card.Meta>{new Date().toLocaleDateString()}</Card.Meta>
+			<Card.Description>{''}</Card.Description>
+		</Card.Content>
+		<Card.Content extra>
+			<Button color="purple" onClick={() => null}>
+				Send Message
+			</Button>
 
-			<Item.Content verticalAlign="middle">
-				<Item.Header as="a">{creator.name}</Item.Header>
-				<Item.Extra as="a">{new Date().toLocaleDateString()}</Item.Extra>
-				<Item.Meta>
-					<Button onClick={() => null}>Send Message</Button>
-				</Item.Meta>
-			</Item.Content>
-		</Item>
-	</Item.Group>
+			<Button color="pink" onClick={() => null}>
+				Follow
+			</Button>
+		</Card.Content>
+	</Card>
 )
 
 Creator.propTypes = {
