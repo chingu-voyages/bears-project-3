@@ -1,0 +1,61 @@
+type Mutation {
+  # postComment(commentBody: String!): Comment
+
+  createEvent(name: String!, description: String): Event
+
+  register(email: String!, password: String!, name: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayload
+
+  # TODO: Join event, leave event, updateEvent, deleteEvent, postComment, editComment, deleteComment, updateUser, deleteUser
+}
+
+type Query {
+  users: [User!]
+  events: [Event!]
+}
+
+scalar DateTime
+
+type User {
+  id: ID!
+  createdAt: DateTime!
+  name: String!
+  email: String!
+  avatarURI: String
+  location: Location
+  events: [Event!]!
+  comments: [Comment!]
+}
+
+type Event {
+  id: ID!
+  createdAt: DateTime!
+  category: String!
+  name: String!
+  description: String
+  primaryImage: String
+  images: [String!]
+  owner: User!
+  members: [User!]!
+  location: Location
+  comments: [Comment!]
+}
+
+type Location {
+  address: String
+  city: String!
+  state: String!
+  country: String!
+}
+
+type Comment {
+  id: ID!
+  postedBy: User!
+  commentBody: String!
+  createdAt: DateTime!
+}
+
+type AuthPayload {
+  token: String
+  user: User
+}

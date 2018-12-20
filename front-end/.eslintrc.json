@@ -1,0 +1,30 @@
+{
+  "extends": [
+    "airbnb",
+    "plugin:jsx-a11y/recommended",
+    "prettier"
+  ],
+  "parser": "babel-eslint",
+  "plugins": [
+    "jsx-a11y"
+  ],
+  "rules": {
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allow": [
+          "_id",
+          "_rev"
+        ]
+      }
+    ],
+    "comma-dangle": 0,
+    "no-tabs": 0,
+    "no-mixed-spaces-and-tabs": "off",
+    "react/jsx-indent": 0,
+    "react/jsx-indent-props": 0,
+    "react/jsx-one-expression-per-line": 0,
+    "object-curly-newline": "off",
+    "indent": "off"
+  }
+}

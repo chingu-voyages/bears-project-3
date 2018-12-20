@@ -18,7 +18,7 @@ ___________
 
 In the project directory, you can run:
 
-### `cd react-ui && yarn start` or `cd react-ui && npm start`
+### `cd front-end && yarn start` or `cd front-end && npm start`
 
 To run the app's front-end development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.

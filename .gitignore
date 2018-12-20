@@ -87,6 +87,6 @@ typings/
 # End of https://www.gitignore.io/api/node
 
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
-react-ui/src/theme/dist
-react-ui/.env
-react-ui/src/config/index.js
+front-end/src/theme/dist
+front-end/.env
+front-end/src/config/index.js
