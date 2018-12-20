@@ -11,11 +11,14 @@ import {
 	Icon,
 	Label,
 	Card,
-	Placeholder
+	Placeholder,
+	Comment
 } from 'semantic-ui-react'
-import { Creator } from './presentational/Creator'
-import { Attendee } from './presentational/Attendee'
+import Creator from './presentational/Creator'
+import Attendees from './presentational/Attendees'
 import Event from './presentational/Event'
+import Posts from './presentational/Posts'
+import EventPhotos from './presentational/EventPhotos'
 
 const EventDetail = ({ event, events, authenticated = false, history, loading = false }) => (
 	<Segment basic padded>
@@ -28,27 +31,14 @@ const EventDetail = ({ event, events, authenticated = false, history, loading = 
 					{event.title} <Label content={event.category} />
 				</Header>
 				<p>{event.description}</p>
-
-				<br />
-				<br />
-				<div className="event-photos" style={{ marginTop: 40 }}>
-					<Header as="h2">Photos</Header>
-					<Card.Group itemsPerRow={5}>
-						{event.photos &&
-							event.photos.map((photo, index) => (
-								<Card fluid key={photo + index}>
-									<Image src={photo} />
-								</Card>
-							))}
-					</Card.Group>
-				</div>
+				<EventPhotos event={event} />
 				<div className="similar-events" style={{ marginTop: 40 }}>
 					<Header as="h2">Similar Events</Header>
 					{loading}
 					<Card.Group doubling itemsPerRow={4} stackable>
 						{events &&
 							events
-								.filter(ev => ev.category === event.category)
+								.filter(ev => ev.category === event.category && ev.id !== event.id)
 								.map(evv =>
 									loading ? (
 										<Card fluid key={evv.id}>
@@ -94,15 +84,9 @@ const EventDetail = ({ event, events, authenticated = false, history, loading = 
 					)}
 				</Segment>
 				<Segment>
-					{event.creator && <Creator creator={event.creator} />}
-
-					<Header as="h5">Attendees</Header>
-					<List divided>
-						{event.attendees &&
-							event.attendees.map(attendee => (
-								<Attendee key={attendee.id} attendee={attendee} />
-							))}
-					</List>
+					<Creator creator={event.creator} />
+					<Attendees event={event} />
+					<Posts event={event} />
 				</Segment>
 			</Grid.Column>
 		</Grid>

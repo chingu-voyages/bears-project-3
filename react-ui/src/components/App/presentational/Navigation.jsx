@@ -1,37 +1,37 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Menu, Container, Image, Button, Icon } from 'semantic-ui-react';
-import AuthPopup from '../../Auth/presentational/AuthPopup';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { Menu, Container, Image, Button, Icon } from 'semantic-ui-react'
+import AuthPopup from '../../Auth/presentational/AuthPopup'
 
 const Navigation = ({ menuFixed, fixedMenuStyle, menuStyle, logo, auth }) => {
-	menuFixed = true;
+	menuFixed = true
 
 	// Checks if user is online with the session => (provider)
 	const online = session => {
-		var currentTime = new Date().getTime() / 1000;
-		return session && session.access_token && session.expires > currentTime;
-	};
+		var currentTime = new Date().getTime() / 1000
+		return session && session.access_token && session.expires > currentTime
+	}
 
 	// Handle Google Signin button
 	const signinWithGoogle = async e => {
 		// Call auth api and signin with google (hello js)
-		const authResponse = await auth.loginWith('google');
-		console.log(authResponse);
-	};
+		const authResponse = await auth.loginWith('google')
+		console.log(authResponse)
+	}
 
 	// Handle Facebook signin button
 	const signinWithFacebook = async e => {
 		// Call auth api and signin with facebook (hello js)
-		const authResponse = await auth.loginWith('facebook');
-		console.log(authResponse);
-	};
+		const authResponse = await auth.loginWith('facebook')
+		console.log(authResponse)
+	}
 
 	// Test function to quickly check auth status...
 	const checkAuthenticated = provider => {
 		online(auth.isAuthenticated(provider))
 			? console.log('You ARE logged in with: ', provider)
-			: console.log('You are NOT logged in with: ', provider);
-	};
+			: console.log('You are NOT logged in with: ', provider)
+	}
 
 	return (
 		<Menu
@@ -40,7 +40,6 @@ const Navigation = ({ menuFixed, fixedMenuStyle, menuStyle, logo, auth }) => {
 			style={menuFixed ? fixedMenuStyle : menuStyle}
 		>
 			<Container>
-				<Menu.Item />
 				<Menu.Item active header>
 					<Link to="/">
 						<Image size="mini" src={logo} />
@@ -93,7 +92,7 @@ const Navigation = ({ menuFixed, fixedMenuStyle, menuStyle, logo, auth }) => {
 				</Menu.Menu>
 			</Container>
 		</Menu>
-	);
-};
+	)
+}
 
-export default Navigation;
+export default Navigation

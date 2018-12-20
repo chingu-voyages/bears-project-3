@@ -1,11 +1,26 @@
 import React from 'react'
-import { Image, List } from 'semantic-ui-react'
-export const Attendee = ({ attendee }) => (
-	<List.Item>
-		<Image circular avatar src={attendee.avatar} />
-		<List.Content>
-			<List.Header as="a">{attendee.name}</List.Header>
-			<List.Description>Joined {new Date().toLocaleDateString()}</List.Description>
-		</List.Content>
-	</List.Item>
+import PropTypes from 'prop-types'
+
+import { Image, Comment } from 'semantic-ui-react'
+const Attendee = ({ attendee }) => (
+	<Comment>
+		<Comment.Avatar src={attendee.avatar} circular />
+		<Comment.Content>
+			<Comment.Author as="a">{attendee.name}</Comment.Author>
+			<Comment.Text>Joined {new Date().toLocaleDateString()}</Comment.Text>
+		</Comment.Content>
+	</Comment>
 )
+
+Attendee.propTypes = {
+	attendee: PropTypes.shape({
+		id: PropTypes.string,
+		name: PropTypes.string,
+		avatar: PropTypes.string
+	})
+}
+Attendee.defaultProps = {
+	attendee: {}
+}
+
+export default Attendee
