@@ -2,6 +2,7 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+// Util imports
 const getUserId = require('../utils/getUserId');
 
 const { APP_SECRET } = process.env;
