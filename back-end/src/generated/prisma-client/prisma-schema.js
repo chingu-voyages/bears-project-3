@@ -270,6 +270,8 @@ type Event {
   images: [String!]!
   owner: User!
   members(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  eventDate: DateTime
+  startingTime: String
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
 }
 
@@ -293,6 +295,8 @@ input EventCreateInput {
   images: EventCreateimagesInput
   owner: UserCreateOneWithoutOwnedEventsInput!
   members: UserCreateManyWithoutEventsInput
+  eventDate: DateTime
+  startingTime: String
   comments: CommentCreateManyInput
 }
 
@@ -315,6 +319,8 @@ input EventCreateWithoutMembersInput {
   primaryImage: String
   images: EventCreateimagesInput
   owner: UserCreateOneWithoutOwnedEventsInput!
+  eventDate: DateTime
+  startingTime: String
   comments: CommentCreateManyInput
 }
 
@@ -327,6 +333,8 @@ input EventCreateWithoutOwnerInput {
   primaryImage: String
   images: EventCreateimagesInput
   members: UserCreateManyWithoutEventsInput
+  eventDate: DateTime
+  startingTime: String
   comments: CommentCreateManyInput
 }
 
@@ -348,6 +356,10 @@ enum EventOrderByInput {
   description_DESC
   primaryImage_ASC
   primaryImage_DESC
+  eventDate_ASC
+  eventDate_DESC
+  startingTime_ASC
+  startingTime_DESC
 }
 
 type EventPreviousValues {
@@ -358,6 +370,8 @@ type EventPreviousValues {
   description: String
   primaryImage: String
   images: [String!]!
+  eventDate: DateTime
+  startingTime: String
 }
 
 input EventScalarWhereInput {
@@ -439,6 +453,28 @@ input EventScalarWhereInput {
   primaryImage_not_starts_with: String
   primaryImage_ends_with: String
   primaryImage_not_ends_with: String
+  eventDate: DateTime
+  eventDate_not: DateTime
+  eventDate_in: [DateTime!]
+  eventDate_not_in: [DateTime!]
+  eventDate_lt: DateTime
+  eventDate_lte: DateTime
+  eventDate_gt: DateTime
+  eventDate_gte: DateTime
+  startingTime: String
+  startingTime_not: String
+  startingTime_in: [String!]
+  startingTime_not_in: [String!]
+  startingTime_lt: String
+  startingTime_lte: String
+  startingTime_gt: String
+  startingTime_gte: String
+  startingTime_contains: String
+  startingTime_not_contains: String
+  startingTime_starts_with: String
+  startingTime_not_starts_with: String
+  startingTime_ends_with: String
+  startingTime_not_ends_with: String
   AND: [EventScalarWhereInput!]
   OR: [EventScalarWhereInput!]
   NOT: [EventScalarWhereInput!]
@@ -476,6 +512,8 @@ input EventUpdateInput {
   images: EventUpdateimagesInput
   owner: UserUpdateOneRequiredWithoutOwnedEventsInput
   members: UserUpdateManyWithoutEventsInput
+  eventDate: DateTime
+  startingTime: String
   comments: CommentUpdateManyInput
 }
 
@@ -487,6 +525,8 @@ input EventUpdateManyDataInput {
   description: String
   primaryImage: String
   images: EventUpdateimagesInput
+  eventDate: DateTime
+  startingTime: String
 }
 
 input EventUpdateManyMutationInput {
@@ -497,6 +537,8 @@ input EventUpdateManyMutationInput {
   description: String
   primaryImage: String
   images: EventUpdateimagesInput
+  eventDate: DateTime
+  startingTime: String
 }
 
 input EventUpdateManyWithoutMembersInput {
@@ -535,6 +577,8 @@ input EventUpdateWithoutMembersDataInput {
   primaryImage: String
   images: EventUpdateimagesInput
   owner: UserUpdateOneRequiredWithoutOwnedEventsInput
+  eventDate: DateTime
+  startingTime: String
   comments: CommentUpdateManyInput
 }
 
@@ -547,6 +591,8 @@ input EventUpdateWithoutOwnerDataInput {
   primaryImage: String
   images: EventUpdateimagesInput
   members: UserUpdateManyWithoutEventsInput
+  eventDate: DateTime
+  startingTime: String
   comments: CommentUpdateManyInput
 }
 
@@ -651,6 +697,28 @@ input EventWhereInput {
   primaryImage_not_starts_with: String
   primaryImage_ends_with: String
   primaryImage_not_ends_with: String
+  eventDate: DateTime
+  eventDate_not: DateTime
+  eventDate_in: [DateTime!]
+  eventDate_not_in: [DateTime!]
+  eventDate_lt: DateTime
+  eventDate_lte: DateTime
+  eventDate_gt: DateTime
+  eventDate_gte: DateTime
+  startingTime: String
+  startingTime_not: String
+  startingTime_in: [String!]
+  startingTime_not_in: [String!]
+  startingTime_lt: String
+  startingTime_lte: String
+  startingTime_gt: String
+  startingTime_gte: String
+  startingTime_contains: String
+  startingTime_not_contains: String
+  startingTime_starts_with: String
+  startingTime_not_starts_with: String
+  startingTime_ends_with: String
+  startingTime_not_ends_with: String
   AND: [EventWhereInput!]
   OR: [EventWhereInput!]
   NOT: [EventWhereInput!]

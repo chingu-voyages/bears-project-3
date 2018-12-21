@@ -53,7 +53,9 @@ const EventList = ({ events, selectedCategory, history }) => {
 			<Query
 				query={allEvents}
 				variables={{
-					where: {}
+					where: {
+						eventDate_gte: new Date()
+					}
 				}}
 			>
 				{({ loading, error, data: { events } }) => {

@@ -201,7 +201,11 @@ export type EventOrderByInput =
   | "description_ASC"
   | "description_DESC"
   | "primaryImage_ASC"
-  | "primaryImage_DESC";
+  | "primaryImage_DESC"
+  | "eventDate_ASC"
+  | "eventDate_DESC"
+  | "startingTime_ASC"
+  | "startingTime_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -333,6 +337,28 @@ export interface EventWhereInput {
   primaryImage_not_starts_with?: String;
   primaryImage_ends_with?: String;
   primaryImage_not_ends_with?: String;
+  eventDate?: DateTimeInput;
+  eventDate_not?: DateTimeInput;
+  eventDate_in?: DateTimeInput[] | DateTimeInput;
+  eventDate_not_in?: DateTimeInput[] | DateTimeInput;
+  eventDate_lt?: DateTimeInput;
+  eventDate_lte?: DateTimeInput;
+  eventDate_gt?: DateTimeInput;
+  eventDate_gte?: DateTimeInput;
+  startingTime?: String;
+  startingTime_not?: String;
+  startingTime_in?: String[] | String;
+  startingTime_not_in?: String[] | String;
+  startingTime_lt?: String;
+  startingTime_lte?: String;
+  startingTime_gt?: String;
+  startingTime_gte?: String;
+  startingTime_contains?: String;
+  startingTime_not_contains?: String;
+  startingTime_starts_with?: String;
+  startingTime_not_starts_with?: String;
+  startingTime_ends_with?: String;
+  startingTime_not_ends_with?: String;
   AND?: EventWhereInput[] | EventWhereInput;
   OR?: EventWhereInput[] | EventWhereInput;
   NOT?: EventWhereInput[] | EventWhereInput;
@@ -474,6 +500,8 @@ export interface EventUpdateWithoutMembersDataInput {
   primaryImage?: String;
   images?: EventUpdateimagesInput;
   owner?: UserUpdateOneRequiredWithoutOwnedEventsInput;
+  eventDate?: DateTimeInput;
+  startingTime?: String;
   comments?: CommentUpdateManyInput;
 }
 
@@ -487,6 +515,8 @@ export interface EventCreateInput {
   images?: EventCreateimagesInput;
   owner: UserCreateOneWithoutOwnedEventsInput;
   members?: UserCreateManyWithoutEventsInput;
+  eventDate?: DateTimeInput;
+  startingTime?: String;
   comments?: CommentCreateManyInput;
 }
 
@@ -823,6 +853,8 @@ export interface EventUpdateManyMutationInput {
   description?: String;
   primaryImage?: String;
   images?: EventUpdateimagesInput;
+  eventDate?: DateTimeInput;
+  startingTime?: String;
 }
 
 export interface CommentUpdateManyInput {
@@ -981,6 +1013,28 @@ export interface EventScalarWhereInput {
   primaryImage_not_starts_with?: String;
   primaryImage_ends_with?: String;
   primaryImage_not_ends_with?: String;
+  eventDate?: DateTimeInput;
+  eventDate_not?: DateTimeInput;
+  eventDate_in?: DateTimeInput[] | DateTimeInput;
+  eventDate_not_in?: DateTimeInput[] | DateTimeInput;
+  eventDate_lt?: DateTimeInput;
+  eventDate_lte?: DateTimeInput;
+  eventDate_gt?: DateTimeInput;
+  eventDate_gte?: DateTimeInput;
+  startingTime?: String;
+  startingTime_not?: String;
+  startingTime_in?: String[] | String;
+  startingTime_not_in?: String[] | String;
+  startingTime_lt?: String;
+  startingTime_lte?: String;
+  startingTime_gt?: String;
+  startingTime_gte?: String;
+  startingTime_contains?: String;
+  startingTime_not_contains?: String;
+  startingTime_starts_with?: String;
+  startingTime_not_starts_with?: String;
+  startingTime_ends_with?: String;
+  startingTime_not_ends_with?: String;
   AND?: EventScalarWhereInput[] | EventScalarWhereInput;
   OR?: EventScalarWhereInput[] | EventScalarWhereInput;
   NOT?: EventScalarWhereInput[] | EventScalarWhereInput;
@@ -1043,6 +1097,8 @@ export interface EventUpdateInput {
   images?: EventUpdateimagesInput;
   owner?: UserUpdateOneRequiredWithoutOwnedEventsInput;
   members?: UserUpdateManyWithoutEventsInput;
+  eventDate?: DateTimeInput;
+  startingTime?: String;
   comments?: CommentUpdateManyInput;
 }
 
@@ -1054,6 +1110,8 @@ export interface EventUpdateManyDataInput {
   description?: String;
   primaryImage?: String;
   images?: EventUpdateimagesInput;
+  eventDate?: DateTimeInput;
+  startingTime?: String;
 }
 
 export interface CommentCreateInput {
@@ -1118,6 +1176,8 @@ export interface EventUpdateWithoutOwnerDataInput {
   primaryImage?: String;
   images?: EventUpdateimagesInput;
   members?: UserUpdateManyWithoutEventsInput;
+  eventDate?: DateTimeInput;
+  startingTime?: String;
   comments?: CommentUpdateManyInput;
 }
 
@@ -1135,6 +1195,8 @@ export interface EventCreateWithoutOwnerInput {
   primaryImage?: String;
   images?: EventCreateimagesInput;
   members?: UserCreateManyWithoutEventsInput;
+  eventDate?: DateTimeInput;
+  startingTime?: String;
   comments?: CommentCreateManyInput;
 }
 
@@ -1147,6 +1209,8 @@ export interface EventCreateWithoutMembersInput {
   primaryImage?: String;
   images?: EventCreateimagesInput;
   owner: UserCreateOneWithoutOwnedEventsInput;
+  eventDate?: DateTimeInput;
+  startingTime?: String;
   comments?: CommentCreateManyInput;
 }
 
@@ -1227,6 +1291,8 @@ export interface Event {
   description?: String;
   primaryImage?: String;
   images: String[];
+  eventDate?: DateTimeOutput;
+  startingTime?: String;
 }
 
 export interface EventPromise extends Promise<Event>, Fragmentable {
@@ -1249,6 +1315,8 @@ export interface EventPromise extends Promise<Event>, Fragmentable {
       last?: Int;
     }
   ) => T;
+  eventDate: () => Promise<DateTimeOutput>;
+  startingTime: () => Promise<String>;
   comments: <T = FragmentableArray<Comment>>(
     args?: {
       where?: CommentWhereInput;
@@ -1284,6 +1352,8 @@ export interface EventSubscription
       last?: Int;
     }
   ) => T;
+  eventDate: () => Promise<AsyncIterator<DateTimeOutput>>;
+  startingTime: () => Promise<AsyncIterator<String>>;
   comments: <T = Promise<AsyncIterator<CommentSubscription>>>(
     args?: {
       where?: CommentWhereInput;
@@ -1305,6 +1375,8 @@ export interface EventPreviousValues {
   description?: String;
   primaryImage?: String;
   images: String[];
+  eventDate?: DateTimeOutput;
+  startingTime?: String;
 }
 
 export interface EventPreviousValuesPromise
@@ -1317,6 +1389,8 @@ export interface EventPreviousValuesPromise
   description: () => Promise<String>;
   primaryImage: () => Promise<String>;
   images: () => Promise<String[]>;
+  eventDate: () => Promise<DateTimeOutput>;
+  startingTime: () => Promise<String>;
 }
 
 export interface EventPreviousValuesSubscription
@@ -1329,6 +1403,8 @@ export interface EventPreviousValuesSubscription
   description: () => Promise<AsyncIterator<String>>;
   primaryImage: () => Promise<AsyncIterator<String>>;
   images: () => Promise<AsyncIterator<String[]>>;
+  eventDate: () => Promise<AsyncIterator<DateTimeOutput>>;
+  startingTime: () => Promise<AsyncIterator<String>>;
 }
 
 export interface EventSubscriptionPayload {

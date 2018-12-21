@@ -103,7 +103,14 @@ class EventCalendarList extends Component {
 			<Segment basic padded={false}>
 				<Grid container stackable reversed="mobile">
 					<Grid.Column width={12}>
-						<Query query={allEvents}>
+						<Query
+							query={allEvents}
+							variables={{
+								where: {
+									eventDate_gte: new Date()
+								}
+							}}
+						>
 							{({ loading, error, data: { events } }) => {
 								if (loading) return <Loader inverted />
 								if (error) return <Message />
