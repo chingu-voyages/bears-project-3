@@ -3,8 +3,8 @@ import React, { Component, Fragment } from 'react'
 import { Form, Header, Icon, Button } from 'semantic-ui-react'
 import ReactGoogleMapLoader from 'react-google-maps-loader'
 import ReactGooglePlacesSuggest from 'react-google-places-suggest'
-import config from '../../../config'
-const API_KEY = config.GOOGLE_API_KEY || ''
+
+const API_KEY = process.env.REACT_APP_GOOGLE_API_KEY || ''
 
 class GoogleSuggest extends Component {
 	state = {

@@ -23,17 +23,3 @@ exports.Prisma = prisma_lib_1.makePrismaClientClass({
   endpoint: `http://localhost:7777`
 });
 exports.prisma = new exports.Prisma();
-var models = [
-  {
-    name: "Comment",
-    embedded: false
-  },
-  {
-    name: "Event",
-    embedded: false
-  },
-  {
-    name: "User",
-    embedded: false
-  }
-];

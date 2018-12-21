@@ -5,6 +5,10 @@ import { Route, Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store, { history as reduxHistory } from './store/store'
 
+// Apollo
+
+import { ApolloProvider } from 'react-apollo'
+import client from './apollo/client'
 // CSS
 import './index.css'
 import './theme/dist/semantic.css'
@@ -19,7 +23,6 @@ import Signup from './components/Auth/SignUp'
 import SignIn from './components/Auth/SignIn'
 import Auth from './components/Auth/Auth'
 import Callback from './components/Callback'
-const target = document.getElementById('root')
 
 // Create new "global" instance of Auth and pass as prop
 const auth = new Auth()
@@ -30,29 +33,33 @@ const handleAuthentication = (nextState, replace) => {
 	}
 }
 
+const target = document.getElementById('root')
+
 render(
-	<Provider store={store}>
-		<Router history={reduxHistory}>
-			{/* Pass Auth prop to app */}
-			<App auth={auth}>
-				{/* Match all routes exactly within defined array */}
-				<Route
-					exact
-					path={['/', '/find', '/find/calendar', '/event/:eventId']}
-					component={HomePage}
-				/>
-				<Route exact path="/signup" component={Signup} />
-				<Route exact path="/signin" component={SignIn} />
-				<Route
-					path="/auth/callback"
-					render={props => {
-						handleAuthentication(props)
-						return <Callback {...props} />
-					}}
-				/>
-			</App>
-		</Router>
-	</Provider>,
+	<ApolloProvider client={client}>
+		<Provider store={store}>
+			<Router history={reduxHistory}>
+				{/* Pass Auth prop to app */}
+				<App auth={auth}>
+					{/* Match all routes exactly within defined array */}
+					<Route
+						exact
+						path={['/', '/find', '/find/calendar', '/event/:eventId']}
+						component={HomePage}
+					/>
+					<Route exact path="/signup" component={Signup} />
+					<Route exact path="/signin" component={SignIn} />
+					<Route
+						path="/auth/callback"
+						render={props => {
+							handleAuthentication(props)
+							return <Callback {...props} />
+						}}
+					/>
+				</App>
+			</Router>
+		</Provider>
+	</ApolloProvider>,
 	target
 )
 

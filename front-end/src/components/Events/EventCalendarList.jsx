@@ -1,13 +1,30 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Grid, Header, Segment, Button, Icon } from 'semantic-ui-react'
+import { Grid, Header, Segment, Button, Icon, Loader, Message } from 'semantic-ui-react'
 import { selectDay } from '../../store/actions/eventsAction'
 import { selectors } from '../../store/reducers/eventsReducer'
+
+// Apollo
+import { Query } from 'react-apollo'
+import gql from 'graphql-tag'
+
 import DayPicker from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
 import './presentational/calendar.style.css'
 import ListEvent from './presentational/ListEvent'
+import { allEvents } from '../../apollo/queries/events'
+
+const EventEmptyState = () => (
+	<Segment placeholder padded={false}>
+		<Header icon>
+			<Icon name="ticket" />
+			No Events...
+		</Header>
+		<Button primary>Search Events...</Button>
+	</Segment>
+)
+
 class EventCalendarList extends Component {
 	state = {
 		/** Use selectedDay to indicate local state */
@@ -83,14 +100,19 @@ class EventCalendarList extends Component {
 		}
 
 		return (
-			<Segment basic>
+			<Segment basic padded={false}>
 				<Grid container stackable reversed="mobile">
 					<Grid.Column width={12} stretched>
-						<div>
-							{events.map(event => (
-								<ListEvent key={event.id} event={event} />
-							))}
-						</div>
+						<Query query={allEvents}>
+							{({ loading, error, data: { events } }) => {
+								if (loading) return <Loader inverted />
+								if (error) return <Message />
+								if (!events.length) return <EventEmptyState />
+								return events.map(event => (
+									<ListEvent key={event.id} event={event} />
+								))
+							}}
+						</Query>
 					</Grid.Column>
 					<Grid.Column width={4}>
 						<Header as="h3">Calendar</Header>

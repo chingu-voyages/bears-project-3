@@ -1,5 +1,26 @@
 version: '3'
 services:
+  server:
+    image: node:10.14.2-alpine
+    user: node
+    working_dir: /var/app
+    volumes:
+      - ./:/var/app
+    ports:
+      - 3001:3030
+    environment:
+      - NODE_ENV=development
+    expose:
+      - 3030
+    links:
+      - prisma
+      - postgres
+    depends_on:
+      - postgres
+      - prisma
+    command: >
+      sh -c "yarn && yarn start"
+
   prisma:
     container_name: bears03-prisma
     image: prismagraphql/prisma:1.22
@@ -17,6 +38,7 @@ services:
             user: prisma
             password: prisma
             migrations: true
+
   postgres:
     container_name: bears03-postgres
     image: postgres:10.5

@@ -3,7 +3,21 @@ import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
-import { Grid, Container, Segment, Card } from 'semantic-ui-react'
+import {
+	Grid,
+	Container,
+	Segment,
+	Header,
+	Button,
+	Icon,
+	Card,
+	Loader,
+	Message
+} from 'semantic-ui-react'
+
+// Apollo
+import { Query } from 'react-apollo'
+import gql from 'graphql-tag'
 
 // Components
 import Event from './presentational/Event'
@@ -13,6 +27,18 @@ import EventMenu from './presentational/EventMenu'
 import { selectors } from '../../store/reducers/eventsReducer'
 import { selectDay, setFilter } from '../../store/actions/eventsAction'
 import EventCalendarList from './EventCalendarList'
+
+import { allEvents } from '../../apollo/queries/events'
+
+const EmptyEvents = () => (
+	<Segment placeholder>
+		<Header icon>
+			<Icon name="ticket" />
+			No Events...
+		</Header>
+		<Button primary>Search Events...</Button>
+	</Segment>
+)
 
 const EventList = ({ events, selectedCategory, history }) => {
 	/**
@@ -24,7 +50,14 @@ const EventList = ({ events, selectedCategory, history }) => {
 
 	return (
 		<Segment basic>
-			<Card.Group itemsPerRow={4}>{renderEvents(events)}</Card.Group>
+			<Query query={allEvents}>
+				{({ loading, error, data: { events } }) => {
+					if (loading) return <Loader />
+					if (error) return <Message />
+					if (!events.length) return <EmptyEvents />
+					return <Card.Group itemsPerRow={4}>{renderEvents(events)}</Card.Group>
+				}}
+			</Query>
 		</Segment>
 	)
 }

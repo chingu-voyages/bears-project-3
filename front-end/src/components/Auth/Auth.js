@@ -1,69 +1,66 @@
-import hello from 'hellojs';
-import { history } from '../../store/store';
-import config from '../../config/index';
-
+import hello from 'hellojs'
 export default class Auth {
-	accessToken;
-	idToken;
-	expiresAt;
-	currentProvider;
+	accessToken
+	idToken
+	expiresAt
+	currentProvider
 
 	/**
-   * Initialize class
-   */
+	 * Initialize class
+	 */
 	constructor() {
 		this.hello = hello.init({
-			google: config.GOOGLE_CLIENT_ID,
-			facebook: config.FACEBOOK_APP_ID || ''
-		});
+			google: process.env.REACT_APP_GOOGLE_CLIENT_ID
+			// facebook: config.FACEBOOK_APP_ID || ''
+		})
 	}
 
 	/**
-   * Utility method to login with provider/s
-   * @param {*} provider required
-   * @param {*} cb 
-   */
+	 * Utility method to login with provider/s
+	 * @param {*} provider required
+	 * @param {*} cb
+	 */
 	loginWith(provider, cb) {
-		console.log(provider);
+		console.log(provider)
 		const options = {
 			display: 'popup',
 			scope: 'email',
 			redirect_uri: '/auth/callback'
-		};
+		}
 
 		// Logs in with provider, using options above and optional callback provided in args.
 		return this.hello.login(provider, options, cb).then(({ network, authResponse }) => {
 			// Perhaps handle analytics and logging requests here before returning to caller...
-			const { access_token, expires } = authResponse;
-			this.accessToken = access_token;
-			this.expiresAt = expires;
-			this.currentProvider = network;
-			console.log('Auth logged in with: ', network, authResponse);
-			return authResponse;
-		});
+			const { access_token, expires } = authResponse
+			this.accessToken = access_token
+			this.expiresAt = expires
+			this.currentProvider = network
+			console.log('Auth logged in with: ', network, authResponse)
+			return authResponse
+		})
 	}
 
 	/**
-   * Checks provider for session info (authenticated)
-   */
+	 * Checks provider for session info (authenticated)
+	 */
 	getAuthResponse = provider => {
-		return this.hello.getAuthResponse(provider);
-	};
+		return this.hello.getAuthResponse(provider)
+	}
 
 	/**
-   * Return access token for current session
-   */
+	 * Return access token for current session
+	 */
 	getAccessToken = () => {
-		return this.accessToken;
-	};
+		return this.accessToken
+	}
 
 	/**
-   * not yet implemented method....
-   * @param {*} authResult 
-   */
+	 * not yet implemented method....
+	 * @param {*} authResult
+	 */
 	setSession(authResult) {
 		// Set isLoggedIn flag in localStorage
-		localStorage.setItem('token', authResult.token);
+		localStorage.setItem('token', authResult.token)
 
 		// Set the time that the access token will expire at
 		// let expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
@@ -72,26 +69,26 @@ export default class Auth {
 		// this.expiresAt = expiresAt;
 
 		// navigate to the home route
-		history.replace('/');
+		// history.replace('/')
 	}
 
 	/**
-   * Stubbed method to renew session...
-   */
+	 * Stubbed method to renew session...
+	 */
 	renewSession() {}
 
 	logout(provider, cb) {
 		return this.hello.logout(provider, {}, cb).then(() => {
-			this.accessToken = null;
-			this.idToken = null;
-			this.expiresAt = 0;
+			this.accessToken = null
+			this.idToken = null
+			this.expiresAt = 0
 
 			// Remove token from localStorage
-			localStorage.removeItem('token');
+			localStorage.removeItem('token')
 
 			// navigate to the home route
-			history.replace('/');
-		});
+			// history.replace('/')
+		})
 		// Remove tokens and expiry time
 	}
 
@@ -100,6 +97,6 @@ export default class Auth {
 		// access token's expiry time
 		// let expiresAt = this.expiresAt;
 		// return new Date().getTime() < expiresAt;
-		return this.hello(provider).getAuthResponse();
+		return this.hello(provider).getAuthResponse()
 	}
 }
