@@ -13,11 +13,11 @@ const cardStyles = {
 	}
 }
 
-const Creator = ({ creator }) => (
-	<Card basic style={cardStyles.wrapper}>
+const Owner = ({ owner }) => (
+	<Card style={cardStyles.wrapper}>
 		<Card.Content style={cardStyles.content}>
-			<Image circular floated="left" size="mini" src={creator.avatar} />
-			<Card.Header>{creator.name}</Card.Header>
+			<Image circular floated="left" size="mini" src={owner.avatar} />
+			<Card.Header>{owner.name}</Card.Header>
 			<Card.Meta>{new Date().toLocaleDateString()}</Card.Meta>
 			<Card.Description>{''}</Card.Description>
 		</Card.Content>
@@ -33,15 +33,15 @@ const Creator = ({ creator }) => (
 	</Card>
 )
 
-Creator.propTypes = {
-	creator: PropTypes.shape({
+Owner.propTypes = {
+	owner: PropTypes.shape({
 		id: PropTypes.string,
 		name: PropTypes.string,
 		avatar: PropTypes.string
 	})
 }
-Creator.defaultProps = {
-	creator: {}
+Owner.defaultProps = {
+	owner: {}
 }
 
-export default Creator
+export default Owner

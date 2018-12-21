@@ -1,5 +1,5 @@
-import React from 'react';
-import { Popup, Menu } from 'semantic-ui-react';
+import React from 'react'
+import { Popup, Menu } from 'semantic-ui-react'
 
 const AuthPopup = ({ title, children }) => (
 	<Popup
@@ -16,6 +16,6 @@ const AuthPopup = ({ title, children }) => (
 		<Popup.Header>{title}</Popup.Header>
 		<Popup.Content>{children}</Popup.Content>
 	</Popup>
-);
+)
 
-export default AuthPopup;
+export default AuthPopup

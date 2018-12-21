@@ -37,11 +37,11 @@ export const generateFutureDate = date =>
  */
 export const generatedEventsArray = Array.from({ length: 30 }, (v, i) => ({
 	id: i,
-	title: `Game Session ${i}`,
+	name: `Game Session ${i}`,
 	category: eventCategories[Math.floor(Math.random() * eventCategories.length)],
 	description: 'Event Description',
 	details: [],
-	photos: [
+	images: [
 		'https://react.semantic-ui.com/images/avatar/large/matthew.png',
 		'https://react.semantic-ui.com/images/avatar/large/matthew.png'
 	],
@@ -57,13 +57,13 @@ export const generatedEventsArray = Array.from({ length: 30 }, (v, i) => ({
 	timeEnding: new Date(),
 	inviteCode: 'EVENTCODE123',
 	isPublic: true,
-	mainImage: 'https://react.semantic-ui.com/images/avatar/large/matthew.png',
-	creator: {
+	primaryImage: 'https://react.semantic-ui.com/images/avatar/large/matthew.png',
+	owner: {
 		id: 1,
 		name: 'Someone Else',
 		avatar: 'https://react.semantic-ui.com/images/avatar/large/matthew.png'
 	},
-	attendees: [
+	members: [
 		{
 			id: 1,
 			name: 'Attendee 1',

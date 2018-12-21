@@ -6,8 +6,9 @@ const EventPhotos = ({ event }) => {
 		<div className="event-photos" style={{ marginTop: 40 }}>
 			<Header as="h2">Photos</Header>
 			<Card.Group itemsPerRow={5}>
-				{event.photos &&
-					event.photos.map((photo, index) => (
+				{event &&
+					event.images &&
+					event.images.map((photo, index) => (
 						<Card fluid key={photo + index}>
 							<Image src={photo} />
 						</Card>

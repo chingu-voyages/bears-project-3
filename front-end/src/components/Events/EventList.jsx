@@ -28,7 +28,7 @@ import { selectors } from '../../store/reducers/eventsReducer'
 import { selectDay, setFilter } from '../../store/actions/eventsAction'
 import EventCalendarList from './EventCalendarList'
 
-import { allEvents } from '../../apollo/queries/events'
+import { allEvents } from '../../apollo/events/queries'
 
 const EmptyEvents = () => (
 	<Segment placeholder>
@@ -50,8 +50,15 @@ const EventList = ({ events, selectedCategory, history }) => {
 
 	return (
 		<Segment basic>
-			<Query query={allEvents}>
+			<Query
+				query={allEvents}
+				variables={{
+					where: {}
+				}}
+			>
 				{({ loading, error, data: { events } }) => {
+					console.log('All Events ', error, events)
+
 					if (loading) return <Loader />
 					if (error) return <Message />
 					if (!events.length) return <EmptyEvents />

@@ -8,12 +8,14 @@ import { Link } from 'react-router-dom'
  * @param {*} event
  */
 const extra = event => {
-	const randomAttendeeCount = () => Math.floor(Math.random() * 15)
+	console.log('Extra for event: ', event)
+
+	const { avatarURI = '', name } = event.owner
 	return (
 		<span style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-			<Image src={event.creator.avatar} avatar /> <span>{event.creator.name}</span>
+			{avatarURI && <Image src={avatarURI} avatar />} <span>{name}</span>
 			<Icon name="user" />
-			{randomAttendeeCount()} <span>Attendees</span>
+			{event.members.length} <span>Attendees</span>
 		</span>
 	)
 }
@@ -22,7 +24,7 @@ const Event = ({ event, history }) => (
 		<Image src={event.mainImage} onClick={() => history.push(`/event/${event.id}`)} />
 		<Card.Content>
 			<Card.Header onClick={() => history.push(`/event/${event.id}`)}>
-				{event.title}
+				{event.name}
 			</Card.Header>
 			<Card.Meta>
 				<Label>{event.category}</Label>

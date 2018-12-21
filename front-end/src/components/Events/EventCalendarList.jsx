@@ -13,7 +13,7 @@ import DayPicker from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
 import './presentational/calendar.style.css'
 import ListEvent from './presentational/ListEvent'
-import { allEvents } from '../../apollo/queries/events'
+import { allEvents } from '../../apollo/events/queries'
 
 const EventEmptyState = () => (
 	<Segment placeholder padded={false}>
@@ -102,7 +102,7 @@ class EventCalendarList extends Component {
 		return (
 			<Segment basic padded={false}>
 				<Grid container stackable reversed="mobile">
-					<Grid.Column width={12} stretched>
+					<Grid.Column width={12}>
 						<Query query={allEvents}>
 							{({ loading, error, data: { events } }) => {
 								if (loading) return <Loader inverted />
