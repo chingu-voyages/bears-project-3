@@ -17,13 +17,19 @@ import EventCalendarList from './EventCalendarList'
 import EventDetail from './EventDetail'
 
 class EventWrapper extends Component {
-	componentDidMount = () => {
-		// TODO: fetch events from backend when API is linked
-	}
-
 	/**
 	 * Generates event list
 	 */
+	state = {
+		selectedCategory: null
+	}
+
+	onSelectCategory = category => {
+		console.log('Select Category: ', category)
+
+		this.setState({ selectedCategory: category })
+	}
+
 	renderEvents = events => {
 		return events.map(event => (
 			<Grid.Column key={event.id} width={4}>
@@ -31,18 +37,43 @@ class EventWrapper extends Component {
 			</Grid.Column>
 		))
 	}
-
 	render() {
-		const { events, selectedCategory, location } = this.props
+		const { events, location } = this.props
+		const { selectedCategory } = this.state
 		const { pathname } = location
 		const regex = /\/find\/[0-9]/g
+
+		const where = selectedCategory
+			? { AND: { eventDate_gte: new Date(), category: selectedCategory } }
+			: { eventDate_gte: new Date() }
+
 		return (
 			<Fragment>
 				<Segment basic padded>
 					<Container>
-						{!pathname.match(regex) && <EventMenu {...this.props} />}
-						<Route exact path="/find" component={EventList} />
-						<Route exact path="/find/calendar" component={EventCalendarList} />
+						{!pathname.match(regex) && (
+							<EventMenu
+								onSelectCategory={this.onSelectCategory}
+								selectedCategory={selectedCategory}
+								{...this.props}
+							/>
+						)}
+						<Route
+							exact
+							path="/find"
+							render={() => (
+								<EventList
+									selectedCategory={selectedCategory}
+									where={where}
+									{...this.props}
+								/>
+							)}
+						/>
+						<Route
+							exact
+							path="/find/calendar"
+							render={() => <EventCalendarList where={where} {...this.props} />}
+						/>
 					</Container>
 				</Segment>
 			</Fragment>
@@ -55,12 +86,10 @@ class EventWrapper extends Component {
  * @param {*} state
  */
 const mapStateToProps = state => {
-	const { selectedCategory } = state.events
 	return {
 		router: state.router,
 		events: selectors.getFilteredEvents(state.events),
-		categories: state.events.eventCategories,
-		selectedCategory
+		categories: state.events.eventCategories
 	}
 }
 

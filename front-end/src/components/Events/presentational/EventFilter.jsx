@@ -1,15 +1,21 @@
-import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Menu, Dropdown } from 'semantic-ui-react';
+import React, { Fragment } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { Menu, Dropdown } from 'semantic-ui-react'
 
-import { setFilter } from '../../../store/actions/setFilter';
+import { setFilter } from '../../../store/actions/setFilter'
 
-const EventFilter = ({ handleItemClick, categories, setFilter, selectedCategory }) => {
+const EventFilter = ({
+	handleItemClick,
+	categories,
+	setFilter,
+	selectedCategory,
+	onSelectCategory
+}) => {
 	/**
-   * Initializes menu options with empty placeholder; placeholder doubles as
-   * selection to clear filter category selection
-   */
+	 * Initializes menu options with empty placeholder; placeholder doubles as
+	 * selection to clear filter category selection
+	 */
 	let options = [
 		{
 			key: '-1',
@@ -17,7 +23,7 @@ const EventFilter = ({ handleItemClick, categories, setFilter, selectedCategory 
 			value: '',
 			content: 'Select Category'
 		}
-	];
+	]
 
 	/**
 	 * Generates rest of list from saved categories
@@ -29,18 +35,18 @@ const EventFilter = ({ handleItemClick, categories, setFilter, selectedCategory 
 			text: category,
 			value: category,
 			content: category
-		}));
+		}))
 
 	// Adds generated category list to menu options array
-	options = options.concat(categoryList);
+	options = options.concat(categoryList)
 
 	// Allows user to filter events based on categories listed on page
 	const updateFilter = (e, { value }) => {
 		if (!value || value === '') {
-			return setFilter('');
+			return onSelectCategory('')
 		}
-		setFilter(value);
-	};
+		onSelectCategory(value)
+	}
 
 	return (
 		<Fragment>
@@ -61,15 +67,14 @@ const EventFilter = ({ handleItemClick, categories, setFilter, selectedCategory 
 				/>
 			</Menu.Item>
 		</Fragment>
-	);
-};
+	)
+}
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		categories: state.events.eventCategories,
-		selectedCategory: state.events.selectedCategory
-	};
-};
+		categories: state.events.eventCategories
+	}
+}
 
 const mapDispatchToProps = dispatch => ({
 	...bindActionCreators(
@@ -78,6 +83,9 @@ const mapDispatchToProps = dispatch => ({
 		},
 		dispatch
 	)
-});
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventFilter);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(EventFilter)

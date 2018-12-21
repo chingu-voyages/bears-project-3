@@ -40,7 +40,7 @@ const EmptyEvents = () => (
 	</Segment>
 )
 
-const EventList = ({ events, selectedCategory, history }) => {
+const EventList = ({ events, history, selectedCategory, where }) => {
 	/**
 	 * Generates event list
 	 */
@@ -53,13 +53,11 @@ const EventList = ({ events, selectedCategory, history }) => {
 			<Query
 				query={allEvents}
 				variables={{
-					where: {
-						eventDate_gte: new Date()
-					}
+					where
 				}}
 			>
 				{({ loading, error, data: { events } }) => {
-					console.log('All Events ', error, events)
+					console.log('All Events ', loading, error, events, allEvents)
 
 					if (loading) return <Loader />
 					if (error) return <Message />
@@ -85,12 +83,10 @@ EventList.defaultProps = {
  * @param {*} state
  */
 const mapStateToProps = state => {
-	const { selectedCategory } = state.events
 	return {
 		router: state.router,
 		events: selectors.getFilteredEvents(state.events),
-		categories: state.events.eventCategories,
-		selectedCategory
+		categories: state.events.eventCategories
 	}
 }
 

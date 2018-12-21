@@ -14,8 +14,8 @@ const HomePage = props => (
 			heroContent="Browse or create events, and let the games begin!"
 		/>
 
-		<Route path="/find" render={props => <EventWrapper {...props} />} />
-		<Route path="/event/:eventId" render={props => <EventDetail {...props} />} />
+		<Route path="/find" render={() => <EventWrapper {...props} />} />
+		<Route path="/event/:eventId" render={() => <EventDetail {...props} />} />
 		<EventCategoriesList {...props} />
 		<Callout
 			title="Love tabletop gaming, but don't have a group to play with? Join or start a gaming event today!"

@@ -1,17 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Menu, Header, Button } from 'semantic-ui-react';
-import EventFilter from './EventFilter';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Menu, Header, Button } from 'semantic-ui-react'
+import EventFilter from './EventFilter'
 
-const EventMenu = ({ categories, handleChange, history, router, selectDay, setFilter }) => {
+const EventMenu = ({
+	categories,
+	handleChange,
+	history,
+	router,
+	onSelectCategory,
+	selectedCategory,
+	setFilter
+}) => {
 	const handleListClick = () => {
-		selectDay(null);
-		history.replace('/find');
-	};
+		onSelectCategory(null)
+		history.replace('/find')
+	}
 
 	const handleCalendarClick = () => {
-		history.replace('/find/calendar');
-	};
+		history.replace('/find/calendar')
+	}
 	return (
 		<div
 			className="event-list-header"
@@ -27,7 +35,11 @@ const EventMenu = ({ categories, handleChange, history, router, selectDay, setFi
 					<Header as="h2">Events for this week</Header>
 				</Menu.Item>
 				<Menu.Item position="right">
-					<EventFilter categories={categories} />
+					<EventFilter
+						onSelectCategory={onSelectCategory}
+						selectedCategory={selectedCategory}
+						categories={categories}
+					/>
 				</Menu.Item>
 				<Menu.Item name="closest">
 					<Button
@@ -49,8 +61,8 @@ const EventMenu = ({ categories, handleChange, history, router, selectDay, setFi
 				</Menu.Item>
 			</Menu>
 		</div>
-	);
-};
+	)
+}
 
 EventMenu.propTypes = {
 	categories: PropTypes.instanceOf(Array),
@@ -59,6 +71,6 @@ EventMenu.propTypes = {
 	router: PropTypes.instanceOf(Object),
 	selectDay: PropTypes.func,
 	setFilter: PropTypes.func
-};
+}
 
-export default EventMenu;
+export default EventMenu

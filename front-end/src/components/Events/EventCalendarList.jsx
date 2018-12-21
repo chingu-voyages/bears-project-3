@@ -54,7 +54,7 @@ class EventCalendarList extends Component {
 	}
 
 	render() {
-		const { events } = this.props
+		const { events, where } = this.props
 
 		const selectedDays = events.reduce(
 			(acc, event) =>
@@ -106,9 +106,7 @@ class EventCalendarList extends Component {
 						<Query
 							query={allEvents}
 							variables={{
-								where: {
-									eventDate_gte: new Date()
-								}
+								where
 							}}
 						>
 							{({ loading, error, data: { events } }) => {

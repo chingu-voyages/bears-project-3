@@ -33,7 +33,7 @@ const eventFragment = gql`
 
 const allEvents = gql`
 	${eventFragment}
-	query GetAllEVentsAfterToday($where: EventWhereInput!) {
+	query GetAllEVents($where: EventWhereInput!) {
 		events(where: $where) {
 			...eventFields
 		}
@@ -42,20 +42,11 @@ const allEvents = gql`
 
 const getEvent = gql`
 	${eventFragment}
-	query GetEventBy($where: EventWhereUniqueInput!) {
+	query GetEvent($where: EventWhereUniqueInput!) {
 		event(where: $where) {
 			...eventFields
 		}
 	}
 `
 
-const similarEvents = gql`
-	${eventFragment}
-	query GetSimilarEvents($where: EventWhereInput!) {
-		events(where: $where) {
-			...eventFields
-		}
-	}
-`
-
-export { allEvents, getEvent, similarEvents }
+export { allEvents, getEvent }

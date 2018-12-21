@@ -21,7 +21,7 @@ import Event from './presentational/Event'
 import Posts from './presentational/Posts'
 import EventPhotos from './presentational/EventPhotos'
 
-import { getEvent, similarEvents } from '../../apollo/events/queries'
+import { getEvent, allEvents } from '../../apollo/events/queries'
 
 const EventDetail = ({
 	authenticated = false,
@@ -62,7 +62,7 @@ const EventDetail = ({
 									{loading}
 									<Card.Group doubling itemsPerRow={4} stackable>
 										<Query
-											query={similarEvents}
+											query={allEvents}
 											variables={{
 												where: {
 													AND: {
