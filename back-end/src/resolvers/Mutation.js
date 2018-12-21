@@ -38,6 +38,17 @@ const Mutation = {
     };
   },
 
+  createEvent(parent, args, context, info) {
+    const userId = getUserId(context);
+
+    return context.prisma.createEvent({
+      name: args.name,
+      description: args.description,
+      category: args.category,
+      owner: { connect: { id: userId } },
+    });
+  },
+
   // TODO: joinEvent, leaveEvent, updateEvent, deleteEvent, postComment, editComment, deleteComment, updateUser, deleteUser
 
   // postComment(parent, args, context, info) {
@@ -47,8 +58,8 @@ const Mutation = {
   //     commentBody: args.commentBody,
   //     postedBy: { connect: { id: userId } },
   //     createdAt: new Date.now(),
-  //   })
-  // }
+  //   });
+  // },
 };
 
 module.exports = Mutation;

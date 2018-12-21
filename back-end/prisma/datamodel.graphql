@@ -13,7 +13,7 @@ type User {
 
 type Event {
   id: ID! @unique
-  createdAt: DateTime!
+  createdAt: DateTime
   category: String!
   name: String! @unique
   description: String

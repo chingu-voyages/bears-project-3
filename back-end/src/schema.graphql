@@ -1,7 +1,7 @@
 type Mutation {
   # postComment(commentBody: String!): Comment
 
-  createEvent(name: String!, description: String): Event
+  createEvent(name: String!, description: String, category: String!): Event
 
   register(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
@@ -58,4 +58,13 @@ type Comment {
 type AuthPayload {
   token: String
   user: User
+}
+
+enum Category {
+  Action
+  Adventure
+  Humor
+  Mind
+  Roleplaying
+  Strategy
 }
