@@ -21,7 +21,7 @@ type Event {
   images: [String!]
   owner: User! @relation(name: "EventOwner")
   members: [User!]! @relation(name: "EventMembers")
-  eventDate: Date
+  eventDate: DateTime
   startingTime: String
   # location: Location
   comments: [Comment!]
