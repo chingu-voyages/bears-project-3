@@ -6,9 +6,9 @@ import { Provider } from 'react-redux'
 import store, { history as reduxHistory } from './store/store'
 
 // Apollo
-
 import { ApolloProvider } from 'react-apollo'
 import client from './apollo/client'
+
 // CSS
 import './index.css'
 import './theme/dist/semantic.css'
@@ -28,39 +28,39 @@ import Callback from './components/Callback'
 const auth = new Auth()
 
 const handleAuthentication = (nextState, replace) => {
-	if (/access_token|id_token|error/.test(nextState.location.hash)) {
-		auth.handleAuthentication()
-	}
+  if (/access_token|id_token|error/.test(nextState.location.hash)) {
+    auth.handleAuthentication()
+  }
 }
 
 const target = document.getElementById('root')
 
 render(
-	<ApolloProvider client={client}>
-		<Provider store={store}>
-			<Router history={reduxHistory}>
-				{/* Pass Auth prop to app */}
-				<App auth={auth}>
-					{/* Match all routes exactly within defined array */}
-					<Route
-						exact
-						path={['/', '/find', '/find/calendar', '/event/:eventId']}
-						component={HomePage}
-					/>
-					<Route exact path="/signup" component={Signup} />
-					<Route exact path="/signin" component={SignIn} />
-					<Route
-						path="/auth/callback"
-						render={props => {
-							handleAuthentication(props)
-							return <Callback {...props} />
-						}}
-					/>
-				</App>
-			</Router>
-		</Provider>
-	</ApolloProvider>,
-	target
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <Router history={reduxHistory}>
+        {/* Pass Auth prop to app */}
+        <App auth={auth}>
+          {/* Match all routes exactly within defined array */}
+          <Route
+            exact
+            path={['/', '/find', '/find/calendar', '/event/:eventId']}
+            component={HomePage}
+          />
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/signin" component={SignIn} />
+          <Route
+            path="/auth/callback"
+            render={props => {
+              handleAuthentication(props)
+              return <Callback {...props} />
+            }}
+          />
+        </App>
+      </Router>
+    </Provider>
+  </ApolloProvider>,
+  target
 )
 
 // If you want your app to work offline and load faster, you can change

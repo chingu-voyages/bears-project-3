@@ -61,10 +61,14 @@ type AuthPayload {
 }
 
 enum Category {
-  Action
-  Adventure
-  Humor
-  Mind
+  Cards 
+  "City Building"
+  Dice
+  Fantasy
+  Memory
+  Mystery
+  Party
   Roleplaying
+  Science Fiction
   Strategy
 }
