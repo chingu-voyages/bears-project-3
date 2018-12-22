@@ -47,6 +47,8 @@ class EventWrapper extends Component {
 			? { AND: { eventDate_gte: new Date(), category: selectedCategory } }
 			: { eventDate_gte: new Date() }
 
+		const orderBy = 'eventDate_ASC'
+
 		return (
 			<Fragment>
 				<Segment basic padded>
@@ -65,6 +67,7 @@ class EventWrapper extends Component {
 								<EventList
 									selectedCategory={selectedCategory}
 									where={where}
+									orderBy={orderBy}
 									{...this.props}
 								/>
 							)}
@@ -72,7 +75,14 @@ class EventWrapper extends Component {
 						<Route
 							exact
 							path="/find/calendar"
-							render={() => <EventCalendarList where={where} {...this.props} />}
+							render={() => (
+								<EventCalendarList
+									where={where}
+									orderBy={orderBy}
+									selectedCategory={selectedCategory}
+									{...this.props}
+								/>
+							)}
 						/>
 					</Container>
 				</Segment>

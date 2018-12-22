@@ -1,9 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Grid, Header, Segment, Button, Icon, Loader, Message } from 'semantic-ui-react'
+import {
+	Grid,
+	Header,
+	Segment,
+	Button,
+	Icon,
+	Dimmer,
+	Loader,
+	Message,
+	Card
+} from 'semantic-ui-react'
 import { selectDay } from '../../store/actions/eventsAction'
 import { selectors } from '../../store/reducers/eventsReducer'
+import moment from 'moment'
 
 // Apollo
 import { Query } from 'react-apollo'
@@ -61,23 +72,34 @@ class EventCalendarList extends Component {
 	}
 
 	render() {
-		const { where } = this.props
+		const { where, orderBy, selectedCategory } = this.props
 		const { selectedDay, selectedDays } = this.state
-
-		// const selectedDays = events.reduce(
-		// 	(acc, event) =>
-		// 		acc.includes(event.dateStarting) ? acc : [...acc, event.dateStarting],
-		// 	[]
-		// )
+		console.log(
+			moment().format('YYYY-MM-DD'),
+			moment()
+				.add(1, 'day')
+				.format('YYYY-MM-DD')
+		)
 
 		let assignWhere = { ...where }
 		if (selectedDay) {
+			console.log('Selected day', selectedDay, moment(selectedDay).format())
+
+			const assignedDay = moment(selectedDay)
+			const tomorrow = moment(assignedDay).add(12, 'hours')
 			assignWhere = {
 				AND: {
-					eventDate_gte: new Date(selectedDay).toISOString(),
-					eventDate_lt: new Date(
-						new Date(selectedDay).setDate(new Date(selectedDay).getDate() + 1)
-					).toISOString()
+					eventDate_gte: assignedDay.format('YYYY-MM-DD'),
+					eventDate_lt: tomorrow.format('YYYY-MM-DD')
+				}
+			}
+		}
+
+		if (selectedCategory) {
+			assignWhere = {
+				AND: {
+					...assignWhere,
+					category: selectedCategory
 				}
 			}
 		}
@@ -125,24 +147,34 @@ class EventCalendarList extends Component {
 			<Segment basic padded={false}>
 				<Grid container stackable reversed="mobile">
 					<Grid.Column width={12}>
-						<Query
-							query={allEvents}
-							variables={{
-								where: assignWhere
-							}}
-						>
-							{({ loading, error, data: { events } }) => {
-								console.log('Events in calendar: ', loading, error, events)
+						<Card.Group>
+							<Query
+								query={allEvents}
+								variables={{
+									where: assignWhere,
+									orderBy: orderBy
+								}}
+							>
+								{({ loading, error, data: { events } }) => {
+									console.log('Events in calendar: ', loading, error, events)
 
-								if (loading) return <Loader inverted />
-								if (error) return <Message />
-								if (!events) return <EventEmptyState />
-								return (
-									events &&
-									events.map(event => <ListEvent key={event.id} event={event} />)
-								)
-							}}
-						</Query>
+									if (loading)
+										return (
+											<Dimmer inverted active>
+												<Loader active />
+											</Dimmer>
+										)
+									if (error) return <Message />
+									if (!events) return <EventEmptyState />
+									return (
+										events &&
+										events.map(event => (
+											<ListEvent key={event.id} event={event} />
+										))
+									)
+								}}
+							</Query>
+						</Card.Group>
 					</Grid.Column>
 					<Grid.Column width={4}>
 						<Header as="h3">Calendar</Header>

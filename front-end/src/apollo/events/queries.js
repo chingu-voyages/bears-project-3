@@ -18,6 +18,7 @@ const eventFragment = gql`
 		category
 		description
 		primaryImage
+		eventDate
 
 		createdAt
 
@@ -33,8 +34,8 @@ const eventFragment = gql`
 
 const allEvents = gql`
 	${eventFragment}
-	query GetAllEVents($where: EventWhereInput!) {
-		events(where: $where) {
+	query GetAllEVents($where: EventWhereInput!, $orderBy: EventOrderByInput) {
+		events(where: $where, orderBy: $orderBy) {
 			...eventFields
 		}
 	}

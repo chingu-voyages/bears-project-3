@@ -12,6 +12,8 @@ import {
 	Label,
 	Card,
 	Placeholder,
+	Dimmer,
+	Loader,
 	Comment
 } from 'semantic-ui-react'
 import { Query } from 'react-apollo'
@@ -74,7 +76,13 @@ const EventDetail = ({
 										>
 											{({ loading, error, data: { events } }) => {
 												{
-													if (loading || error) return null
+													if (loading)
+														return (
+															<Dimmer inverted active>
+																<Loader active size="small" />
+															</Dimmer>
+														)
+													if (error) return null
 													return events.map(event =>
 														loading ? (
 															<Card fluid key={event.id}>

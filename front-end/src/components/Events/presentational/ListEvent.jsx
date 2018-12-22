@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card, Header, Grid, Image, Label } from 'semantic-ui-react'
+import moment from 'moment'
 
 const ListEvent = ({ event }) => (
 	<Card fluid color={event.color}>
@@ -7,7 +8,7 @@ const ListEvent = ({ event }) => (
 			<Grid>
 				<Grid.Column width={2}>
 					<Card.Header style={{ color: 'rgb(171, 171,171)' }}>
-						{new Date(event.createdAt).toLocaleTimeString()}
+						{moment(event.eventDate).fromNow()}
 					</Card.Header>
 				</Grid.Column>
 

@@ -12,6 +12,7 @@ import {
 	Icon,
 	Card,
 	Loader,
+	Dimmer,
 	Message
 } from 'semantic-ui-react'
 
@@ -40,7 +41,7 @@ const EmptyEvents = () => (
 	</Segment>
 )
 
-const EventList = ({ events, history, selectedCategory, where }) => {
+const EventList = ({ events, history, selectedCategory, where, orderBy }) => {
 	/**
 	 * Generates event list
 	 */
@@ -53,15 +54,21 @@ const EventList = ({ events, history, selectedCategory, where }) => {
 			<Query
 				query={allEvents}
 				variables={{
-					where
+					where,
+					orderBy: orderBy
 				}}
 			>
 				{({ loading, error, data: { events } }) => {
 					console.log('All Events ', loading, error, events, allEvents)
 
-					if (loading) return <Loader />
+					if (loading)
+						return (
+							<Dimmer inverted active>
+								<Loader active />
+							</Dimmer>
+						)
 					if (error) return <Message />
-					if (!events.length) return <EmptyEvents />
+					if (!events) return <EmptyEvents />
 					return <Card.Group itemsPerRow={4}>{renderEvents(events)}</Card.Group>
 				}}
 			</Query>
