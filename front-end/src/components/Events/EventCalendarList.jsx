@@ -28,6 +28,7 @@ const EventEmptyState = () => (
 class EventCalendarList extends Component {
 	state = {
 		/** Use selectedDay to indicate local state */
+		selectedDays: null,
 		selectedDay: null
 	}
 
@@ -35,32 +36,53 @@ class EventCalendarList extends Component {
 	 * Handle clicking day on calendar
 	 */
 	handleDayClick = (day, { selected }) => {
-		this.props.selectDay(day)
+		console.log(day.toISOString())
+
 		this.setState({
-			selectedDay: selected ? undefined : day
+			selectedDay: selected ? undefined : day,
+			selectedDays: selected ? undefined : day
 		})
 	}
 
 	handleTodayClick = (day, modifiers) => {
-		this.props.selectDay(day)
-		this.setState({ selectedDay: day })
+		console.log(modifiers)
+
+		this.setState({
+			selectedDay: day,
+			selectedDays: day
+		})
 	}
 
 	clearDaySelection = () => {
 		this.setState({
+			selectedDays: null,
 			selectedDay: null
 		})
-		this.props.selectDay(null)
 	}
 
 	render() {
-		const { events, where } = this.props
+		const { where } = this.props
+		const { selectedDay, selectedDays } = this.state
 
-		const selectedDays = events.reduce(
-			(acc, event) =>
-				acc.includes(event.dateStarting) ? acc : [...acc, event.dateStarting],
-			[]
-		)
+		// const selectedDays = events.reduce(
+		// 	(acc, event) =>
+		// 		acc.includes(event.dateStarting) ? acc : [...acc, event.dateStarting],
+		// 	[]
+		// )
+
+		let assignWhere = { ...where }
+		if (selectedDay) {
+			assignWhere = {
+				AND: {
+					eventDate_gte: new Date(selectedDay).toISOString(),
+					eventDate_lt: new Date(
+						new Date(selectedDay).setDate(new Date(selectedDay).getDate() + 1)
+					).toISOString()
+				}
+			}
+		}
+
+		console.log(assignWhere)
 
 		/**
 		 * Modifies calendar styling
@@ -106,23 +128,26 @@ class EventCalendarList extends Component {
 						<Query
 							query={allEvents}
 							variables={{
-								where
+								where: assignWhere
 							}}
 						>
 							{({ loading, error, data: { events } }) => {
+								console.log('Events in calendar: ', loading, error, events)
+
 								if (loading) return <Loader inverted />
 								if (error) return <Message />
-								if (!events.length) return <EventEmptyState />
-								return events.map(event => (
-									<ListEvent key={event.id} event={event} />
-								))
+								if (!events) return <EventEmptyState />
+								return (
+									events &&
+									events.map(event => <ListEvent key={event.id} event={event} />)
+								)
 							}}
 						</Query>
 					</Grid.Column>
 					<Grid.Column width={4}>
 						<Header as="h3">Calendar</Header>
 						<DayPicker
-							selectedDays={this.state.selectedDay || selectedDays}
+							selectedDays={selectedDays}
 							showOutsideDays
 							fromMonth={new Date()}
 							onDayClick={this.handleDayClick}
