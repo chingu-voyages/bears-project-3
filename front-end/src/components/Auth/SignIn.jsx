@@ -10,8 +10,6 @@ class Signin extends Component {
 		password: ''
 	}
 
-	handleSignin = () => {}
-
 	confirm = async data => {
 		const { token } = data.login
 		this.saveUserData(token)

@@ -1,53 +1,53 @@
-import gql from 'graphql-tag'
+import { gql } from 'apollo-boost';
 
 const ownerFragment = gql`
-	fragment ownerFields on User {
-		id
-		name
-		avatarURI
-	}
-`
+  fragment ownerFields on User {
+    id
+    name
+    avatarURI
+  }
+`;
 const eventFragment = gql`
-	${ownerFragment}
-	fragment eventFields on Event {
-		id
-		name
-		images
-		id
-		name
-		category
-		description
-		primaryImage
-		eventDate
+  ${ownerFragment}
+  fragment eventFields on Event {
+    id
+    name
+    images
+    id
+    name
+    category
+    description
+    primaryImage
+    eventDate
 
-		createdAt
+    createdAt
 
-		images
-		owner {
-			...ownerFields
-		}
-		members {
-			...ownerFields
-		}
-	}
-`
+    images
+    owner {
+      ...ownerFields
+    }
+    members {
+      ...ownerFields
+    }
+  }
+`;
 
 const allEvents = gql`
-	${eventFragment}
-	query GetAllEVents($where: EventWhereInput!, $orderBy: EventOrderByInput) {
-		events(where: $where, orderBy: $orderBy) {
-			...eventFields
-		}
-	}
-`
+  ${eventFragment}
+  query GetAllEVents($where: EventWhereInput!, $orderBy: EventOrderByInput) {
+    events(where: $where, orderBy: $orderBy) {
+      ...eventFields
+    }
+  }
+`;
 
 const getEvent = gql`
-	${eventFragment}
-	query GetEvent($where: EventWhereUniqueInput!) {
-		event(where: $where) {
-			...eventFields
-		}
-	}
-`
+  ${eventFragment}
+  query GetEvent($where: EventWhereUniqueInput!) {
+    event(where: $where) {
+      ...eventFields
+    }
+  }
+`;
 
-export { allEvents, getEvent }
+export { allEvents, getEvent };
