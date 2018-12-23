@@ -90,3 +90,4 @@ typings/
 front-end/src/theme/dist
 front-end/.env
 front-end/src/config/index.js
+/front-end-old
