@@ -3,8 +3,8 @@ import { Mutation } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 
-import { AUTH_TOKEN } from '../../../utils/constants';
-import { LOGIN } from '../../../utils/mutations';
+import { AUTH_TOKEN } from '../../utils/constants';
+import { LOGIN } from '../../utils/mutations';
 
 class SignIn extends Component {
   state = {

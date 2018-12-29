@@ -3,8 +3,8 @@ import { Mutation } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 
-import { AUTH_TOKEN } from '../../../utils/constants';
-import { REGISTER_USER } from '../../../utils/mutations';
+import { AUTH_TOKEN } from '../../utils/constants';
+import { REGISTER_USER } from '../../utils/mutations';
 
 class Register extends Component {
   state = {

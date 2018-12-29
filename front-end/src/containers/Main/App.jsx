@@ -9,8 +9,8 @@ import Footer from './presentational/Footer';
 
 // Pages
 import Home from '../Home/Home';
-import SignIn from '../Auth/presentational/SignIn';
-import Register from '../Auth/presentational/Register';
+import SignIn from '../Auth/SignIn';
+import Register from '../Auth/Register';
 // import CreateEvent from '../Events/CreateEvent';
 // import UserProfile from '../UserProfile/UserProfile';
 // import Events from '../Events/Events';
