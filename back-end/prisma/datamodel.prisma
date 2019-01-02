@@ -1,0 +1,35 @@
+type User {
+  id: ID! @unique
+  name: String!
+  email: String! @unique
+  avatarURI: String
+  password: String!
+  createdAt: DateTime!
+  # location: Location
+  events: [Event!]! @relation(name: "EventMembers")
+  ownedEvents: [Event!]! @relation(name: "EventOwner")
+  comments: [Comment!]
+}
+
+type Event {
+  id: ID! @unique
+  createdAt: DateTime!
+  category: String!
+  name: String! @unique
+  description: String
+  primaryImage: String
+  images: [String!]
+  owner: User! @relation(name: "EventOwner")
+  members: [User!]! @relation(name: "EventMembers")
+  eventDate: DateTime
+  startingTime: String
+  # location: Location
+  comments: [Comment!]
+}
+
+type Comment {
+  id: ID! @unique
+  postedBy: User!
+  commentBody: String!
+  createdAt: DateTime!
+}

@@ -9,10 +9,13 @@ import { REGISTER_USER } from '../../utils/mutations';
 
 const Register = ({ values,
   touched,
+  dirty,
   errors,
   handleChange,
   handleBlur, history, ...props
 }) => {
+  console.log(props);
+
   const confirm = async (data) => {
     const { token } = data.register;
     saveUserData(token);
@@ -23,6 +26,9 @@ const Register = ({ values,
   const saveUserData = (token) => {
     localStorage.setItem(AUTH_TOKEN, token);
   }
+
+  const handleError = error => console.log(error);
+
 
   const { name, email, password } = values
   const { name: nameError, email: emailError, password: passwordError } = errors
@@ -38,6 +44,7 @@ const Register = ({ values,
             mutation={REGISTER_USER}
             variables={{ email, password, name }}
             onCompleted={data => confirm(data)}
+            onError={handleError}
           >
             {mutation => (
               <Form size="large" onSubmit={mutation}>
@@ -78,10 +85,8 @@ const Register = ({ values,
                     onChange={handleChange}
                     name='password'
                   />
-
-                  {errors.name && touched.name && <div id="feedback">{errors.name}</div>}
                   <Button
-                    disabled={nameError || emailError || passwordError}
+                    disabled={dirty && (nameError || emailError || passwordError)}
                     fluid
                     maxWidth="50%"
                     color="purple"
