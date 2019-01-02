@@ -23,7 +23,7 @@ const Header = () => {
             verticalOffset={-10}
             on="click"
             trigger={
-              <Menu.Item basic fluid>
+              <Menu.Item >
                 Sign in &nbsp;|&nbsp; Join
               </Menu.Item>
             }

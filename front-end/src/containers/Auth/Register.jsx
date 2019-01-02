@@ -7,18 +7,22 @@ import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import { AUTH_TOKEN } from '../../utils/constants';
 import { REGISTER_USER } from '../../utils/mutations';
 
-const Register = ({ values,
+const Register = ({
+  values,
   touched,
   dirty,
   errors,
   handleChange,
+  isSubmitting,
+  setSubmitting,
+  isValid,
+  isValidating,
   handleBlur, history, ...props
 }) => {
-  console.log(props);
-
   const confirm = async (data) => {
     const { token } = data.register;
     saveUserData(token);
+    setSubmitting(false)
     history.push('/');
   }
 
@@ -27,11 +31,11 @@ const Register = ({ values,
     localStorage.setItem(AUTH_TOKEN, token);
   }
 
-  const handleError = error => console.log(error);
-
+  const handleError = error => {
+    setSubmitting(false)
+  }
 
   const { name, email, password } = values
-  const { name: nameError, email: emailError, password: passwordError } = errors
 
   return (
     <Segment basic padded className="signin-form">
@@ -46,12 +50,16 @@ const Register = ({ values,
             onCompleted={data => confirm(data)}
             onError={handleError}
           >
-            {mutation => (
-              <Form size="large" onSubmit={mutation}>
+            {(signupUser, { loading, error }) => (
+              <Form size="large" onSubmit={e => {
+                e.preventDefault()
+                setSubmitting(true)
+                signupUser({ variables: { email, password, name } })
+              }}>
                 <Segment stacked>
 
                   <Form.Input
-                    error={errors.name && touched ? true : false}
+                    error={errors.name && touched.name ? true : false}
                     onBlur={handleBlur}
                     icon="user"
                     iconPosition="left"
@@ -62,7 +70,7 @@ const Register = ({ values,
                     onChange={handleChange}
                   />
                   <Form.Input
-                    error={errors.email && touched ? true : false}
+                    error={errors.email && touched.email ? true : false}
                     onBlur={handleBlur}
                     icon="envelope"
                     iconPosition="left"
@@ -74,7 +82,7 @@ const Register = ({ values,
                     name='email'
                   />
                   <Form.Input
-                    error={errors.password && touched ? true : false}
+                    error={errors.password && touched.password ? true : false}
                     onBlur={handleBlur}
                     icon="lock"
                     iconPosition="left"
@@ -86,12 +94,18 @@ const Register = ({ values,
                     name='password'
                   />
                   <Button
-                    disabled={dirty && (nameError || emailError || passwordError)}
+                    disabled={
+                      (!isValid || isSubmitting)
+                    }
+                    loading={isSubmitting || loading}
                     fluid
-                    maxWidth="50%"
                     color="purple"
                     size="large"
-                    onClick={mutation}
+                    onClick={e => {
+                      e.preventDefault()
+                      setSubmitting(true)
+                      signupUser({ variables: { email, password, name } })
+                    }}
                   >
                     Register
                   </Button>
@@ -100,7 +114,7 @@ const Register = ({ values,
             )}
           </Mutation>
           <Link to='/signin'>
-            <Button style={{ margin: 10 }}>
+            <Button style={{ margin: 10 }} >
               Already have an account?
             </Button>
           </Link>
@@ -111,28 +125,23 @@ const Register = ({ values,
 }
 
 const FormikSignup = withFormik({
-  mapPropsToValues: () => ({ name: '', email: '', password: '' }),
+  mapPropsToValues: (props) => ({ name: '', email: '', password: '' }),
 
   // Sync Validation
-  validate: values => {
+  validate: ({ name, email, password }) => {
     const errors = {};
 
-    errors.name = !values.name
-      ? 'Name is Required'
-      : !values.name.match(/[A-Za-z]/g)
-        ? 'Name can only be letters'
-        : undefined
+    if (!name || !name.match(/[A-Za-z]/gi)) {
+      errors.name = 'Error in name'
+    }
 
-    errors.email = !values.email
-      ? 'Email is Required'
-      : !values.email.match(/@/g)
-        ? 'Email must be valid'
-        : undefined
+    if (!email || !email.match(/@/gi)) {
+      errors.email = 'Error in email'
+    }
 
-    errors.password = !values.password
-      ? 'Password is Required'
-      : undefined
-
+    if (!password || password.length <= 4) {
+      errors.password = 'Error in Password'
+    }
 
     return errors;
   },
