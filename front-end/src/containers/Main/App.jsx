@@ -13,7 +13,7 @@ import SignIn from '../Auth/SignIn';
 import Register from '../Auth/Register';
 // import CreateEvent from '../Events/CreateEvent';
 // import UserProfile from '../UserProfile/UserProfile';
-// import Events from '../Events/Events';
+import Events from '../Events/Events';
 
 // TODO: Implement event creation
 // TODO: Implement event browser
@@ -27,7 +27,7 @@ const App = () => (
         <Route exact path="/" component={Home} />
         <Route path="/signin" component={SignIn} />
         <Route exact path="/register" component={Register} />
-        {/* <Route exact path="/events" component={Events} /> */}
+        <Route exact path="/events" component={Events} />
         {/* <Route exact path="/events/new" component={CreateEvent} /> */}
         {/* <Route exact path="/user/:id" component={UserProfile} /> */}
       </Switch>
