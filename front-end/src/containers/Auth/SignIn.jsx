@@ -2,87 +2,123 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
-
+import { withFormik, ErrorMessage } from "formik";
 import { AUTH_TOKEN } from '../../utils/constants';
 import { LOGIN } from '../../utils/mutations';
 
-class SignIn extends Component {
-  state = {
-    email: '',
-    password: ''
-  }
+const SignIn = ({
+  values,
+  touched,
+  dirty,
+  errors,
+  handleChange,
+  isSubmitting,
+  setSubmitting,
+  isValid,
+  isValidating,
+  handleBlur,
+  history
+}) => {
 
-  confirm = async (data) => {
+
+  const confirm = async (data) => {
     const { token } = data.login;
-    this.saveUserData(token);
-    this.props.history.push('/');
+    saveUserData(token);
+    history.push('/');
   }
 
   // TODO: Remove local storage and implement session cookie
-  saveUserData = (token) => {
+  const saveUserData = (token) => {
     localStorage.setItem(AUTH_TOKEN, token);
   }
 
-  render() {
-    const { email, password } = this.state;
-    return (
-      <Segment basic padded className="signin-form">
-        <Grid textAlign="center" style={{ height: '79vh' }} verticalAlign="middle">
-          <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as="h2" color="purple" textAlign="center">
-              Sign in to your account
+  const { email, password } = values
+
+  return (
+    <Segment basic padded className="signin-form">
+      <Grid textAlign="center" style={{ height: '79vh' }} verticalAlign="middle">
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as="h2" color="purple" textAlign="center">
+            Sign in to your account
             </Header>
-            <Form size="large">
-              <Segment stacked>
-                <Form.Input
-                  fluid
-                  icon="envelope"
-                  iconPosition="left"
-                  type="text"
-                  placeholder="Email"
-                  autoComplete="email"
-                  value={email}
-                  onChange={e => this.setState({ email: e.target.value })}
-                />
-                <Form.Input
-                  fluid
-                  icon="lock"
-                  iconPosition="left"
-                  type="password"
-                  placeholder="Password"
-                  autoComplete="off"
-                  value={password}
-                  onChange={e => this.setState({ password: e.target.value })}
-                />
-              </Segment>
-              <Mutation
-                mutation={LOGIN}
-                variables={{ email, password }}
-                onCompleted={data => this.confirm(data)}
-              >
-                {mutation => (
-                  <Button
+          <Mutation
+            mutation={LOGIN}
+            variables={{ email, password }}
+            onCompleted={confirm}
+          >
+            {(signIn, { loading, error }) => (
+              <Form size="large" onSubmit={signIn}>
+                <Segment stacked>
+                  <Form.Input
+                    error={errors.email && touched.email ? true : false}
                     fluid
-                    maxWidth="20%"
-                    color="purple"
-                    size="large"
-                    onClick={mutation}
-                  >
-                    Sign in
+                    icon="envelope"
+                    iconPosition="left"
+                    type="text"
+                    placeholder="Email"
+                    autoComplete="email"
+                    value={email}
+                    onChange={handleChange}
+                    name="email"
+                    onBlur={handleBlur}
+                  />
+                  <Form.Input
+                    error={errors.password && touched.password ? true : false}
+                    fluid
+                    icon="lock"
+                    iconPosition="left"
+                    type="password"
+                    placeholder="Password"
+                    autoComplete="off"
+                    value={password}
+                    name="password"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  {error && <p>Error Signing in</p>}
+                </Segment>
+
+                <Button
+                  loading={loading}
+                  disabled={!isValid}
+                  fluid
+                  color="purple"
+                  size="large"
+                  onClick={signIn}
+                >
+                  Sign in
                   </Button>
-                )}
-              </Mutation>
-            </Form>
-            <Link to='/register'>
-              <Button style={{ margin: 10 }}>
-                Need to create an account?
+              </Form>
+            )}
+          </Mutation>
+          <Link to='/register'>
+            <Button style={{ margin: 10 }}>
+              Need to create an account?
             </Button>
-            </Link>
-          </Grid.Column>
-        </Grid>
-      </Segment>
-    );
-  }
+          </Link>
+        </Grid.Column>
+      </Grid>
+    </Segment>
+  );
 }
 
-export default SignIn;
+const FormikSignin = withFormik({
+  mapPropsToValues: () => ({ email: '', password: '' }),
+  validate: ({ email, password }) => {
+    const errors = {}
+
+    if (!email || !email.match(/@/gi)) {
+      errors.email = 'Email is required'
+    }
+
+    if (!password) {
+      errors.password = 'Password is required'
+    }
+
+    return errors
+  },
+  displayName: 'SigninForm'
+})(SignIn);
+
+export default FormikSignin
+

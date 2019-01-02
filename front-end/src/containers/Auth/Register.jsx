@@ -125,8 +125,7 @@ const Register = ({
 }
 
 const FormikSignup = withFormik({
-  mapPropsToValues: (props) => ({ name: '', email: '', password: '' }),
-
+  mapPropsToValues: () => ({ name: '', email: '', password: '' }),
   // Sync Validation
   validate: ({ name, email, password }) => {
     const errors = {};
