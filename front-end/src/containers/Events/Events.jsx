@@ -1,6 +1,6 @@
 import React from 'react'
 import { Query } from "react-apollo";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { Segment, Card, Image, Icon, Container, Loader, Header, Button, Message, Grid } from "semantic-ui-react";
 import { GET_EVENTS } from '../../utils/queries'
 import DayPicker from 'react-day-picker'
@@ -55,31 +55,10 @@ const EmptyEvents = () => (
   </Segment>
 )
 
-const renderEvents = (events, withImage = false) => (
-  events.map(event => {
-    const { id, primaryImage, name, description, category } = event
-    return <Card fluid key={id}>
-      {primaryImage && withImage && <Image src={primaryImage} />}
-      <Card.Content>
-        <Card.Header>{name}</Card.Header>
-        <Card.Meta>
-          <span className='date'>{category}</span>
-        </Card.Meta>
-        <Card.Description>{description}</Card.Description>
-      </Card.Content>
-      <Card.Content extra>
-        <a>
-          <Icon name='user' />
-          22 Friends
-      </a>
-      </Card.Content>
-    </Card>
-  })
-)
+
 
 const Events = props => {
   console.log(props);
-
 
   const handleDayClick = (day, { selected }) => {
     console.log(day.toISOString())
@@ -91,6 +70,28 @@ const Events = props => {
 
   }
 
+  const renderEvents = (events, withImage = false) => (
+    events.map(event => {
+      const { history } = props
+      const { id, primaryImage, name, description, category } = event
+      return <Card fluid key={id} onClick={() => history.push(`/event/${id}`)}>
+        {primaryImage && withImage && <Image src={primaryImage} />}
+        <Card.Content>
+          <Card.Header>{name}</Card.Header>
+          <Card.Meta>
+            <span className='date'>{category}</span>
+          </Card.Meta>
+          <Card.Description>{description}</Card.Description>
+        </Card.Content>
+        <Card.Content extra>
+          <a>
+            <Icon name='user' />
+            22 Friends
+      </a>
+        </Card.Content>
+      </Card>
+    })
+  )
 
   return (
     <Container>
@@ -121,10 +122,10 @@ const Events = props => {
                       <Button.Group color="purple">
                         <Button onClick={() => handleDayClick(new Date(), {})}>
                           Today's Events
-								</Button>
+								        </Button>
                         <Button onClick={clearDaySelection}>
                           <Icon name="delete" /> Clear
-								</Button>
+								        </Button>
                       </Button.Group>
                     </Segment>
                   </Grid.Column>
