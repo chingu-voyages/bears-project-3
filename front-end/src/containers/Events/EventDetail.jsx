@@ -25,20 +25,21 @@ import Event from './presentational/Event'
 const EventDetail = ({
   authenticated = false,
   history,
+  location,
   loading = false,
   match: { params },
   ...rest
 }) => {
-  console.log(params, rest)
+  console.log(params, rest, location)
   return (
     <Query
       query={GET_EVENTS}
     >
       {({ loading, error, data: { events } }) => {
         console.log('Get Event Detail: ', loading, error, events)
-        if (loading) return null
+        if (loading) return <Loader active />
         if (error) return null
-        const event = events[0]
+        const event = events.filter(ev => ev.id === params.eventId).reduce((acc, item) => item, {})
         return (
           <Segment basic padded>
             <Grid container>
@@ -59,40 +60,42 @@ const EventDetail = ({
                       query={GET_EVENTS}
                     >
                       {({ loading, error, data: { events } }) => {
-                        {
-                          if (loading)
-                            return (
-                              <Dimmer inverted active>
-                                <Loader active size="small" />
-                              </Dimmer>
-                            )
-                          if (error) return null
-                          return events.map(event =>
-                            loading ? (
-                              <Card fluid key={event.id}>
-                                <Placeholder>
-                                  <Placeholder.Image square />
-                                </Placeholder>
-                                <Card.Content>
-                                  <Placeholder>
-                                    <Placeholder.Header>
-                                      <Placeholder.Line length="very short" />
-                                      <Placeholder.Line length="medium" />
-                                    </Placeholder.Header>
-                                    <Placeholder.Paragraph>
-                                      <Placeholder.Line length="short" />
-                                    </Placeholder.Paragraph>
-                                  </Placeholder>
-                                </Card.Content>
-                              </Card>
-                            ) : (
-                                <Event
-                                  event={event}
-                                  history={history}
-                                />
-                              )
+
+                        if (loading) {
+                          return (
+                            <Dimmer inverted active>
+                              <Loader active size="small" />
+                            </Dimmer>
                           )
                         }
+
+                        if (error) return null
+
+                        return events.map(event =>
+                          loading ? (
+                            <Card fluid key={event.id}>
+                              <Placeholder>
+                                <Placeholder.Image square />
+                              </Placeholder>
+                              <Card.Content>
+                                <Placeholder>
+                                  <Placeholder.Header>
+                                    <Placeholder.Line length="very short" />
+                                    <Placeholder.Line length="medium" />
+                                  </Placeholder.Header>
+                                  <Placeholder.Paragraph>
+                                    <Placeholder.Line length="short" />
+                                  </Placeholder.Paragraph>
+                                </Placeholder>
+                              </Card.Content>
+                            </Card>
+                          ) : (
+                              <Event
+                                event={event}
+                                history={history}
+                              />
+                            )
+                        )
                       }}
                     </Query>
                   </Card.Group>
